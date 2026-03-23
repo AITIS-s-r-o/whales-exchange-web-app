@@ -309,7 +309,7 @@ const config = {
                 },
             ],
         },
-/*WEX        "L-BTC": {
+        "L-BTC": {
             type: AssetKind.UTXO,
             blockExplorerUrl: {
                 id: Explorer.Esplora,
@@ -378,7 +378,7 @@ const config = {
                 routeVia: "TBTC",
             },
         },
-        ...usdt0VariantAssets,*/
+        ...usdt0VariantAssets,
     },
 } as Config;
 
