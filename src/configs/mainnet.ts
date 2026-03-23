@@ -1,13 +1,13 @@
-import type { /*WEX Asset, */Config/*WEX , Usdt0Variant*/ } from "src/configs/base";
+import type { Asset, Config, Usdt0Variant*/ } from "src/configs/base";
 import {
-    Explorer,/*
+    Explorer,
     arbitrumExplorer,
-    arbitrumNetwork,*/
+    arbitrumNetwork,
     baseConfig,
     chooseUrl,
 } from "src/configs/base";
 import { AssetKind } from "src/consts/AssetKind";
-/*WEX
+
 const rskFallback = import.meta.env.VITE_RSK_FALLBACK_ENDPOINT;
 
 const rskRpcUrls = ["https://public-node.rsk.co"];
@@ -278,7 +278,7 @@ const usdt0VariantAssets = Object.fromEntries(
         createUsdt0VariantAsset(variant),
     ]),
 ) as Record<string, Asset>;
-*/
+
 const config = {
     ...baseConfig,
     torUrl: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/",
