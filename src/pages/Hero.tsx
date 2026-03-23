@@ -5,7 +5,8 @@ import { Show, createSignal, onMount } from "solid-js";
 
 import bitcoin from "../assets/bitcoin-icon.svg";
 import lightning from "../assets/lightning-icon.svg";
-/*import liquid from "../assets/liquid-icon.svg";
+/*WEX
+import liquid from "../assets/liquid-icon.svg";
 import rbtc from "../assets/rootstock-icon.svg";
 import tbtc from "../assets/tbtc-icon.svg";
 import usdt from "../assets/usdt-icon.svg";
@@ -101,7 +102,7 @@ export const Hero = () => {
                                 class="full-bleed"
                             />
                             <img src={bitcoin} alt="Bitcoin" class="padded" />
-                {/*
+                {/*WEX
                             <img
                                 src={liquid}
                                 alt="Liquid Bitcoin"
@@ -140,7 +141,7 @@ export const Hero = () => {
                         <small>{t("oldest_channel")}</small>
                     </div>
                 </div>
-          {/*
+          {/*WEX
                 <h2 class="headline">{t("integrations")}</h2>
                 <div id="integrations">
                     <div>

@@ -1,4 +1,4 @@
-import type { /*Asset, */Config/*, Usdt0Variant*/ } from "src/configs/base";
+import type { /*WEX Asset, */Config/*WEX , Usdt0Variant*/ } from "src/configs/base";
 import {
     Explorer,/*
     arbitrumExplorer,
@@ -7,7 +7,7 @@ import {
     chooseUrl,
 } from "src/configs/base";
 import { AssetKind } from "src/consts/AssetKind";
-/*
+/*WEX
 const rskFallback = import.meta.env.VITE_RSK_FALLBACK_ENDPOINT;
 
 const rskRpcUrls = ["https://public-node.rsk.co"];
@@ -309,7 +309,7 @@ const config = {
                 },
             ],
         },
-/*        "L-BTC": {
+/*WEX        "L-BTC": {
             type: AssetKind.UTXO,
             blockExplorerUrl: {
                 id: Explorer.Esplora,
