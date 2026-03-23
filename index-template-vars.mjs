@@ -30,10 +30,10 @@ const modeLabels = Object.freeze({
 // Configuration for both regular and pro versions
 const config = {
     regular: {
-        boltzUrl: "https://boltz.exchange",
-        boltzTitle: "Boltz | Non-Custodial Bitcoin Bridge",
+        boltzUrl: "https://whales.exchange",
+        boltzTitle: "Whale's Exchange | Non-Custodial Bitcoin-LN Bridge",
         boltzDescription:
-            "Swap between different Bitcoin layers and Stablecoins while staying in full control. Fast and non-custodial Bitcoin / Lightning / Liquid / Rootstock / TBTC / USDT swaps.",
+            "Swap between different Bitcoin layers while staying in full control. Fast and non-custodial Bitcoin / Lightning swaps.",
         boltzColor100: "#FFE96D",
         boltzColor200: "#E1C218",
         backgroundColor: "#142840",
@@ -41,49 +41,9 @@ const config = {
         ldJson: {
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "Boltz Exchange",
-            url: "https://boltz.exchange",
-            logo: "https://boltz.exchange/boltz.svg",
-            sameAs: ["https://x.com/boltzhq"],
-            hasPart: {
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                name: "Boltz Pro | Stack Sats Non-Custodially",
-                url: "https://pro.boltz.exchange",
-                logo: "https://pro.boltz.exchange/boltz-pro-preview.jpg",
-                description:
-                    "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-            },
-        },
-    },
-    pro: {
-        boltzUrl: "https://pro.boltz.exchange",
-        boltzTitle: "Boltz Pro | Stack Sats Non-Custodially",
-        boltzDescription:
-            "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-        boltzColor100: "#c8cfd6",
-        boltzColor200: "#9fa8b1",
-        backgroundColor: "#14191e",
-        assetsPath: "/pro",
-        ldJson: {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Boltz Pro",
-            url: "https://pro.boltz.exchange",
-            logo: "https://pro.boltz.exchange/boltz-preview.jpg",
-            description:
-                "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-            offers: {
-                "@type": "Offer",
-                description:
-                    "Non-custodial Bitcoin swapping with earning potential",
-            },
-            provider: {
-                "@type": "Organization",
-                name: "Boltz Exchange",
-                url: "https://boltz.exchange",
-                logo: "https://boltz.exchange/boltz.svg",
-            },
+            name: "Whale's Exchange",
+            url: "https://whales.exchange",
+            logo: "https://whales.exchange/boltz.svg",
         },
     },
 };

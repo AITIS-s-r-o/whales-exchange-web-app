@@ -5,11 +5,11 @@ import { Show, createSignal, onMount } from "solid-js";
 
 import bitcoin from "../assets/bitcoin-icon.svg";
 import lightning from "../assets/lightning-icon.svg";
-import liquid from "../assets/liquid-icon.svg";
+/*import liquid from "../assets/liquid-icon.svg";
 import rbtc from "../assets/rootstock-icon.svg";
 import tbtc from "../assets/tbtc-icon.svg";
 import usdt from "../assets/usdt-icon.svg";
-import ExternalLink from "../components/ExternalLink";
+import ExternalLink from "../components/ExternalLink"; */
 import { config } from "../config";
 import { BTC } from "../consts/Assets";
 import { Denomination } from "../consts/Enums";
@@ -101,6 +101,7 @@ export const Hero = () => {
                                 class="full-bleed"
                             />
                             <img src={bitcoin} alt="Bitcoin" class="padded" />
+                {/*
                             <img
                                 src={liquid}
                                 alt="Liquid Bitcoin"
@@ -109,6 +110,7 @@ export const Hero = () => {
                             <img src={rbtc} alt="Rootstock Bitcoin" />
                             <img src={tbtc} alt="tBTC" class="full-bleed" />
                             <img src={usdt} alt="USDT" class="full-bleed" />
+                            */}
                         </div>
                     </div>
                 </div>
@@ -138,6 +140,7 @@ export const Hero = () => {
                         <small>{t("oldest_channel")}</small>
                     </div>
                 </div>
+          {/*
                 <h2 class="headline">{t("integrations")}</h2>
                 <div id="integrations">
                     <div>
@@ -265,6 +268,7 @@ export const Hero = () => {
                         />
                     </div>
                 </div>
+            */}
             </Show>
         </div>
     );
