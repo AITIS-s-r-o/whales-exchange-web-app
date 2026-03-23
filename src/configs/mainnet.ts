@@ -1,4 +1,4 @@
-import type { Asset, Config, Usdt0Variant*/ } from "src/configs/base";
+import type { Asset, Config, Usdt0Variant } from "src/configs/base";
 import {
     Explorer,
     arbitrumExplorer,
