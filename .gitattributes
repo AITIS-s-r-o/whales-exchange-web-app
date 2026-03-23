@@ -1,0 +1,20 @@
+# Use LF for all text files by default
+* text=auto eol=lf
+
+# Explicit for common code/text files (optional but clearer)
+*.js    text eol=lf
+*.ts    text eol=lf
+*.jsx   text eol=lf
+*.tsx   text eol=lf
+*.json  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.sh    text eol=lf
+
+# Keep CRLF only for Windows-specific files (e.g. .csproj, .sln if needed)
+*.sln   text eol=crlf
+*.csproj text eol=crlf

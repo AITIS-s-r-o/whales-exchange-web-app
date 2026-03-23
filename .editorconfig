@@ -1,0 +1,17 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+# Optional: for code files
+[*.{cs,csproj,vb,vbproj,config}]
+indent_style = space
+indent_size = 4
+
+# For front-end / scripts
+[*.{js,ts,jsx,tsx,json,yml,yaml,html,css,md,py,sh}]
+indent_style = space
+indent_size = 2
