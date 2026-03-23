@@ -3,8 +3,8 @@ import { AssetKind } from "./AssetKind";
 
 export { AssetKind };
 
-export const LN = "LN";
-export const BTC = "BTC";
+export const LN = "LIGHTNING";
+export const BTC = "BITCOIN";
 export const LBTC = "L-BTC";
 export const RBTC = "RBTC";
 export const TBTC = "TBTC";
