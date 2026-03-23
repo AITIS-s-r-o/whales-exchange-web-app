@@ -1,22 +1,22 @@
 import { BiSolidHelpCircle } from "solid-icons/bi";
 import { BsCardText } from "solid-icons/bs";
 import { ImDisplay } from "solid-icons/im";
-import { IoClose, IoShield, IoSwapHorizontal } from "solid-icons/io";
+import { IoClose, IoShield/*WEX, IoSwapHorizontal */} from "solid-icons/io";
 import { type JSXElement, Show, onCleanup, onMount } from "solid-js";
 
 import { useGlobalContext } from "../../context/Global";
 import type { DictKey } from "../../i18n/i18n";
 import "../../style/settings.scss";
 import { isMobile } from "../../utils/helper";
-import BitcoinOnly from "./BitcoinOnly";
+/*WEX import BitcoinOnly from "./BitcoinOnly";*/
 import Denomination from "./Denomination";
 import FiatAmountSetting from "./FiatAmountSetting";
-import GasTopUp from "./GasTopUp";
+/*WEX import GasTopUp from "./GasTopUp";*/
 import Logs from "./Logs";
 import PrivacyMode from "./PrivacyMode";
 import RescueFile from "./RescueKey";
 import Separator from "./Separator";
-import Slippage from "./Slippage";
+/*WEX import Slippage from "./Slippage";*/
 import Tooltip from "./Tooltip";
 import ZeroConf from "./ZeroConf";
 
@@ -85,6 +85,7 @@ const SettingsMenuContent = () => {
                     <IoClose />
                 </span>
                 <hr class="spacer" />
+                { /*WEX
                 <Section
                     title={t("swap")}
                     icon={<IoSwapHorizontal size={20} />}>
@@ -104,7 +105,7 @@ const SettingsMenuContent = () => {
                         settingElement={<GasTopUp />}
                     />
                 </Section>
-
+                */ }
                 <Section title={t("display")} icon={<ImDisplay size={20} />}>
                     <Entry
                         label={"denomination"}
