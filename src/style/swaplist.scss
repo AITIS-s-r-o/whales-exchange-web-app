@@ -64,10 +64,10 @@
     margin: 0 10px 0 25px;
 }
 
-.swaplist-asset span[data-asset="LIGHTNING"] {
+.swaplist-asset span[data-asset="LN"] {
     background-image: vars.$lightning_icon;
 }
-.swaplist-asset span[data-asset="BITCOIN"] {
+.swaplist-asset span[data-asset="BTC"] {
     background-image: vars.$bitcoin_icon;
 }
 .swaplist-asset span[data-asset="LBTC"] {
