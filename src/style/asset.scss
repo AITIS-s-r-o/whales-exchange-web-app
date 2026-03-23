@@ -54,7 +54,7 @@
         background-position: center;
     }
     .asset-text:before {
-        content: "LN";
+        content: "LIGHTNING";
     }
 }
 
@@ -63,7 +63,7 @@
         background-image: vars.$bitcoin_icon;
     }
     .asset-text:before {
-        content: "BTC";
+        content: "BITCOIN";
     }
 }
 
