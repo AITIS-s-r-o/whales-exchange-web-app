@@ -450,7 +450,7 @@ const dict = {
         unmatched_swaps:
             "This wallet has {{ count }} additional claimable swaps. To access them, please switch to the Rescue Key used to initiate those swaps.",
     },
-    /*WEF
+    /*WEX
     de: {
         language: "Deutsch",
         or: "oder",

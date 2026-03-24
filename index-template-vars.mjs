@@ -43,9 +43,9 @@ const config = {
             "@type": "Organization",
             name: "Whale's Exchange",
             url: "https://whales.exchange",
-            logo: "https://whales.exchange/boltz.svg",
+            logo: "https://whales.exchange/logo.svg",
             sameAs: ["https://x.com/boltzhq"],
-/*WEF            hasPart: {
+/*WEX            hasPart: {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
                 name: "Boltz Pro | Stack Sats Non-Custodially",

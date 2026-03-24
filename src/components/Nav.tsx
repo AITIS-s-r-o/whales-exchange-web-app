@@ -1,19 +1,19 @@
 import { A } from "@solidjs/router";
-import { BsGlobe } from "solid-icons/bs";
+/*WEX import { BsGlobe } from "solid-icons/bs";*/
 import { OcLinkexternal2 } from "solid-icons/oc";
-import { For, Show, createSignal } from "solid-js";
+import { /*WEX For,*/ Show, createSignal } from "solid-js";
 
 import Warnings from "../components/Warnings";
 import { config } from "../config";
 import { useGlobalContext } from "../context/Global";
-import locales from "../i18n/i18n";
+/*WEX import locales from "../i18n/i18n"; */
 import "../style/nav.scss";
 import ExternalLink from "./ExternalLink";
 
 const Nav = (props: { network: string; isPro?: boolean }) => {
-    let timeout: ReturnType<typeof setTimeout> | undefined;
+    /*WEX let timeout: ReturnType<typeof setTimeout> | undefined; */
 
-    const { t, setHideHero, setI18nConfigured } = useGlobalContext();
+    const { t, setHideHero/*WEX, setI18nConfigured */} = useGlobalContext();
     const [hamburger, setHamburger] = createSignal(false);
 
     return (
@@ -21,12 +21,13 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
             <Warnings />
             <div class="nav-inner">
                 <A id="logo" href="/" onClick={() => setHideHero(false)}>
-                    <div
+                    <div id="logo-image" aria-label="Whale's Exchange logo"/>
+                    { /*WEF <div
                         id="logo-mask"
                         boltz-theme={props.isPro ? "pro" : "default"}
                         role="img"
                         aria-label="Boltz logo"
-                    />
+                    /> */}
                 </A>
                 <Show when={props.network !== "mainnet"}>
                     <div id="network" class="btn btn-small">
@@ -38,7 +39,7 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                         {t("pro")}
                     </div>
                 </Show>
-                { /*WEF
+                { /*WEX
                 <div
                     id="languages"
                     onClick={(e) => e.currentTarget.classList.toggle("active")}

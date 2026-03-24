@@ -1,26 +1,26 @@
 import { useNavigate } from "@solidjs/router";
-/*WEF
+/*WEX
 import { BigNumber } from "bignumber.js";
 import log from "loglevel";
 */
-import { Show/*WEF, createSignal, onMount */ } from "solid-js";
+import { Show/*WEX, createSignal, onMount */ } from "solid-js";
 
 import bitcoin from "../assets/bitcoin-icon.svg";
 import lightning from "../assets/lightning-icon.svg";
-{ /*WEF
+{ /*WEX
 import liquid from "../assets/liquid-icon.svg";
 import rbtc from "../assets/rootstock-icon.svg";
 import ExternalLink from "../components/ExternalLink";
 */ }
 import { config } from "../config";
-/*WEF
+/*WEX
 import { BTC } from "../consts/Assets";
 import { Denomination } from "../consts/Enums";
 */
 import { useGlobalContext } from "../context/Global";
 import Create from "../pages/Create";
 import "../style/hero.scss";
-/*WEF
+/*WEX
 import { getNodeStats } from "../utils/boltzClient";
 import {
   formatAmountDenomination,
@@ -32,15 +32,15 @@ import FeeComparison from "./FeeComparison";
 export const Hero = () => {
     const navigate = useNavigate();
 
-    /*WEF
+    /*WEX
     const [numChannel, setNumChannel] = createSignal(0);
     const [numPeers, setNumPeers] = createSignal(0);
     const [capacity, setCapacity] = createSignal(0);
     const [oldestChannel, setOldestChannel] = createSignal("0");
     */
-    const { hideHero, setHideHero, t, /*WEF denomination, separator */} =
+    const { hideHero, setHideHero, t, /*WEX denomination, separator */} =
         useGlobalContext();
-    /*WEF
+    /*WEX
     const formatStatsAmount = (
         value: number,
         denom: Denomination = Denomination.Sat,
@@ -102,13 +102,13 @@ export const Hero = () => {
                         <hr />
                         <img src={lightning} alt="Lightning Bitcoin" />
                         <img src={bitcoin} alt="Bitcoin" />
-                        { /*WEF
+                        { /*WEX
                         <img src={liquid} alt="Liquid Bitcoin" />
                         <img src={rbtc} alt="Rootstock Bitcoin" />
                         */ }
                     </div>
                 </div>
-                { /*WEF
+                { /*WEX
                 <h2 class="headline">{t("node")}</h2>
                 <div id="numbers">
                     <div class="number">

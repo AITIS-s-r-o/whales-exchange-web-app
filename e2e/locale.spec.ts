@@ -11,7 +11,7 @@ test.describe("Locales", () => {
         {
             locale: "en-US",
             dict: dict.en,
-        },/*WEF
+        },/*WEX
         {
             locale: "de-DE",
             dict: dict.de,
