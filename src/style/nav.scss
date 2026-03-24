@@ -126,9 +126,9 @@ nav a.active {
 }
 
 .wex-header-logo {
-    display: flex; /* puts logo and text side by side */
-    align-items: center; /* vertically centers them */
-    gap: 12px; /* space between logo and text - adjust as needed */
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 #logo-mask[boltz-theme="pro"] {
