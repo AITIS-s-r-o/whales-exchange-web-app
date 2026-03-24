@@ -38,6 +38,7 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                         {t("pro")}
                     </div>
                 </Show>
+                { /*WEF
                 <div
                     id="languages"
                     onClick={(e) => e.currentTarget.classList.toggle("active")}
@@ -66,6 +67,7 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                         </For>
                     </div>
                 </div>
+                */ }
                 <div id="collapse" class={hamburger() ? "active" : ""}>
                     <A href="/swap" onClick={() => setHamburger(false)}>
                         {t("swap")}

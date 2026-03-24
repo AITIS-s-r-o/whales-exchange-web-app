@@ -3,14 +3,14 @@ const dict = {
         language: "English",
         or: "or",
         status: "Status",
-        fast: "Fast",
-        l2: "Built on Layer 2",
-        l2_sub: "Boltz utilizes Layer 2 scaling technologies like the Lightning Network",
-        assets_sub: "Lightning / Bitcoin / Liquid / Rootstock",
+        fast: "Decentralized",
+        l2: "Boltz interface for Electrum Swap",
+        l2_sub: "Whale's Exchange combines interface from Boltz Exchange with the decentralize swap protocol of Electrum Swap",
+        assets_sub: "Lightning / Bitcoin",
         safe: "Safe",
         non_custodial: "Non-Custodial",
         non_custodial_sub:
-            "Swaps on Boltz are atomic, cryptography ensures that users are always in control of their money",
+            "Swaps on Whale's Exchange are atomic, cryptography ensures that users are always in control of their money",
         node: "Lightning Nodes",
         error: "Error",
         error_subline: "Invalid response from the API, something is wrong.",
@@ -41,7 +41,7 @@ const dict = {
         minimum_amount: "Minimum amount is {{ amount }} {{ denomination }}",
         maximum_amount: "Maximum amount is {{ amount }} {{ denomination }}",
         assets: "Multi-Layer",
-        footer: "Made with 🧡 by Team Boltz",
+        footer: "Made with 🧡 by Team Whale's Exchange",
         create_swap: "Create Atomic Swap",
         create_swap_subline: "Payment Includes Network and Boltz Fee",
         new_swap: "New Swap",
@@ -137,7 +137,7 @@ const dict = {
         headline: "Non-Custodial Bitcoin Bridge",
         headline_pro: "Stack Sats Non-Custodially",
         subline:
-            "Swap between different Bitcoin layers while staying in full control.",
+            "Swap between on-chain Bitcoin and Lightning Network while staying in full control leveraging decentralized Electrum Swap protocol.",
         subline_pro:
             "Earn sats for swapping Bitcoin in directions that help balance our liquidity.",
         start_swapping: "Start Swapping",
@@ -450,6 +450,7 @@ const dict = {
         unmatched_swaps:
             "This wallet has {{ count }} additional claimable swaps. To access them, please switch to the Rescue Key used to initiate those swaps.",
     },
+    /*WEF
     de: {
         language: "Deutsch",
         or: "oder",
@@ -2700,7 +2701,7 @@ const dict = {
             "再開可能なスワップを検索中... {{ progress }}%",
         unmatched_swaps:
             "このウォレットには追加で {{ count }} 件の請求可能なスワップがあります。アクセスするには、これらのスワップの開始に使用したレスキューキーに切り替えてください。",
-    },
+    },*/
 };
 
 type NestedKeyOf<T> = {

@@ -1,42 +1,50 @@
 import { useNavigate } from "@solidjs/router";
+/*WEF
 import { BigNumber } from "bignumber.js";
 import log from "loglevel";
-import { Show, createSignal, onMount } from "solid-js";
+*/
+import { Show/*WEF, createSignal, onMount */ } from "solid-js";
 
 import bitcoin from "../assets/bitcoin-icon.svg";
 import lightning from "../assets/lightning-icon.svg";
+{ /*WEF
 import liquid from "../assets/liquid-icon.svg";
 import rbtc from "../assets/rootstock-icon.svg";
 import ExternalLink from "../components/ExternalLink";
+*/ }
 import { config } from "../config";
+/*WEF
 import { BTC } from "../consts/Assets";
 import { Denomination } from "../consts/Enums";
+*/
 import { useGlobalContext } from "../context/Global";
 import Create from "../pages/Create";
 import "../style/hero.scss";
+/*WEF
 import { getNodeStats } from "../utils/boltzClient";
 import {
-    formatAmountDenomination,
-    formatDenomination,
+  formatAmountDenomination,
+  formatDenomination,
 } from "../utils/denomination";
+*/
 import FeeComparison from "./FeeComparison";
 
 export const Hero = () => {
     const navigate = useNavigate();
 
+    /*WEF
     const [numChannel, setNumChannel] = createSignal(0);
     const [numPeers, setNumPeers] = createSignal(0);
     const [capacity, setCapacity] = createSignal(0);
     const [oldestChannel, setOldestChannel] = createSignal("0");
-
-    const { hideHero, setHideHero, t, denomination, separator } =
+    */
+    const { hideHero, setHideHero, t, /*WEF denomination, separator */} =
         useGlobalContext();
-
+    /*WEF
     const formatStatsAmount = (
         value: number,
         denom: Denomination = Denomination.Sat,
     ) => formatAmountDenomination(new BigNumber(value), denom, separator());
-
     onMount(async () => {
         try {
             const statsRes = await getNodeStats();
@@ -55,6 +63,7 @@ export const Hero = () => {
             log.error("nodestats error", error);
         }
     });
+    */
 
     return (
         <div id="hero" class="inner-wrap">
@@ -93,10 +102,13 @@ export const Hero = () => {
                         <hr />
                         <img src={lightning} alt="Lightning Bitcoin" />
                         <img src={bitcoin} alt="Bitcoin" />
+                        { /*WEF
                         <img src={liquid} alt="Liquid Bitcoin" />
                         <img src={rbtc} alt="Rootstock Bitcoin" />
+                        */ }
                     </div>
                 </div>
+                { /*WEF
                 <h2 class="headline">{t("node")}</h2>
                 <div id="numbers">
                     <div class="number">
@@ -250,6 +262,7 @@ export const Hero = () => {
                         />
                     </div>
                 </div>
+                */ }
             </Show>
         </div>
     );

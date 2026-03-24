@@ -30,10 +30,10 @@ const modeLabels = Object.freeze({
 // Configuration for both regular and pro versions
 const config = {
     regular: {
-        boltzUrl: "https://boltz.exchange",
-        boltzTitle: "Boltz | Non-Custodial Bitcoin Bridge",
+        boltzUrl: "https://whales.exchange",
+        boltzTitle: "Whale's Exchange | Decentralized Non-Custodial Bitcoin-LN Bridge via Electrum Swap protocol",
         boltzDescription:
-            "Swap between different Bitcoin layers while staying in full control. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
+            "Swap between on-chain Bitcoin and Lightning Network while staying in full control leveraging decentralized Electrum Swap protocol.",
         boltzColor100: "#FFE96D",
         boltzColor200: "#E1C218",
         backgroundColor: "#142840",
@@ -41,11 +41,11 @@ const config = {
         ldJson: {
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "Boltz Exchange",
-            url: "https://boltz.exchange",
-            logo: "https://boltz.exchange/boltz.svg",
+            name: "Whale's Exchange",
+            url: "https://whales.exchange",
+            logo: "https://whales.exchange/boltz.svg",
             sameAs: ["https://x.com/boltzhq"],
-            hasPart: {
+/*WEF            hasPart: {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
                 name: "Boltz Pro | Stack Sats Non-Custodially",
@@ -53,9 +53,10 @@ const config = {
                 logo: "https://pro.boltz.exchange/boltz-pro-preview.jpg",
                 description:
                     "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-            },
+            },*/
         },
     },
+    /*WEX
     pro: {
         boltzUrl: "https://pro.boltz.exchange",
         boltzTitle: "Boltz Pro | Stack Sats Non-Custodially",
@@ -85,7 +86,7 @@ const config = {
                 logo: "https://boltz.exchange/boltz.svg",
             },
         },
-    },
+    },*/
 };
 
 function usage() {
