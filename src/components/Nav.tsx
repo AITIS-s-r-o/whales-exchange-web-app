@@ -21,7 +21,10 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
             <Warnings />
             <div class="nav-inner">
                 <A id="logo" href="/" onClick={() => setHideHero(false)}>
-                    <div id="logo-image" aria-label="Whale's Exchange logo"/>
+                    <div class="wex-header-logo">
+                        <div id="wex-logo-image" aria-label="Whale's Exchange logo" />
+                        <span>WHALE'S<br />EXCHANGE</span>
+                    </div>
                     { /*WEF <div
                         id="logo-mask"
                         boltz-theme={props.isPro ? "pro" : "default"}

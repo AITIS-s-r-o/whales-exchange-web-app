@@ -97,7 +97,7 @@ nav a.active {
     padding-left: 8px;
 }
 
-#logo-image {
+#wex-logo-image {
     background-image: url('../assets/logo.svg');
     display: block;
     width: 64px;
@@ -124,6 +124,13 @@ nav a.active {
     -webkit-mask: url("../assets/logo.svg") no-repeat center;
     -webkit-mask-size: contain;
 }
+
+.wex-header-logo {
+    display: flex; /* puts logo and text side by side */
+    align-items: center; /* vertically centers them */
+    gap: 12px; /* space between logo and text - adjust as needed */
+}
+
 #logo-mask[boltz-theme="pro"] {
     background: linear-gradient(
         180deg,
