@@ -23,7 +23,7 @@ import { formatAmount, formatDenomination } from "../utils/denomination";
 import { formatError } from "../utils/errors";
 import { cropString } from "../utils/helper";
 import { getTimeoutEta } from "../utils/rescue";
-import { rskDerivationPath } from "../utils/rescueFile";
+/*WEX import { rskDerivationPath } from "../utils/rescueFile"; */
 import { prefix0x, satoshiToWei } from "../utils/rootstock";
 
 type RescueData = LogRefundData & { currentHeight: bigint };
@@ -147,7 +147,7 @@ const ClaimState = (props: {
                 onClick={claimTransaction}
                 address={{
                     address: props.claimData.claimAddress,
-                    derivationPath: rskDerivationPath,
+                    derivationPath: "" /*WEX rskDerivationPath*/,
                 }}
                 buttonText={t("continue")}
                 promptText={t("transaction_prompt_receive", {

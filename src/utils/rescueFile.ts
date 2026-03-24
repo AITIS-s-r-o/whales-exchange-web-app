@@ -19,17 +19,18 @@ export enum Errors {
 export type RescueFile = {
     mnemonic: string;
 };
-
+/*WEX
 const getEvmChainId = (asset: AssetType) =>
     config.assets[asset].network.chainId;
-
+    */
 export const derivationPath = "m/44/0/0/0";
+/*WEX
 export const rskDerivationPath = `m/44/${getEvmChainId(RBTC)}/0/0`;
-
+*/
 const getPath = (index: number) => `${derivationPath}/${index}`;
-
+/*WEX
 const getRskPath = (index: number) => `${rskDerivationPath}/${index}`;
-
+*/
 export const mnemonicToHDKey = (mnemonic: string) => {
     const seed = mnemonicToSeedSync(mnemonic);
     return HDKey.fromMasterSeed(seed);
@@ -49,7 +50,7 @@ export const deriveKey = (
     asset: AssetType,
     hdKey?: HDKey,
 ) => {
-    const derivationPath = asset === RBTC ? getRskPath(index) : getPath(index);
+    const derivationPath = /*WEX asset === RBTC ? getRskPath(index) : */getPath(index);
     if (!hdKey) {
         return mnemonicToHDKey(rescueFile.mnemonic).derive(derivationPath);
     }
