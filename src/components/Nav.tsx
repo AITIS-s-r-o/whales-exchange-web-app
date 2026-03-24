@@ -25,7 +25,7 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                         <div id="wex-logo-image" aria-label="Whale's Exchange logo" />
                         <span>WHALE'S<br />EXCHANGE</span>
                     </div>
-                    { /*WEF <div
+                    { /*WEX <div
                         id="logo-mask"
                         boltz-theme={props.isPro ? "pro" : "default"}
                         role="img"
