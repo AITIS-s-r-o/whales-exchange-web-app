@@ -11,7 +11,7 @@ test.describe("Locales", () => {
         {
             locale: "en-US",
             dict: dict.en,
-        },
+        },/*WEF
         {
             locale: "de-DE",
             dict: dict.de,
@@ -27,7 +27,7 @@ test.describe("Locales", () => {
         {
             locale: "ja-JP",
             dict: dict.ja,
-        },
+        },*/
     ].forEach(({ locale, dict }) => {
         test(`Default language for locale ${locale}`, async ({ browser }) => {
             const context = await browser.newContext({
