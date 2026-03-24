@@ -44,7 +44,7 @@ const config = {
             name: "Whale's Exchange",
             url: "https://whales.exchange",
             logo: "https://whales.exchange/logo.svg",
-            sameAs: ["https://x.com/boltzhq"],
+            sameAs: ["https://x.com/WhalesSecret"],
 /*WEX            hasPart: {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
