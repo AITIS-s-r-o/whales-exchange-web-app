@@ -4,13 +4,13 @@ import { Show, createEffect, createSignal, on, onMount } from "solid-js";
 import FiatAmount from "src/components/FiatAmount";
 import { useWeb3Signer } from "src/context/Web3";
 
-import Accordion from "../components/Accordion";
+/*WEX import Accordion from "../components/Accordion"; */
 import AddressInput from "../components/AddressInput";
 import Asset from "../components/Asset";
 import AssetSelect from "../components/AssetSelect";
 import ConnectWallet from "../components/ConnectWallet";
 import CreateButton, { BackupDone } from "../components/CreateButton";
-import { FeeComparisonTable } from "../components/FeeComparisonTable";
+/*WEX import { FeeComparisonTable } from "../components/FeeComparisonTable"; */
 import Fees from "../components/Fees";
 import InvoiceInput from "../components/InvoiceInput";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -19,7 +19,7 @@ import Reverse from "../components/Reverse";
 import WeblnButton from "../components/WeblnButton";
 import SettingsCog from "../components/settings/SettingsCog";
 import SettingsMenu from "../components/settings/SettingsMenu";
-import { config } from "../config";
+/*WEX import { config } from "../config";*/
 import { LN, RBTC, btcChains, evmChains } from "../consts/Assets";
 import { Denomination, Side, SwapType } from "../consts/Enums";
 import { useCreateContext } from "../context/Create";
@@ -38,13 +38,20 @@ import {
 import { isMobile } from "../utils/helper";
 import ErrorWasm from "./ErrorWasm";
 
+import type { WexElectrumSwapProvider } from "../utils/electrumClient";
+import { wexLoadSwapProviders } from "../utils/electrumClient";
+import WexProviderTable from "../components/WexProviderTable";
+import WexProvider from "../components/WexProvider";
+import { formatError } from "../utils/errors";
+import log from "loglevel";
+
 const Create = () => {
     let receiveAmountRef: HTMLInputElement | undefined;
     let sendAmountRef: HTMLInputElement | undefined;
 
     const location = useLocation<{ backupDone?: string }>();
     const [searchParams] = useSearchParams();
-    const [isAccordionOpen, setIsAccordionOpen] = createSignal(false);
+    /*WEX const [isAccordionOpen, setIsAccordionOpen] = createSignal(false);*/
 
     const {
         separator,
@@ -55,8 +62,9 @@ const Create = () => {
         webln,
         t,
         notify,
+        /*WEX
         pairs,
-        regularPairs,
+        regularPairs,*/
         showFiatAmount,
         fetchBtcPrice,
     } = useGlobalContext();
@@ -274,7 +282,10 @@ const Create = () => {
         sendAmountRef?.focus();
     };
 
-    onMount(() => {
+    const [providers, setProviders] = createSignal<WexElectrumSwapProvider[]>([]);
+    const [selectedProvider, setSelectedProvider] = createSignal<WexElectrumSwapProvider | null>(null);
+
+    onMount(async () => {
         // if user reloads during backup phase, we don't have enough information
         // to create the swap after the backup is done, so we redirect to /swap
         // once the backup is done
@@ -289,6 +300,15 @@ const Create = () => {
         ) {
             navigate("/swap");
             return;
+        }
+
+        try {
+            const data = await wexLoadSwapProviders();
+            setProviders(data);
+            // auto-select the first provider (you can remove this if you prefer none selected)
+            if (data.length > 0) setSelectedProvider(data[0]);
+        } catch (e) {
+            log.error(`Failed to load swap providers: ${formatError(e)}`);
         }
 
         sendAmountRef?.focus();
@@ -399,6 +419,18 @@ const Create = () => {
                         display: !creatingSwap() ? "block" : "none",
                     }}>
                     <SettingsCog />
+
+                    <h2 class="text-xl font-semibold mt-10 mb-4">{t("wex_select_provider")}</h2>
+
+                    <WexProviderTable
+                        providers={providers}
+                        selected={selectedProvider}
+                        onSelect={setSelectedProvider}
+                    />
+
+                    <WexProvider provider={selectedProvider} />
+                    <hr class="spacer" />
+
                     <h2 data-testid="create-swap-title">{t("create_swap")}</h2>
                     {t("create_swap_subline")} <br />
                     <span class="swap-limits">
@@ -435,7 +467,8 @@ const Create = () => {
                             />
                         </span>
                     </span>
-                    <Show when={config.isPro}>
+                    { /*WEX
+                        <Show when={config.isPro}>
                         <Accordion
                             title={t("swap_opportunities_accordion")}
                             isOpen={isAccordionOpen()}
@@ -461,6 +494,7 @@ const Create = () => {
                             />
                         </Accordion>
                     </Show>
+                    */ }
                     <div class="icons">
                         <div>
                             <Asset side={Side.Send} signal={assetSend} />

@@ -44,6 +44,10 @@ const dict = {
         footer: "Made with 🧡 by Team Whale's Exchange",
         create_swap: "Create Atomic Swap",
         create_swap_subline: "Payment Includes Network and Boltz Fee",
+        wex_select_provider: "Select Electrum Swap Provider",
+        wex_provider_limit_forward: "Forward swap (BTC → LN) limits:",
+        wex_provider_limit_reverse: "Reverse swap (LN → BTC) limits:",
+        wex_provider_fee: "Provider fee",
         new_swap: "New Swap",
         feecheck:
             "Network fee was updated based on network situation, please confirm new amounts and continue with swap.",
@@ -2410,7 +2414,7 @@ const dict = {
         not_found_subline: "このページは消えてしまったようです。",
         back_to_home: "ホームに戻る",
         transaction_prompt:
-            " 接続したウォレットを開いて、表示されたトランザクションを確認するために　{{ button }} を押してください",
+            " 接続したウォレットを開いて、表示されたトランザクションを確認するために {{ button }} を押してください",
         transaction_prompt_receive:
             " 接続したウォレットを開いて、{{ asset }} を受け取るために表示されたトランザクションを確認するために {{ button }} を押してください",
         invalid_address: "無効な {{ asset }} アドレス",

@@ -22,6 +22,7 @@ import type {
 } from "./swapCreator";
 
 export const defaultTimeoutDuration = 15_000;
+export const wexDefaultTimeoutDurationElectrum = 30_000;
 
 export const isIos = () =>
     !!navigator.userAgent.match(/iphone|ipad/gi) || false;
@@ -180,6 +181,89 @@ export const fetcher = async <T = unknown>(
             }
         }
         return (await response.json()) as T;
+    } catch (e) {
+        throw new Error(formatError(e));
+    } finally {
+        clearTimeout(requestTimeout);
+    }
+};
+
+/**
+ * Electrum JSON RPC fetcher.
+ * 
+ * @param method Electrum RPC method to call.
+ * @param params Parameters of the call.
+ * @param options Request options, or null if no extra options are required.
+ * @param requestTimeoutDurationMs Timeout for the request in milliseconds.
+ * @returns Response of the RPC call.
+ */
+export const wexElectrumFetcher = async <T = unknown>(
+    method: string,
+    params: unknown[] | Record<string, unknown> | null = [],
+    options?: RequestInit,
+    requestTimeoutDurationMs: number = wexDefaultTimeoutDurationElectrum,
+): Promise<T> => {
+    const controller = new AbortController();
+    const requestTimeout = setTimeout(
+        () => controller.abort({ reason: "Request timed out" }),
+        requestTimeoutDurationMs,
+    );
+
+    try {
+        const referral = getReferral();
+
+        // Build the proper Electrum JSON-RPC payload.
+        const rpcPayload: {
+            jsonrpc: string;
+            id: string;
+            method: string;
+            params: unknown[] | Record<string, unknown> | null;
+        } = {
+            jsonrpc: "2.0",
+            id: `rpc_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`,
+            method,
+            params: params ?? [],
+        };
+
+        const fetchOptions: RequestInit = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Basic ${btoa(`${config.electrumRpc.user}:${config.electrumRpc.pass}`)}`,
+                ...(referral && { referral }),
+                ... (options?.headers ?? {}),
+            },
+            body: JSON.stringify(rpcPayload),
+            signal: controller.signal,
+            ...options,
+        };
+
+        const response = await fetch(config.electrumRpc.url, fetchOptions);
+
+        if (!response.ok) {
+            const errorText = await response.text().catch(() => "Unknown error");
+            throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json() as {
+            result?: T;
+            error?: {
+                code?: number;
+                message?: string;
+                data?: unknown;
+            } | string | null;
+        };
+
+        if (data.error) {
+            throw formatError(data.error);
+        }
+
+        // Electrum almost always returns data in ..
+        if (data.result === undefined) {
+            throw new Error(`Invalid RPC response: missing "result" field for method "${method}"`);
+        }
+
+        return data.result;
     } catch (e) {
         throw new Error(formatError(e));
     } finally {

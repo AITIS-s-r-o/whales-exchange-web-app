@@ -39,6 +39,7 @@ export type ExplorerUrl = Url & {
 
 export type Config = {
     apiUrl?: Url;
+    electrumRpcUrl?: string;
     network?: "mainnet" | "testnet" | "regtest";
     isBoltzClient?: boolean;
     boltzClientApiUrl?: string;
