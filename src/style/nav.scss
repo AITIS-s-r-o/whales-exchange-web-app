@@ -96,6 +96,16 @@ nav a.active {
     padding-right: 21px;
     padding-left: 8px;
 }
+
+#wex-logo-image {
+    background-image: url('../assets/logo.svg');
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin-left: -6px;
+    margin-right: 7px;
+}
+
 #logo-mask {
     display: inline-block;
     width: 165px;
@@ -107,13 +117,20 @@ nav a.active {
         var(--color-primary-lighter) 10%,
         var(--color-primary) 90%
     );
-    mask: url("../assets/boltz.svg") no-repeat center;
+    mask: url("../assets/logo.svg") no-repeat center;
     mask-size: contain;
 
     /* For Safari */
-    -webkit-mask: url("../assets/boltz.svg") no-repeat center;
+    -webkit-mask: url("../assets/logo.svg") no-repeat center;
     -webkit-mask-size: contain;
 }
+
+.wex-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 #logo-mask[boltz-theme="pro"] {
     background: linear-gradient(
         180deg,

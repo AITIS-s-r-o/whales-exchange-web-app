@@ -1,8 +1,10 @@
-import { BsEnvelopeFill, BsGithub, BsTwitter, BsYoutube } from "solid-icons/bs";
+import { /*WEXBsEnvelopeFill, */BsGithub, BsTwitter/*WEX, BsYoutube */} from "solid-icons/bs";
+/*WEX
 import { Show } from "solid-js";
 
 import nostr from "../assets/nostr.svg";
 import substack from "../assets/substack.svg";
+*/
 import { config } from "../config";
 import { useGlobalContext } from "../context/Global";
 import "../style/footer.scss";
@@ -26,6 +28,7 @@ const Footer = () => {
                     href={config.twitterUrl}>
                     <BsTwitter size={22} color="#22374F" />
                 </ExternalLink>
+                { /*WEX
                 <ExternalLink
                     title="Nostr"
                     class="nostr"
@@ -49,8 +52,9 @@ const Footer = () => {
                     class="email"
                     href={"mailto:" + config.email}>
                     <BsEnvelopeFill size={22} color="#22374F" />
-                </ExternalLink>
+                </ExternalLink>*/ }
             </div>
+            { /*WEX
             <p class="footer-nav">
                 <ExternalLink href={config.partnerUrl}>
                     {t("partner")}
@@ -73,7 +77,7 @@ const Footer = () => {
                         {t("onion")}
                     </ExternalLink>
                 </Show>
-            </p>
+            </p>*/ }
             <p class="legal-nav">
                 <a href="/terms">{t("terms")}</a>
                 <a href="/privacy">{t("privacy")}</a>
