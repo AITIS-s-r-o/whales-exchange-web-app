@@ -17,11 +17,6 @@ const config = {
         normal: "https://api.boltz.exchange",
         tor: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/api",
     },
-    electrumRpc: {
-        url: "/electrum-rpc",
-        user: "user",
-        pass: "pass",
-    },
     assets: {
         BTC: {
             blockExplorerUrl: {

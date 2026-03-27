@@ -7,7 +7,7 @@ const config = {
     loglevel: "debug",
     preventReloadOnPendingSwaps: false,
     apiUrl: {
-        normal: "http://localhost:9001",
+        normal: "https://localhost:7001",
     },
     assets: {
         BTC: {
@@ -22,7 +22,7 @@ const config = {
                 },
             ],
         },
-        "L-BTC": {
+       /*WEX "L-BTC": {
             blockExplorerUrl: {
                 id: Explorer.Esplora,
                 normal: "http://localhost:4003",
@@ -56,7 +56,7 @@ const config = {
                     "0x59b670e9fA9D0A427751Af201D676719a970857b",
                 deployVerifier: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
             },
-        },
+        },*/
     },
 } as Config;
 
