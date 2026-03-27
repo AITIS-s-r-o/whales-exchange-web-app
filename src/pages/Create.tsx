@@ -38,8 +38,8 @@ import {
 import { isMobile } from "../utils/helper";
 import ErrorWasm from "./ErrorWasm";
 
-import type { WexElectrumSwapProvider } from "../utils/electrumClient";
-import { wexLoadSwapProviders } from "../utils/electrumClient";
+import type { WexSwapProvider } from "../utils/wexClient";
+import { wexGetSubmarineSwapProviders } from "../utils/wexClient";
 import WexProviderTable from "../components/WexProviderTable";
 import WexProvider from "../components/WexProvider";
 import { formatError } from "../utils/errors";
@@ -282,8 +282,8 @@ const Create = () => {
         sendAmountRef?.focus();
     };
 
-    const [providers, setProviders] = createSignal<WexElectrumSwapProvider[]>([]);
-    const [selectedProvider, setSelectedProvider] = createSignal<WexElectrumSwapProvider | null>(null);
+    const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
+    const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
 
     onMount(async () => {
         // if user reloads during backup phase, we don't have enough information
@@ -303,7 +303,7 @@ const Create = () => {
         }
 
         try {
-            const data = await wexLoadSwapProviders();
+            const data = await wexGetSubmarineSwapProviders();
             setProviders(data);
             // auto-select the first provider (you can remove this if you prefer none selected)
             if (data.length > 0) setSelectedProvider(data[0]);

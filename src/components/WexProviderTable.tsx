@@ -1,11 +1,11 @@
 import type { Accessor } from "solid-js";
 import { For } from "solid-js";
-import type { WexElectrumSwapProvider } from "../utils/electrumClient"; // adjust path if needed
+import type { WexSwapProvider } from "../utils/wexClient"; // adjust path if needed
 
 interface Props {
-    providers: Accessor<WexElectrumSwapProvider[]>;
-    selected: Accessor<WexElectrumSwapProvider | null>;
-    onSelect: (provider: WexElectrumSwapProvider) => void;
+    providers: Accessor<WexSwapProvider[]>;
+    selected: Accessor<WexSwapProvider | null>;
+    onSelect: (provider: WexSwapProvider) => void;
 }
 
 /**
@@ -38,9 +38,11 @@ function pubkeyToColor(pubkey: string): string {
  * @param timestamp UNIX timestamp to convert.
  * @returns Human-readable string describing how old the timestamp is.
  */
-function getLastSeen(timestamp: number): string {
+function getLastSeen(timestamp: string): string {
+    const providerTime = Math.floor(new Date(timestamp + "Z").getTime() / 1000);
+
     const now = Math.floor(Date.now() / 1000);
-    const diff = now - timestamp;
+    const diff = now - providerTime;
 
     if (diff < 60) return "<1 min ago";
     if (diff < 3600) {
@@ -77,8 +79,8 @@ export default function WexProviderTable(props: Props) {
                     <tbody class="divide-y divide-gray-200">
                         <For each={props.providers()}>
                             {(p) => {
-                                const isSelected = () => props.selected()?.server_pubkey === p.server_pubkey;
-                                const lastSeen = () => getLastSeen(p.timestamp);
+                                const isSelected = () => props.selected()?.pk === p.pk;
+                                const lastSeen = () => getLastSeen(p.time);
 
                                 return (
                                     <tr
@@ -87,15 +89,15 @@ export default function WexProviderTable(props: Props) {
                                         <td class="px-4 py-3">
                                             <div
                                                 class="w-4 h-6 rounded"
-                                                style={{ "background-color": pubkeyToColor(p.server_pubkey) }}
+                                                style={{ "background-color": pubkeyToColor(p.pk) }}
                                             />
                                         </td>
                                         <td class="px-4 py-3 font-mono text-xs break-all">
-                                            {p.server_pubkey.slice(0, 8)}…
+                                            {p.pk.slice(0, 8)}…
                                         </td>
-                                        <td class="px-4 py-3 text-right font-medium">{p.percentage_fee}%</td>
-                                        <td class="px-4 py-3 text-right">{p.max_forward_sat}</td>
-                                        <td class="px-4 py-3 text-right">{p.max_reverse_sat}</td>
+                                        <td class="px-4 py-3 text-right font-medium">{p.fwdFee}%</td>
+                                        <td class="px-4 py-3 text-right">{p.fwdMax}</td>
+                                        <td class="px-4 py-3 text-right">{p.revMax}</td>
                                         <td class="px-4 py-3 text-right text-gray-500">{lastSeen()}</td>
                                     </tr>
                                 );

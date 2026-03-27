@@ -1,8 +1,8 @@
 import type { Accessor } from "solid-js";
-import type { WexElectrumSwapProvider } from "../utils/electrumClient";
+import type { WexSwapProvider } from "../utils/wexClient";
 
 interface Props {
-    provider: Accessor<WexElectrumSwapProvider | null>;
+    provider: Accessor<WexSwapProvider | null>;
 }
 
 export default function WexProvider(props: Props) {
@@ -16,24 +16,24 @@ export default function WexProvider(props: Props) {
                         <div>
                             <div class="text-gray-500 text-xs mb-1">PUBKEY</div>
                             <div class="font-mono text-xs break-all bg-gray-50 p-3 rounded border">
-                                {props.provider()!.server_pubkey}
+                                {props.provider()!.pk}
                             </div>
                         </div>
 
                         <div class="space-y-4">
                             <div>
                                 <div class="text-gray-500 text-xs mb-1">FEE</div>
-                                <div class="text-xl font-medium">{props.provider()!.percentage_fee}%</div>
+                                <div class="text-xl font-medium">{props.provider()!.fwdFee}%</div>
                             </div>
 
                             <div class="flex gap-8">
                                 <div>
                                     <div class="text-gray-500 text-xs mb-1">MAX FORWARD</div>
-                                    <div class="text-xl font-medium">{props.provider()!.max_forward_sat}</div>
+                                    <div class="text-xl font-medium">{props.provider()!.fwdMax}</div>
                                 </div>
                                 <div>
                                     <div class="text-gray-500 text-xs mb-1">MAX REVERSE</div>
-                                    <div class="text-xl font-medium">{props.provider()!.max_reverse_sat}</div>
+                                    <div class="text-xl font-medium">{props.provider()!.revMax}</div>
                                 </div>
                             </div>
                         </div>
