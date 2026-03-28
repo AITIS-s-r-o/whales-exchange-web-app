@@ -272,7 +272,7 @@ const CreateProvider = (props: { children: JSX.Element }) => {
     const defaultSelection = Object.keys(config.assets)[0];
     const navigate = useNavigate();
 
-    const [swapType, setSwapType] = createSignal<SwapType>(SwapType.Submarine);
+    const [swapType, setSwapType] = createSignal<SwapType>(SwapType.Reverse);
     const [invoice, setInvoice] = createSignal<string>("");
     const [lnurl, setLnurl] = createSignal("");
     const [bolt12Offer, setBolt12Offer] = createSignal<string | undefined>(

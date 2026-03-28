@@ -44,6 +44,7 @@ import WexProviderTable from "../components/WexProviderTable";
 import WexProvider from "../components/WexProvider";
 import { formatError } from "../utils/errors";
 import log from "loglevel";
+import { wexInitProviderSignal, getPairs } from "../utils/boltzClient";
 
 const Create = () => {
     let receiveAmountRef: HTMLInputElement | undefined;
@@ -65,6 +66,7 @@ const Create = () => {
         /*WEX
         pairs,
         regularPairs,*/
+        setPairs,
         showFiatAmount,
         fetchBtcPrice,
     } = useGlobalContext();
@@ -284,6 +286,38 @@ const Create = () => {
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
+    createEffect(() => {
+        const providerGetter = () => selectedProvider();
+        wexInitProviderSignal(providerGetter);
+    });
+
+    // Update pairs whenever the selected provider changes
+    createEffect(() => {
+        const provider = selectedProvider();
+
+        if (!provider) {
+            setPairs(undefined);
+            return;
+        }
+
+        // Call async function outside of the effect.
+        void updatePairsFromProvider(provider);
+    });
+
+    // Separate async function to avoid the warning
+    const updatePairsFromProvider = async (provider: WexSwapProvider) => {
+        try {
+            log.debug("Fetching pairs for provider:", provider.pk);
+
+            const newPairs = await getPairs();
+            setPairs(newPairs);
+
+            log.debug("Pairs successfully updated for provider:", provider.pk);
+        } catch (error) {
+            log.error("Failed to fetch pairs:", error);
+            setPairs(undefined);
+        }
+    };
 
     onMount(async () => {
         // if user reloads during backup phase, we don't have enough information
@@ -539,7 +573,7 @@ const Create = () => {
                                 />
                             </div>
                         </div>
-                        <Reverse />
+                        <Reverse t={t} />
                         <div>
                             <Asset side={Side.Receive} signal={assetReceive} />
                             <div
