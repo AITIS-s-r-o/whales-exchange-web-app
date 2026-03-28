@@ -421,14 +421,16 @@ const Create = () => {
                     <SettingsCog />
 
                     <h2 class="text-xl font-semibold mt-10 mb-4">{t("wex_select_provider")}</h2>
+                    {t("wex_select_provider_note")} <br />
 
                     <WexProviderTable
                         providers={providers}
                         selected={selectedProvider}
                         onSelect={setSelectedProvider}
+                        t={t}
                     />
 
-                    <WexProvider provider={selectedProvider} />
+                    <WexProvider provider={selectedProvider} t={t} />
                     <hr class="spacer" />
 
                     <h2 data-testid="create-swap-title">{t("create_swap")}</h2>

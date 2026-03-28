@@ -1,16 +1,38 @@
 import type { Accessor } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
 
+/**
+ * Props for the component.
+ * 
+ * This component displays the selected provider details.
+ */
 interface Props {
+    /**
+     * Selected provider to display.
+     */
     provider: Accessor<WexSwapProvider | null>;
+
+    /**
+     * Translation method.
+     * 
+     * @param key Text key.
+     * @returns Text in the currently selected language.
+     */
+    t: (key: string) => string;
 }
 
+/**
+ * Renders the selected provider details.
+ * 
+ * @param props Input propereties.
+ * @returns HTML with the selected provider details.
+ */
 export default function WexProvider(props: Props) {
     return (
         <div class="mt-8">
             {props.provider() ? (
                 <div class="p-6 bg-white border border-gray-200 rounded-2xl">
-                    <h3 class="text-lg font-semibold mb-4">Selected Provider</h3>
+                    <h3 class="text-lg font-semibold mb-4">{props.t("wex_selected_provider")}</h3>
 
                     <div class="grid grid-cols-2 gap-x-8 gap-y-6 text-sm">
                         <div>

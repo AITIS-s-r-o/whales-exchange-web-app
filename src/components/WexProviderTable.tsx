@@ -1,5 +1,5 @@
 import type { Accessor } from "solid-js";
-import { For, } from "solid-js";
+import { For } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
 import "../style/wexProviderTable.scss";
 import { createHash } from "crypto";
@@ -22,6 +22,14 @@ interface Props {
      * @param provider  The provider that was clicked.
      */
     onSelect: (provider: WexSwapProvider) => void;
+
+    /**
+     * Translation method.
+     * 
+     * @param key Text key.
+     * @returns Text in the currently selected language.
+     */
+    t: (key: string) => string;
 }
 
 /**
@@ -31,13 +39,6 @@ interface Props {
  * @returns CSS string with the color derived from the pubkey.
  */
 function pubkeyToRgbColor(pubkey: string): string {
-    if (typeof pubkey !== "string") {
-        throw new TypeError("pubkey must be a string");
-    }
-    if (pubkey.length !== 64) {
-        throw new Error("pubkey must be 64 characters long");
-    }
-
     // Hash the UTF‑8 bytes of the pubkey.
     const hash = createHash("sha256")
         .update(Buffer.from(pubkey, "utf8"))
@@ -62,26 +63,26 @@ function pubkeyToRgbColor(pubkey: string): string {
  * @param timestamp Timestamp as a string in 'YYYY-MM-DDZHH:MM:SS' format.
  * @returns Human-readable "time ago".
  */
-function getLastSeen(timestamp: string): string {
+function getLastSeen(timestamp: string, t: (key: string) => string): string {
     const providerTime = Math.floor(new Date(timestamp + "Z").getTime() / 1000);
     const now = Math.floor(Date.now() / 1000);
     const diff = now - providerTime;
 
-    if (diff < 60) return "<1 min ago";
+    if (diff < 60) return `<1 ${t("wex_provider_table_seen_min_ago")}`;
     if (diff < 3600) {
         const min = Math.floor(diff / 60);
-        return min === 1 ? "1 min ago" : `${min} mins ago`;
+        return min === 1 ? `1 ${t("wex_provider_table_seen_min_ago")}` : `${min} ${t("wex_provider_table_seen_min_ago")}`;
     }
     if (diff < 86400) {
         const h = Math.floor(diff / 3600);
-        return h === 1 ? "1 hour ago" : `${h} hours ago`;
+        return h === 1 ? `1 ${t("wex_provider_table_seen_hour_ago")}` : `${h} ${t("wex_provider_table_seen_hours_ago")}`;
     }
     if (diff < 2592000) {
         const d = Math.floor(diff / 86400);
-        return d === 1 ? "1 day ago" : `${d} days ago`;
+        return d === 1 ? `1 ${t("wex_provider_table_seen_day_ago")}` : `${d} ${t("wex_provider_table_seen_days_ago")}`;
     }
     const m = Math.floor(diff / 2592000);
-    return m === 1 ? "1 month ago" : `${m} months ago`;
+    return m === 1 ? `1 ${t("wex_provider_table_seen_month_ago")}` : `${m} ${t("wex_provider_table_seen_months_ago")}`;
 }
 
 /**
@@ -99,18 +100,18 @@ export default function WexProviderTable(props: Props) {
                         <thead>
                             <tr>
                                 <th/>
-                                <th>Pubkey</th>
-                                <th>Fee</th>
-                                <th>Max Forward</th>
-                                <th>Max Reverse</th>
-                                <th>Last seen</th>
+                                <th>{props.t("wex_provider_table_pubkey")}</th>
+                                <th>{props.t("wex_provider_table_fee")}</th>
+                                <th>{props.t("wex_provider_table_max_forward")}</th>
+                                <th>{props.t("wex_provider_table_max_reverse")}</th>
+                                <th>{props.t("wex_provider_table_last_seen")}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <For each={props.providers()}>
                                 {(p) => {
                                     const isSelected = () => props.selected()?.pk === p.pk;
-                                    const lastSeen = () => getLastSeen(p.time);
+                                    const lastSeen = () => getLastSeen(p.time, props.t);
                                     const color = () => pubkeyToRgbColor(p.pk);
 
                                     return (
