@@ -1,8 +1,11 @@
 import type { Accessor } from "solid-js";
+import { BigNumber } from "bignumber.js";
 import type { WexSwapProvider } from "../utils/wexClient";
 import { createMemo } from "solid-js";
 import { pubkeyToRgbColor } from "../components/WexProviderTable";   // reuse the color function from your table
 import "../style/wexProvider.scss";
+import { formatAmount } from "../utils/denomination";
+import { type Denomination } from "../consts/Enums";
 
 /**
  * Props for the component.
@@ -22,6 +25,12 @@ interface Props {
      * @returns Text in the currently selected language.
      */
     t: (key: string) => string;
+
+    /** Denomination of the values displayed - BTC or SATS. */
+    denomination: Accessor<Denomination>;
+
+    /** Thousands separator in large numbers. */
+    separator: Accessor<string>;
 }
 
 /**
@@ -77,8 +86,28 @@ export default function WexProvider(props: Props) {
                                 <tbody>
                                     <tr>
                                         <td class="value">{fee()}%</td>
-                                        <td class="value">{fwdMax().toLocaleString()}</td>
-                                        <td class="value">{revMax().toLocaleString()}</td>
+                                        <td class="value">
+                                            {formatAmount(
+                                                BigNumber(fwdMax()),
+                                                props.denomination(),
+                                                props.separator(),
+                                            )}
+                                            <span
+                                                class="denominator"
+                                                data-denominator={props.denomination()}
+                                            />
+                                        </td>
+                                        <td class="value">
+                                            {formatAmount(
+                                                BigNumber(revMax()),
+                                                props.denomination(),
+                                                props.separator(),
+                                            )}
+                                            <span
+                                                class="denominator"
+                                                data-denominator={props.denomination()}
+                                            />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

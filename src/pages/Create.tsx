@@ -428,9 +428,16 @@ const Create = () => {
                         selected={selectedProvider}
                         onSelect={setSelectedProvider}
                         t={t}
+                        denomination={denomination}
+                        separator={separator}
                     />
 
-                    <WexProvider provider={selectedProvider} t={t} />
+                    <WexProvider
+                        provider={selectedProvider}
+                        t={t}
+                        denomination={denomination}
+                        separator={separator}
+                    />
                     <hr class="spacer" />
 
                     <h2 data-testid="create-swap-title">{t("create_swap")}</h2>
