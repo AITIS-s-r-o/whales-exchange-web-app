@@ -1,5 +1,8 @@
 import type { Accessor } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
+import { createMemo } from "solid-js";
+import { pubkeyToRgbColor } from "../components/WexProviderTable";   // reuse the color function from your table
+import "../style/wexProvider.scss";
 
 /**
  * Props for the component.
@@ -28,45 +31,63 @@ interface Props {
  * @returns HTML with the selected provider details.
  */
 export default function WexProvider(props: Props) {
+    // Create memoized values so they react properly
+    const currentProvider = createMemo(() => props.provider());
+
+    const color = createMemo(() => {
+        const p = currentProvider();
+        return p ? pubkeyToRgbColor(p.pk) : "#64748b";
+    });
+
+    const pubkey = createMemo(() => currentProvider()?.pk || "");
+    const fee = createMemo(() => currentProvider()?.fwdFee || 0);
+    const fwdMax = createMemo(() => currentProvider()?.fwdMax || 0);
+    const revMax = createMemo(() => currentProvider()?.revMax || 0);
+
     return (
-        <div class="mt-8">
-            {props.provider() ? (
-                <div class="p-6 bg-white border border-gray-200 rounded-2xl">
-                    <h3 class="text-lg font-semibold mb-4">{props.t("wex_selected_provider")}</h3>
+        <div class="wex-selected-provider">
+            <h3 class="title">{props.t("wex_selected_provider")}</h3>
 
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-6 text-sm">
-                        <div>
-                            <div class="text-gray-500 text-xs mb-1">PUBKEY</div>
-                            <div class="font-mono text-xs break-all bg-gray-50 p-3 rounded border">
-                                {props.provider()!.pk}
-                            </div>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <div class="text-gray-500 text-xs mb-1">FEE</div>
-                                <div class="text-xl font-medium">{props.provider()!.fwdFee}%</div>
-                            </div>
-
-                            <div class="flex gap-8">
-                                <div>
-                                    <div class="text-gray-500 text-xs mb-1">MAX FORWARD</div>
-                                    <div class="text-xl font-medium">{props.provider()!.fwdMax}</div>
-                                </div>
-                                <div>
-                                    <div class="text-gray-500 text-xs mb-1">MAX REVERSE</div>
-                                    <div class="text-xl font-medium">{props.provider()!.revMax}</div>
+            <div class="card">
+                {currentProvider() ? (
+                    <>
+                        {/* Public Key Section */}
+                        <div class="pubkey-section">
+                            <div class="pubkey-row">
+                                <div
+                                    class="color-dot"
+                                    style={{ "background-color": color() }}
+                                />
+                                <div class="pubkey-text">
+                                    {pubkey()}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            ) : (
-                // No provider selected.
-                <div class="mt-6 p-6 border border-dashed border-gray-300 rounded-xl text-center text-gray-500">
-                    Select a provider from the table above
-                </div>
-            )}
+
+                        {/* Limits Table */}
+                        <div class="limits-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{props.t("wex_provider_fee")}</th>
+                                        <th>{props.t("wex_provider_limit_forward")}<br />{props.t("wex_provider_limit_forward_sub")}</th>
+                                        <th>{props.t("wex_provider_limit_reverse")}<br />{props.t("wex_provider_limit_reverse_sub")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="value">{fee()}%</td>
+                                        <td class="value">{fwdMax().toLocaleString()}</td>
+                                        <td class="value">{revMax().toLocaleString()}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </>
+                ) : (
+                    <div class="no-provider">{props.t("wex_provider_none")}</div>
+                )}
+            </div>
         </div>
     );
 }

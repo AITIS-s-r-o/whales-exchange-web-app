@@ -38,7 +38,7 @@ interface Props {
  * @param pubkey Public key of a provider.
  * @returns CSS string with the color derived from the pubkey.
  */
-function pubkeyToRgbColor(pubkey: string): string {
+export function pubkeyToRgbColor(pubkey: string): string {
     // Hash the UTF‑8 bytes of the pubkey.
     const hash = createHash("sha256")
         .update(Buffer.from(pubkey, "utf8"))
