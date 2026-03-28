@@ -1,46 +1,69 @@
 import type { Accessor } from "solid-js";
-import { For } from "solid-js";
-import type { WexSwapProvider } from "../utils/wexClient"; // adjust path if needed
+import { For, } from "solid-js";
+import type { WexSwapProvider } from "../utils/wexClient";
+import "../style/wexProviderTable.scss";
+import { createHash } from "crypto";
 
+/**
+ * Props for the component.
+ * 
+ * This component displays a scrollable table of Electrum Swap providers, allowing the user to view provider details and select one for swapping.
+ */
 interface Props {
+    /** Reactive array of available swap providers.*/
     providers: Accessor<WexSwapProvider[]>;
+
+    /** Reactive reference to the currently selected provider. Used to highlight the selected row in the table. */
     selected: Accessor<WexSwapProvider | null>;
+
+    /**
+     * Callback function triggered when a user clicks on a provider row.
+     *
+     * @param provider  The provider that was clicked.
+     */
     onSelect: (provider: WexSwapProvider) => void;
 }
 
 /**
- * Converts provider pubkey into a CSS color.
+ * Computes CSS color for a provider's public key.
  * 
- * @param pubkey Provider's pubkey.
- * @returns String with CSS color.
+ * @param pubkey Public key of a provider.
+ * @returns CSS string with the color derived from the pubkey.
  */
-function pubkeyToColor(pubkey: string): string {
-    if (typeof pubkey !== "string" || pubkey.length !== 64) {
-        return "#64748b";
+function pubkeyToRgbColor(pubkey: string): string {
+    if (typeof pubkey !== "string") {
+        throw new TypeError("pubkey must be a string");
+    }
+    if (pubkey.length !== 64) {
+        throw new Error("pubkey must be 64 characters long");
     }
 
-    let hash = 0;
-    for (let i = 0; i < 64; i++) {
-        hash = (hash << 5) - hash + pubkey.charCodeAt(i);
-        hash = hash & hash;
+    // Hash the UTF‑8 bytes of the pubkey.
+    const hash = createHash("sha256")
+        .update(Buffer.from(pubkey, "utf8"))
+        .digest();
+
+    // Convert the full 32‑byte hash into a big integer.
+    let inputHash = 0n;
+    for (const byte of hash) {
+        inputHash = (inputHash << 8n) | BigInt(byte);
     }
 
-    const r = (hash >> 16) & 0xff;
-    const g = (hash >> 8) & 0xff;
-    const b = hash & 0xff;
+    const r = Number((inputHash & 0xFF0000n) >> 16n);
+    const g = Number((inputHash & 0x00FF00n) >> 8n);
+    const b = Number(inputHash & 0x0000FFn);
 
     return `rgb(${r}, ${g}, ${b})`;
 }
 
 /**
- * Converts a UNIX timestamp into a human-readable string describing how old the timestamp is.
+ * Converts string timestamp to human-readable "time ago".
  * 
- * @param timestamp UNIX timestamp to convert.
- * @returns Human-readable string describing how old the timestamp is.
+ * @param timestamp Timestamp as a string in 'YYYY-MM-DDZHH:MM:SS' format.
+ * @returns Human-readable "time ago".
  */
 function getLastSeen(timestamp: string): string {
     const providerTime = Math.floor(new Date(timestamp + "Z").getTime() / 1000);
-
     const now = Math.floor(Date.now() / 1000);
     const diff = now - providerTime;
 
@@ -61,50 +84,67 @@ function getLastSeen(timestamp: string): string {
     return m === 1 ? "1 month ago" : `${m} months ago`;
 }
 
+/**
+ * Renders swap providers table.
+ * 
+ * @param props Input propereties.
+ * @returns HTML with the swap provider table.
+ */
 export default function WexProviderTable(props: Props) {
     return (
         <div class="wex-provider-table">
-            <div class="max-h-[300px] overflow-auto border border-gray-300 rounded-lg bg-white">
-                <table class="w-full text-sm">
-                    <thead class="sticky top-0 bg-white border-b border-gray-300 z-10">
-                        <tr class="text-left text-gray-600">
-                            <th class="px-4 py-3 font-medium w-12"/>
-                            <th class="px-4 py-3 font-medium">Pubkey</th>
-                            <th class="px-4 py-3 font-medium text-right">Fee</th>
-                            <th class="px-4 py-3 font-medium text-right">Max Forward</th>
-                            <th class="px-4 py-3 font-medium text-right">Max Reverse</th>
-                            <th class="px-4 py-3 font-medium text-right">Last seen</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        <For each={props.providers()}>
-                            {(p) => {
-                                const isSelected = () => props.selected()?.pk === p.pk;
-                                const lastSeen = () => getLastSeen(p.time);
+            <div class="table-container">
+                <div class="table-body-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>Pubkey</th>
+                                <th>Fee</th>
+                                <th>Max Forward</th>
+                                <th>Max Reverse</th>
+                                <th>Last seen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <For each={props.providers()}>
+                                {(p) => {
+                                    const isSelected = () => props.selected()?.pk === p.pk;
+                                    const lastSeen = () => getLastSeen(p.time);
+                                    const color = () => pubkeyToRgbColor(p.pk);
 
-                                return (
-                                    <tr
-                                        class={`cursor-pointer hover:bg-blue-50 transition-colors ${isSelected() ? "bg-blue-100" : ""}`}
-                                        onClick={() => props.onSelect(p)}>
-                                        <td class="px-4 py-3">
-                                            <div
-                                                class="w-4 h-6 rounded"
-                                                style={{ "background-color": pubkeyToColor(p.pk) }}
-                                            />
-                                        </td>
-                                        <td class="px-4 py-3 font-mono text-xs break-all">
-                                            {p.pk.slice(0, 8)}…
-                                        </td>
-                                        <td class="px-4 py-3 text-right font-medium">{p.fwdFee}%</td>
-                                        <td class="px-4 py-3 text-right">{p.fwdMax}</td>
-                                        <td class="px-4 py-3 text-right">{p.revMax}</td>
-                                        <td class="px-4 py-3 text-right text-gray-500">{lastSeen()}</td>
-                                    </tr>
-                                );
-                            }}
-                        </For>
-                    </tbody>
-                </table>
+                                    return (
+                                        <tr
+                                            class={isSelected() ? "selected" : ""}
+                                            onClick={() => props.onSelect(p)}>
+                                            <td>
+                                                <div
+                                                    class="color-dot"
+                                                    style={{ "background-color": color() }}
+                                                />
+                                            </td>
+                                            <td class="pubkey">
+                                                {p.pk.slice(0, 8)}…
+                                            </td>
+                                            <td class="text-right font-medium text-white">
+                                                {p.fwdFee}%
+                                            </td>
+                                            <td class="text-right">
+                                                {p.fwdMax.toLocaleString()}
+                                            </td>
+                                            <td class="text-right">
+                                                {p.revMax.toLocaleString()}
+                                            </td>
+                                            <td class="text-right text-gray-400 whitespace-nowrap">
+                                                {lastSeen()}
+                                            </td>
+                                        </tr>
+                                    );
+                                }}
+                            </For>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
