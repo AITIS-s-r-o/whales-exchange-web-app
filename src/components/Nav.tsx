@@ -22,8 +22,8 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
             <div class="nav-inner">
                 <A id="logo" href="/" onClick={() => setHideHero(false)}>
                     <div class="wex-header-logo">
-                        <div id="wex-logo-image" aria-label="Whale's Exchange logo" />
-                        <span>WHALE'S<br />EXCHANGE</span>
+                        <span id="wex-logo-image" aria-label="Whale's Exchange logo" />
+                        <span class="wex-sitename">WHALE'S<br />EXCHANGE</span>
                     </div>
                     { /*WEX <div
                         id="logo-mask"
