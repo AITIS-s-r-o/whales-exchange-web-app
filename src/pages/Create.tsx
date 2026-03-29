@@ -281,7 +281,7 @@ const Create = () => {
             ),
         );
         validateAmount();
-        sendAmountRef?.focus();
+        sendAmountRef?.focus({ preventScroll: true });
     };
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
@@ -345,7 +345,7 @@ const Create = () => {
             log.error(`Failed to load swap providers: ${formatError(e)}`);
         }
 
-        sendAmountRef?.focus();
+        sendAmountRef?.focus({ preventScroll: true });
     });
 
     createEffect(
@@ -380,7 +380,7 @@ const Create = () => {
 
         const ref =
             assetSelected() === Side.Send ? sendAmountRef : receiveAmountRef;
-        ref?.focus();
+        ref?.focus({ preventScroll: true });
     });
 
     createEffect(() => {
@@ -545,7 +545,6 @@ const Create = () => {
                                 class={`${showFiatAmount() ? "input-with-label" : ""}`}>
                                 <input
                                     ref={sendAmountRef}
-                                    autofocus
                                     required
                                     type="text"
                                     placeholder="0"
