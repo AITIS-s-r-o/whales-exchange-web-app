@@ -52,21 +52,6 @@ export default defineConfig({
     },
     server: {
         cors: { origin: "*" },
-
-        // Electrum does not provide CORS header, so we setup a proxy that injects the CORS header.
-        proxy: {
-            '/electrum-rpc': {
-                // The target has to point to the local Electrum daemon RPC endpoint.
-                target: 'http://localhost:7777',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/electrum-rpc/, ''),
-                configure: (proxy, _options) => {
-                    proxy.on('proxyReq', (proxyReq) => {
-                        proxyReq.setHeader('Origin', 'http://localhost:7777');
-                    });
-                },
-            },
-        },
     },
     build: {
         cssCodeSplit: true,
