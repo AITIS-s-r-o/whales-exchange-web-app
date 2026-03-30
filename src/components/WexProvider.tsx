@@ -1,7 +1,7 @@
 import type { Accessor } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
 import { createMemo } from "solid-js";
-import { pubkeyToRgbColor } from "../components/WexProviderTable";   // reuse the color function from your table
+import { pubkeyToRgbColor } from "./WexProviderTable";
 import "../style/wexProvider.scss";
 
 /**
