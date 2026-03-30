@@ -82,10 +82,7 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
  */
 export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]> => {
     try {
-        const response = await fetcher<WexGetSwapProvidersResponse>(
-            "/get-swap-providers",
-            null
-        );
+        const response = await fetcher<WexGetSwapProvidersResponse>("/get-swap-providers", null);
 
         if (!response?.success) {
             return [];
