@@ -10,9 +10,7 @@ import "../style/wexProvider.scss";
  * This component displays the selected provider details.
  */
 interface Props {
-    /**
-     * Selected provider to display.
-     */
+    /** Selected provider to display. */
     provider: Accessor<WexSwapProvider | null>;
 
     /**
