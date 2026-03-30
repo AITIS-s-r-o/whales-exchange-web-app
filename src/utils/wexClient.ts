@@ -76,7 +76,7 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
 }
 
 /**
- * Gets sorted list of swap providrs from the API server.
+ * Gets sorted list of swap providers from the API server.
  * 
  * @returns Returns a list swap providers, sorted by PoW (descending) and then by pubkey (ascending). If the method fails, empty array is returned.
  */
