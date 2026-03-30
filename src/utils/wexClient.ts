@@ -101,7 +101,7 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
                 `Min: ${provider.fwdMin} sat | ` +
                 `Max Forward: ${provider.fwdMax} sat | ` +
                 `Max Reverse: ${provider.revMax} sat | ` +
-                `Fee: ${(provider.fwdFee).toFixed(2)}% | ` +
+                `Fee: ${provider.fwdFee.toFixed(2)}% | ` +
                 `Timestamp: ${provider.time} (diff ${timeDiff})`
             );
         });
