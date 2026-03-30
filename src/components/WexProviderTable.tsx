@@ -88,7 +88,7 @@ function getLastSeen(timestamp: string, t: (key: string) => string): string {
 /**
  * Renders swap providers table.
  * 
- * @param props Input propereties.
+ * @param props Input properties.
  * @returns HTML with the swap provider table.
  */
 export default function WexProviderTable(props: Props) {

@@ -27,7 +27,7 @@ interface Props {
 /**
  * Renders the selected provider details.
  * 
- * @param props Input propereties.
+ * @param props Input properties.
  * @returns HTML with the selected provider details.
  */
 export default function WexProvider(props: Props) {
