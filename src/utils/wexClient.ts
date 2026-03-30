@@ -90,6 +90,8 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
 
         const utcTimeSec: number = Math.floor(Date.now() / 1000); 
         const result = response.data;
+
+        // Log debug data.
         result.forEach((provider, index) => {
             const providerTime = Math.floor(new Date(provider.time + "Z").getTime() / 1000);
             const timeDiff = utcTimeSec - providerTime;
