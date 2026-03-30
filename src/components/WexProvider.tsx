@@ -31,7 +31,6 @@ interface Props {
  * @returns HTML with the selected provider details.
  */
 export default function WexProvider(props: Props) {
-    // Create memoized values so they react properly
     const currentProvider = createMemo(() => props.provider());
 
     const color = createMemo(() => {
