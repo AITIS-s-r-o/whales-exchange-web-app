@@ -61,6 +61,7 @@ export function pubkeyToRgbColor(pubkey: string): string {
  * Converts string timestamp to human-readable "time ago".
  * 
  * @param timestamp Timestamp as a string in 'YYYY-MM-DDZHH:MM:SS' format.
+ * @param t Translation function.
  * @returns Human-readable "time ago".
  */
 function getLastSeen(timestamp: string, t: (key: string) => string): string {
