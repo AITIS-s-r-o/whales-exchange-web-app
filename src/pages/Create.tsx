@@ -305,8 +305,8 @@ const Create = () => {
         try {
             const data = await wexGetSubmarineSwapProviders();
             setProviders(data);
-            // auto-select the first provider (you can remove this if you prefer none selected)
-            if (data.length > 0) setSelectedProvider(data[0]);
+            if (data.length > 0)
+                setSelectedProvider(data[0]);
         } catch (e) {
             log.error(`Failed to load swap providers: ${formatError(e)}`);
         }

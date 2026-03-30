@@ -46,21 +46,13 @@ export interface WexSwapProvider {
  * Follows the success/data/error pattern from the backend.
  */
 export interface WexRestResponseBase {
-    /**
-     * `true` if the API call succeeded, `false` otherwise.
-     */
+    /** `true` if the API call succeeded, `false` otherwise. */
     success: boolean;
 
-    /**
-     * If `success` is `true`, this contains the result of the API call;
-     * otherwise this is `null`.
-     */
+    /** If `success` is `true`, this contains the result of the API call; otherwise this is `null`. */
     data: unknown;
 
-    /**
-     * If `success` is `false`, this is the error message;
-     * otherwise this is `null`.
-     */
+    /** If `success` is `false`, this is the error message; otherwise this is `null`. */
     error: string | null;
 }
 
