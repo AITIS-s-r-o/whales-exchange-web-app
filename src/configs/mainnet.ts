@@ -37,6 +37,7 @@ const config = {
                 },
             ],
         },
+        /*WEX
         "L-BTC": {
             blockExplorerUrl: {
                 id: Explorer.Esplora,
@@ -78,7 +79,7 @@ const config = {
                     "0x44944a80861120B58cc48B066d57cDAf5eC213dd",
                 deployVerifier: "0xc0F5bEF6b20Be41174F826684c663a8635c6A081",
             },
-        },
+        },*/
     },
 } as Config;
 

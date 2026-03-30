@@ -16,5 +16,5 @@
 *.sh    text eol=lf
 
 # Keep CRLF only for Windows-specific files (e.g. .csproj, .sln if needed)
-*.sln   text eol=crlf
+*.slnx  text eol=crlf
 *.csproj text eol=crlf

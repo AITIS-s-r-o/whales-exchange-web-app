@@ -1,6 +1,6 @@
 import { crypto } from "bitcoinjs-lib";
 
-import { mnemonicToHDKey, rskDerivationPath } from "../../utils/rescueFile";
+import { mnemonicToHDKey/*WEX, rskDerivationPath */} from "../../utils/rescueFile";
 import { maxIterations } from "./constants";
 
 const batchSize = 1_000;
@@ -13,7 +13,7 @@ export type PreimageHashMessage = {
 };
 
 self.onmessage = ({ data }: MessageEvent<{ mnemonic: string }>) => {
-    const parentKey = mnemonicToHDKey(data.mnemonic).derive(rskDerivationPath);
+    const parentKey = mnemonicToHDKey(data.mnemonic).derive("" /*WEX rskDerivationPath*/);
     let entries: PreimageHashEntry[] = [];
 
     for (let i = 0; i < maxIterations; i++) {
