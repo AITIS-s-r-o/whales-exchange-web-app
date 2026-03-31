@@ -8,6 +8,7 @@ import type { TransactionInterface } from "./compat";
 import { txToHex } from "./compat";
 import { fetcher, getReferral } from "./helper";
 import { validateInvoiceForOffer } from "./invoice";
+import type { WexSwapProvider } from "./wexClient";
 
 const cooperativeErrorMessage = "cooperative signatures for swaps are disabled";
 const checkCooperative = () => {
@@ -215,12 +216,128 @@ export type SwapStatus = {
     };
 };
 
+
+/** Reference to the signal getter from Create.tsx. */
+let wexGetSelectedProvider: (() => WexSwapProvider | null) | null = null;
+
+/**
+ * Initializes the provider signal for use by `getPairs()`.
+ * 
+ * This function must be called once during application startup (typically in `Create.tsx`) to connect the selected provider signal from the UI to the boltzClient.
+ * 
+ * After calling this, `getPairs()` will dynamically build swap pairs based on the currently selected provider instead of fetching them from the server.
+ * 
+ * @param getProvider - Getter function that returns the currently selected provider.
+ */
+export function wexInitProviderSignal(getProvider: () => WexSwapProvider | null): void {
+    wexGetSelectedProvider = getProvider;
+}
+
+/* WEX
 export const getPairs = async (options?: RequestInit): Promise<Pairs> => {
     const [submarine, reverse, chain] = await Promise.all([
         fetcher<SubmarinePairsTaproot>("/v2/swap/submarine", null, options),
         fetcher<ReversePairsTaproot>("/v2/swap/reverse", null, options),
         fetcher<ChainPairsTaproot>("/v2/swap/chain", null, options),
     ]);
+
+    return {
+        [SwapType.Chain]: chain,
+        [SwapType.Reverse]: reverse,
+        [SwapType.Submarine]: submarine,
+    };
+};*/
+
+/**
+ * Retrieves swap pairs configuration based on the currently selected provider.
+ * 
+ * Unlike the original implementation that fetched pairs from the Boltz API, this version uses the user-selected WexSwapProvider to dynamically build the submarine and reverse
+ * swap pairs.
+ *
+ * Chain swaps are intentionally returned as empty since LBTC/RBTC are not supported in this fork.
+ *
+ * The method waits until a provider is selected.
+ *
+ * @param options - Optional fetch options (RequestInit) for future compatibility. Currently not used as we no longer make network requests.
+ * 
+ * @returns Pairs object containing:
+ *   - `submarine`: Submarine swap pairs (BTC → LN) built from selected provider
+ *   - `reverse`: Reverse swap pairs (LN → BTC) built from selected provider
+ *   - `chain`: Always an empty object (chain swaps not supported)
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getPairs = async (options?: RequestInit): Promise<Pairs> => {
+    if (!wexGetSelectedProvider) {
+        log.debug("getPairs: Waiting for provider selection...");
+
+        // Wait for provider to be selected (polling every 100ms).
+        await new Promise<void>((resolve) => {
+            const interval = setInterval(() => {
+                if (wexGetSelectedProvider) {
+                    const checkProvider: WexSwapProvider | null = wexGetSelectedProvider!();
+                    if (checkProvider) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }
+            }, 50);
+
+            setTimeout(() => clearInterval(interval), 10000);
+        });
+    }
+
+    const provider: WexSwapProvider | null = wexGetSelectedProvider!();
+
+    // Submarine Pairs (Forward Swap: BTC → LN).
+    const submarinePair: SubmarinePairTypeTaproot = {
+        hash: provider.pk,
+        rate: 1,
+        limits: {
+            maximal: provider.fwdMax,
+            minimal: provider.fwdMin,
+            maximalZeroConf : 0,
+        },
+        fees: {
+            percentage: provider.fwdFee,
+            minerFees: provider.fwdMining,
+        },
+    };
+
+    const submarineBtcPair: Record<string, SubmarinePairTypeTaproot> = {
+        ["BTC"]: submarinePair
+    };
+
+    const submarine: SubmarinePairsTaproot = {
+        ["BTC"]: submarineBtcPair
+    };
+
+    // Reverse Pairs (Reverse Swap: LN → BTC).
+    const reversePair: ReversePairTypeTaproot = {
+        hash: provider.pk,
+        rate: 1,
+        limits: {
+            maximal: provider.revMax,
+            minimal: provider.revMin,
+        },
+        fees: {
+            percentage: provider.revFee,
+            minerFees: {
+                claim: provider.revMining,
+                lockup: provider.revMining,
+            }
+        },
+    }
+
+    const reverseBtcPair: Record<string, ReversePairTypeTaproot> = {
+        ["BTC"]: reversePair
+    };
+
+    const reverse: ReversePairsTaproot = {
+        ["BTC"]: reverseBtcPair,
+    };
+
+    // Chain swaps are always empty
+    const chain = {} as const;
 
     return {
         [SwapType.Chain]: chain,

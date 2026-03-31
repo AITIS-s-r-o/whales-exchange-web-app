@@ -31,7 +31,7 @@ const dict = {
         blockexplorer_refund_tx: "refund transaction",
         help: "Help",
         network_fee: "Network Fee",
-        fee: "Boltz Fee",
+        fee: "Swap Provider Fee",
         denomination: "Denomination",
         send: "Send",
         continue: "Continue",
@@ -43,7 +43,7 @@ const dict = {
         assets: "Multi-Layer",
         footer: "Made with 🧡 by Team Whale's Exchange",
         create_swap: "Create Atomic Swap",
-        create_swap_subline: "Payment Includes Network and Boltz Fee",
+        create_swap_subline: "Payment Includes Network and Swap Provider Fee",
         wex_select_provider: "Select Electrum Swap Provider",
         wex_select_provider_note: "Note that fees and liquidity may be updated frequently.",
         wex_selected_provider: "Selected Provider",
@@ -66,11 +66,12 @@ const dict = {
         wex_provider_table_seen_days_ago: "days ago",
         wex_provider_table_seen_month_ago: "month ago",
         wex_provider_table_seen_months_ago: "months ago",
+        wex_reverse_forward_disabled: "Forward swaps are not supported yet. Please come back soon!",
         new_swap: "New Swap",
         feecheck:
             "Network fee was updated based on network situation, please confirm new amounts and continue with swap.",
         create_and_paste:
-            "Paste a Lightning invoice, BOLT12 or LNURL to receive funds",
+            "Paste a BOLT11 Lightning invoice to receive funds",
         congrats: "Congratulations!",
         successfully_swapped:
             "You successfully received {{ amount }} {{ denomination }}!",
