@@ -2,7 +2,7 @@ import type { Accessor } from "solid-js";
 import { BigNumber } from "bignumber.js";
 import type { WexSwapProvider } from "../utils/wexClient";
 import { createMemo } from "solid-js";
-import { pubkeyToRgbColor } from "../components/WexProviderTable";   // reuse the color function from your table
+import { pubkeyToRgbColor } from "./WexProviderTable";
 import "../style/wexProvider.scss";
 import { formatAmount } from "../utils/denomination";
 import { type Denomination } from "../consts/Enums";
@@ -13,9 +13,7 @@ import { type Denomination } from "../consts/Enums";
  * This component displays the selected provider details.
  */
 interface Props {
-    /**
-     * Selected provider to display.
-     */
+    /** Selected provider to display. */
     provider: Accessor<WexSwapProvider | null>;
 
     /**
@@ -36,11 +34,10 @@ interface Props {
 /**
  * Renders the selected provider details.
  * 
- * @param props Input propereties.
+ * @param props Input properties.
  * @returns HTML with the selected provider details.
  */
 export default function WexProvider(props: Props) {
-    // Create memoized values so they react properly
     const currentProvider = createMemo(() => props.provider());
 
     const color = createMemo(() => {

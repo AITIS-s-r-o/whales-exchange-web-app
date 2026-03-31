@@ -22,7 +22,6 @@ import type {
 } from "./swapCreator";
 
 export const defaultTimeoutDuration = 15_000;
-export const wexDefaultTimeoutDurationElectrum = 30_000;
 
 export const isIos = () =>
     !!navigator.userAgent.match(/iphone|ipad/gi) || false;

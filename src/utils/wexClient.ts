@@ -46,21 +46,13 @@ export interface WexSwapProvider {
  * Follows the success/data/error pattern from the backend.
  */
 export interface WexRestResponseBase {
-    /**
-     * `true` if the API call succeeded, `false` otherwise.
-     */
+    /** `true` if the API call succeeded, `false` otherwise. */
     success: boolean;
 
-    /**
-     * If `success` is `true`, this contains the result of the API call;
-     * otherwise this is `null`.
-     */
+    /** If `success` is `true`, this contains the result of the API call; otherwise this is `null`. */
     data: unknown;
 
-    /**
-     * If `success` is `false`, this is the error message;
-     * otherwise this is `null`.
-     */
+    /** If `success` is `false`, this is the error message; otherwise this is `null`. */
     error: string | null;
 }
 
@@ -76,16 +68,13 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
 }
 
 /**
- * Gets sorted list of swap providrs from the API server.
+ * Gets sorted list of swap providers from the API server.
  * 
  * @returns Returns a list swap providers, sorted by PoW (descending) and then by pubkey (ascending). If the method fails, empty array is returned.
  */
 export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]> => {
     try {
-        const response = await fetcher<WexGetSwapProvidersResponse>(
-            "/get-swap-providers",
-            null
-        );
+        const response = await fetcher<WexGetSwapProvidersResponse>("/get-swap-providers", null);
 
         if (!response?.success) {
             return [];
@@ -93,6 +82,8 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
 
         const utcTimeSec: number = Math.floor(Date.now() / 1000); 
         const result = response.data;
+
+        // Log debug data.
         result.forEach((provider, index) => {
             const providerTime = Math.floor(new Date(provider.time + "Z").getTime() / 1000);
             const timeDiff = utcTimeSec - providerTime;
@@ -102,7 +93,7 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
                 `Min: ${provider.fwdMin} sat | ` +
                 `Max Forward: ${provider.fwdMax} sat | ` +
                 `Max Reverse: ${provider.revMax} sat | ` +
-                `Fee: ${(provider.fwdFee).toFixed(2)}% | ` +
+                `Fee: ${provider.fwdFee.toFixed(2)}% | ` +
                 `Timestamp: ${provider.time} (diff ${timeDiff})`
             );
         });
