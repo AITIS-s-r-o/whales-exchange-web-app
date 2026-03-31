@@ -10,8 +10,10 @@ trim_trailing_whitespace = true
 [*.{cs,csproj,vb,vbproj,config}]
 indent_style = space
 indent_size = 4
+max_line_length = 180
 
 # For front-end / scripts
 [*.{js,ts,jsx,tsx,json,yml,yaml,html,css,md,py,sh}]
 indent_style = space
 indent_size = 4
+max_line_length = 180

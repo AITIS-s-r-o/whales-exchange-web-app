@@ -70,6 +70,7 @@ export function pubkeyToRgbColor(pubkey: string): string {
  * Converts string timestamp to human-readable "time ago".
  * 
  * @param timestamp Timestamp as a string in 'YYYY-MM-DDZHH:MM:SS' format.
+ * @param t Translation function.
  * @returns Human-readable "time ago".
  */
 function getLastSeen(timestamp: string, t: (key: string) => string): string {
@@ -97,7 +98,7 @@ function getLastSeen(timestamp: string, t: (key: string) => string): string {
 /**
  * Renders swap providers table.
  * 
- * @param props Input propereties.
+ * @param props Input properties.
  * @returns HTML with the swap provider table.
  */
 export default function WexProviderTable(props: Props) {
