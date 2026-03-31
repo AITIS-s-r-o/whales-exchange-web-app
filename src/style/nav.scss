@@ -102,9 +102,8 @@ nav a.active {
     display: block;
     width: 64px;
     height: 64px;
-    margin-left: -6px;
-    margin-right: 7px;
-}
+    margin-left: -14px;
+}   
 
 #logo-mask {
     display: inline-block;
@@ -128,7 +127,6 @@ nav a.active {
 .wex-header-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 
 #logo-mask[boltz-theme="pro"] {
@@ -140,6 +138,7 @@ nav a.active {
 }
 #logo {
     z-index: 1;
+    text-decoration: none !important;
 }
 
 #hamburger {
@@ -266,4 +265,19 @@ body:has(#hamburger.active) {
     a:hover {
         color: currentColor;
     }
+}
+
+@font-face {
+    font-family: GoodTimes;
+    src: url(/src/assets/GoodTimes.otf) format("opentype");
+}
+
+.wex-sitename {
+    margin-right: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    font-family: GoodTimes;
+    font-style: normal;
+    text-decoration: none !important;
 }

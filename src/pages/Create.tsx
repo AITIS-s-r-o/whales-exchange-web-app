@@ -281,14 +281,13 @@ const Create = () => {
             ),
         );
         validateAmount();
-        sendAmountRef?.focus();
+        sendAmountRef?.focus({ preventScroll: true });
     };
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
     createEffect(() => {
-        const providerGetter = () => selectedProvider();
-        wexInitProviderSignal(providerGetter);
+        wexInitProviderSignal(selectedProvider);
     });
 
     // Update pairs whenever the selected provider changes
@@ -301,11 +300,11 @@ const Create = () => {
         }
 
         // Call async function outside of the effect.
-        void updatePairsFromProvider(provider);
+        void updatePairsFromProviderAsync(provider);
     });
 
     // Separate async function to avoid the warning
-    const updatePairsFromProvider = async (provider: WexSwapProvider) => {
+    const updatePairsFromProviderAsync = async (provider: WexSwapProvider) => {
         try {
             log.debug("Fetching pairs for provider:", provider.pk);
 
@@ -345,7 +344,7 @@ const Create = () => {
             log.error(`Failed to load swap providers: ${formatError(e)}`);
         }
 
-        sendAmountRef?.focus();
+        sendAmountRef?.focus({ preventScroll: true });
     });
 
     createEffect(
@@ -380,7 +379,7 @@ const Create = () => {
 
         const ref =
             assetSelected() === Side.Send ? sendAmountRef : receiveAmountRef;
-        ref?.focus();
+        ref?.focus({ preventScroll: true });
     });
 
     createEffect(() => {
@@ -545,7 +544,6 @@ const Create = () => {
                                 class={`${showFiatAmount() ? "input-with-label" : ""}`}>
                                 <input
                                     ref={sendAmountRef}
-                                    autofocus
                                     required
                                     type="text"
                                     placeholder="0"
