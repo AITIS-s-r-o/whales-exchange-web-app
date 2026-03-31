@@ -287,8 +287,7 @@ const Create = () => {
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
     createEffect(() => {
-        const providerGetter = () => selectedProvider();
-        wexInitProviderSignal(providerGetter);
+        wexInitProviderSignal(selectedProvider);
     });
 
     // Update pairs whenever the selected provider changes
@@ -301,11 +300,11 @@ const Create = () => {
         }
 
         // Call async function outside of the effect.
-        void updatePairsFromProvider(provider);
+        void updatePairsFromProviderAsync(provider);
     });
 
     // Separate async function to avoid the warning
-    const updatePairsFromProvider = async (provider: WexSwapProvider) => {
+    const updatePairsFromProviderAsync = async (provider: WexSwapProvider) => {
         try {
             log.debug("Fetching pairs for provider:", provider.pk);
 
