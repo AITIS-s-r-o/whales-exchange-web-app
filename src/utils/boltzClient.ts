@@ -8,7 +8,7 @@ import type { TransactionInterface } from "./compat";
 import { txToHex } from "./compat";
 import { fetcher, getReferral } from "./helper";
 import { validateInvoiceForOffer } from "./invoice";
-import type { WexSwapProvider } from "../utils/wexClient";
+import type { WexSwapProvider } from "./wexClient";
 
 const cooperativeErrorMessage = "cooperative signatures for swaps are disabled";
 const checkCooperative = () => {
