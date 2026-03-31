@@ -1,0 +1,99 @@
+@use "sass:color";
+@use "vars";
+@use "theme";
+
+.wex-selected-provider {
+    margin: 2rem 0 1.5rem 0;
+
+    .title {
+        color: #facc15;
+        font-size: 1.125rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .card {
+        background-color: #1e2937;
+        border: 1px solid #475569;
+        border-radius: 16px;
+        padding: 1.75rem;
+    }
+    /* Pubkey Section */
+    .pubkey-section {
+        margin-bottom: 1rem;
+
+        .label {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pubkey-row {
+            display: flex;
+            align-items: center; // vertically centered
+            gap: 12px;
+
+            .color-dot {
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+                flex-shrink: 0;
+                border: 2px solid #475569; // added border like in table
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .pubkey-text {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                font-size: 0.875rem;
+                color: #cbd5e1;
+                word-break: break-all;
+                line-height: 1.5;
+            }
+        }
+    }
+    /* Limits Table */
+    .limits-table {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: center;
+            padding: 0.2rem 0;
+            font-size: 0.75rem;
+            color: var(--color-text);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 0.75rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .label-cell {
+            font-size: 0.875rem;
+            color: var(--color-text);
+            font-weight: 500;
+            padding-right: 1rem;
+        }
+
+        .value {
+            color: #ffffff;
+        }
+    }
+
+    .no-provider {
+        text-align: center;
+        color: #94a3b8;
+        padding: 2rem 0;
+        font-size: 1rem;
+    }
+}
