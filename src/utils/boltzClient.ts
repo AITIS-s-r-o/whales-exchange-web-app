@@ -399,8 +399,10 @@ export const createReverseSwap = (
     pairHash: string,
     claimPublicKey?: string,
     claimAddress?: string,
-): Promise<ReverseCreatedResponse> =>
-    fetcher("/v2/swap/reverse", {
+): Promise<ReverseCreatedResponse> => {
+
+    /*
+    return fetcher("/v2/swap/reverse", {
         from,
         to,
         invoiceAmount,
@@ -410,6 +412,19 @@ export const createReverseSwap = (
         referralId: getReferral(),
         pairHash,
     });
+    */
+
+    return fetcher("/createswap", {
+        from,
+        to,
+        invoiceAmount,
+        preimageHash,
+        claimPublicKey,
+        claimAddress,
+        referralId: getReferral(),
+        pairHash,
+    });
+}
 
 export const createChainSwap = (
     from: string,
