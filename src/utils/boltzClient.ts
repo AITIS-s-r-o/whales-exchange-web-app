@@ -604,7 +604,10 @@ export const getReverseTransaction = (id: string) =>
         id: string;
         hex: string;
         timeoutBlockHeight: number;
-    }>(`/v2/swap/reverse/${id}/transaction`);
+    }>(
+        "/getswaptransaction", // Originally: `/v2/swap/reverse/${id}/transaction`,
+        { id: id }
+    );
 
 export const getSwapStatus = (id: string) =>
     fetcher<SwapStatus>(`/v2/swap/${id}`);
