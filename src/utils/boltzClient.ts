@@ -401,7 +401,7 @@ export const createReverseSwap = (
     claimAddress?: string, // TODO: Unused? Is it OK?
 ): Promise<ReverseCreatedResponse> => {
 
-    /*
+    /* WEX
     return fetcher("/v2/swap/reverse", {
         from,
         to,
