@@ -398,7 +398,7 @@ export const createReverseSwap = (
     preimageHash: string,
     pairHash: string,
     claimPublicKey?: string,
-    claimAddress?: string,
+    claimAddress?: string, // TODO: Unused? Is it OK?
 ): Promise<ReverseCreatedResponse> => {
 
     /*
@@ -414,16 +414,18 @@ export const createReverseSwap = (
     });
     */
 
-    return fetcher("/createswap", {
-        from,
-        to,
-        invoiceAmount,
-        preimageHash,
-        claimPublicKey,
-        claimAddress,
-        referralId: getReferral(),
-        pairHash,
-    });
+    // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/components/CreateButton.tsx#L120-L126
+    const params = {
+        type: "reversesubmarine",
+        pairId: from + "/" + to, // in v1, it was: `assetName + "/BTC"`
+        orderSide: "buy",
+        invoiceAmount: invoiceAmount, // The same as in v2.
+        preimageHash: preimageHash, // Should be OK.
+        claimPublicKey: claimPublicKey, // In v1, there is `keyPair.publicKey.toString("hex");`. It appears to be the same (claimPublicKey is in HEX).
+        pairHash: pairHash // Hopefully, the same as in v1: config()[`${assetName}/BTC`]["hash"];
+    };
+
+    return fetcher("/createswap", params);
 }
 
 export const createChainSwap = (
