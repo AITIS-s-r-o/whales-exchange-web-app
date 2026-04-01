@@ -554,9 +554,8 @@ export const broadcastTransaction = async (
     const promises: Promise<{
         id: string;
     }>[] = [
-        fetcher<{ id: string }>(`/v2/chain/${asset}/transaction`, {
-            hex: txHex,
-        }),
+            // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/helper.js#L236
+        fetcher<{ id: string }>(`/broadcasttransaction`, { hex: txHex, }),
         broadcastToExplorer(asset, txHex),
     ];
 
