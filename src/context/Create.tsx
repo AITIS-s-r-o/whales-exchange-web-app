@@ -317,7 +317,11 @@ const CreateProvider = (props: { children: JSX.Element }) => {
     const [bolt12Loading, setBolt12Loading] = createSignal(false);
 
     createEffect(() => {
+        console.log("[CreateProvider.createEffect] *");
+
         if (amountValid() && pairValid()) {
+            console.log("[CreateProvider.createEffect] Amount and pair are valid.");
+
             if (
                 (swapType() !== SwapType.Submarine && addressValid()) ||
                 (swapType() === SwapType.Submarine &&
@@ -325,10 +329,15 @@ const CreateProvider = (props: { children: JSX.Element }) => {
                     (assetReceive() !== RBTC || addressValid()))
             ) {
                 setValid(true);
+
+                console.log("[CreateProvider.createEffect] $<VALID>");
                 return;
             }
         }
+
         setValid(false);
+
+        console.log("[CreateProvider.createEffect] $<INVALID>");
     });
 
     // amounts
