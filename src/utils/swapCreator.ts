@@ -19,6 +19,7 @@ import {
 } from "./boltzClient";
 import { getPair } from "./helper";
 import { type RescueFile, derivePreimageFromRescueKey } from "./rescueFile";
+import type { WexSwapProvider } from "../utils/wexClient";
 
 export type SwapBase = {
     type: SwapType;
@@ -141,6 +142,7 @@ export const createSubmarine = async (
 };
 
 export const createReverse = async (
+    provider: WexSwapProvider,
     pairs: Pairs,
     assetSend: string,
     assetReceive: string,
@@ -152,6 +154,9 @@ export const createReverse = async (
     newKey: newKeyFn,
     originalDestination?: string,
 ): Promise<ReverseSwap> => {
+    console.log("[swapCreator.createReverse] * provider=%o, pairs=%o, assetSend=%s, assetReceive=%s, sendAmount=%o, receiveAmount=%o, claimAddress=%o, useRif=%o, rescueFile=%o, originalDestination=%o",
+        provider, pairs, assetSend, assetReceive, sendAmount, receiveAmount, claimAddress, useRif, rescueFile, originalDestination);
+
     const key = await newKey(assetReceive as AssetType);
     const preimage = generatePreimage({
         asset: assetReceive as AssetType,
@@ -159,10 +164,14 @@ export const createReverse = async (
         rescueFile,
     });
 
+    console.log("[swapCreator.createReverse] preimage is '%s'.", hex.encode(preimage));
+
     const res = await createReverseSwap(
+        provider,
         assetSend,
         assetReceive,
         Number(sendAmount),
+        Number(receiveAmount),
         hex.encode(sha256(preimage)),
         getPair(pairs, SwapType.Reverse, assetSend, assetReceive).hash,
         key !== undefined
@@ -171,7 +180,9 @@ export const createReverse = async (
         claimAddress,
     );
 
-    return {
+    console.log("[swapCreator.createReverse] Response is: %o", res);
+
+    const result = {
         ...annotateSwapBaseData(
             res,
             SwapType.Reverse,
@@ -186,6 +197,9 @@ export const createReverse = async (
         preimage: hex.encode(preimage),
         claimPrivateKeyIndex: key?.index,
     };
+
+    console.log("[swapCreator.createReverse] $=%o", result);
+    return result;
 };
 
 export const createChain = async (

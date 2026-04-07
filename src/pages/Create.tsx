@@ -99,6 +99,10 @@ const Create = () => {
         onchainAddress,
         lnurl,
         bolt12Offer,
+
+        // WEX.
+        selectedProvider,
+        setSelectedProvider,
     } = useCreateContext();
     const { signer } = useWeb3Signer();
     const navigate = useNavigate();
@@ -285,7 +289,6 @@ const Create = () => {
     };
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
-    const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
     createEffect(() => {
         wexInitProviderSignal(selectedProvider);
     });
@@ -456,6 +459,7 @@ const Create = () => {
                     <h2 class="text-xl font-semibold mt-10 mb-4">{t("wex_select_provider")}</h2>
                     {t("wex_select_provider_note")} <br />
 
+                    {/* Table under "Select Electrum Swap Provider" heading. */}
                     <WexProviderTable
                         providers={providers}
                         selected={selectedProvider}
@@ -473,6 +477,7 @@ const Create = () => {
                     />
                     <hr class="spacer" />
 
+                    {/* "Create Atomic Swap" form. */}
                     <h2 data-testid="create-swap-title">{t("create_swap")}</h2>
                     {t("create_swap_subline")} <br />
                     <span class="swap-limits">
@@ -631,6 +636,8 @@ const Create = () => {
                         <ConnectWallet disabled={() => !pairValid()} />
                         <hr class="spacer" />
                     </Show>
+
+                    {/* Submit button for the form. */}
                     <CreateButton />
                     <AssetSelect />
                     <SettingsMenu />

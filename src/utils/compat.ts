@@ -64,15 +64,21 @@ const getBtcNetwork = (network?: string): BTC_NETWORK => {
 };
 
 const decodeAddress = (asset: string, addr: string): DecodedAddress => {
+    console.log("[decodeAddress] * asset=%s, addr=%s", asset, addr);
+
     if (asset === LBTC) {
         const liquidNet =
             config.network === "mainnet" ? "liquid" : config.network;
+
+        console.log("[decodeAddress] liquidNet=%s", liquidNet);
+
         const network = LiquidNetworks[liquidNet] as LiquidNetwork;
         const script = LiquidAddress.toOutputScript(addr, network);
 
         // This throws for unconfidential addresses -> fallback to output script decoding
         try {
             const decoded = LiquidAddress.fromConfidential(addr);
+            console.log("[decodeAddress] $<RESULT_1>");
 
             return {
                 script,
@@ -84,6 +90,7 @@ const decodeAddress = (asset: string, addr: string): DecodedAddress => {
             /* empty */
         }
 
+        console.log("[decodeAddress] $<RESULT_2>");
         return { script };
     }
 
@@ -91,6 +98,7 @@ const decodeAddress = (asset: string, addr: string): DecodedAddress => {
     const decoded = btcAddr.decode(addr);
     const script = OutScript.encode(decoded);
 
+    console.log("[decodeAddress] $<RESULT_3>=%o", script);
     return { script };
 };
 
@@ -119,9 +127,14 @@ const probeUserInputOption = async (
     asset: string,
     input: string,
 ): Promise<boolean> => {
+    console.log("[probeUserInputOption] * asset=%s, input=%s", asset, input);
+
     switch (asset) {
         case LN: {
+            console.log("[probeUserInputOption] LN case");
             const invoice = extractInvoice(input);
+            console.log("[probeUserInputOption] Invoice=%o", invoice);
+
             return (
                 isLnurl(invoice) ||
                 isInvoice(invoice) ||
@@ -132,11 +145,16 @@ const probeUserInputOption = async (
         default:
             try {
                 const address = extractAddress(input);
+                console.log("[probeUserInputOption] Extracted address %s", address);
+
                 decodeAddress(asset, address);
+
+                console.log("[probeUserInputOption] $=true");
                 return true;
 
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (e) {
+                console.log("[probeUserInputOption] $=false; exception=%o", e);
                 return false;
             }
     }
@@ -146,7 +164,10 @@ const probeUserInput = async (
     expectedAsset: string,
     input: string,
 ): Promise<string | null> => {
+    console.log("[probeUserInput] * expectedAsset=%s, input=%s", expectedAsset, input);
+
     if (typeof input !== "string") {
+        console.log("[probeUserInput] $<NOT_STRING>");
         return null;
     }
 
@@ -154,15 +175,18 @@ const probeUserInput = async (
         expectedAsset !== "" &&
         (await probeUserInputOption(expectedAsset, input))
     ) {
+        console.log("[probeUserInput] $=%s", expectedAsset);
         return expectedAsset;
     }
 
     for (const asset of possibleUserInputTypes) {
+        console.log("[probeUserInput] Checking asset '%s' and input '%s'", asset, input);
         if (await probeUserInputOption(asset, input)) {
             return asset;
         }
     }
 
+    console.log("[probeUserInput] $<NULL>");
     return null;
 };
 

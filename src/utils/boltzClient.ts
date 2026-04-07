@@ -392,15 +392,21 @@ export const createSubmarineSwap = (
     });
 
 export const createReverseSwap = (
+    provider: WexSwapProvider,
     from: string,
     to: string,
     invoiceAmount: number,
+    receiveAmount: number,
     preimageHash: string,
     pairHash: string,
     claimPublicKey?: string,
-    claimAddress?: string,
-): Promise<ReverseCreatedResponse> =>
-    fetcher("/v2/swap/reverse", {
+    claimAddress?: string, // TODO: Unused? Is it OK?
+): Promise<ReverseCreatedResponse> => {
+    console.log("[swapCreator.createReverseSwap] * provider.pk=%s, from=%s, to=%s, invoiceAmount=%d, receiveAmount=%d, preimageHash=%s, pairHash=%s, claimPublicKey=%s, claimAddress=%s",
+        provider.pk, from, to, invoiceAmount, receiveAmount, preimageHash, pairHash, claimPublicKey, claimAddress);
+
+    /* WEX
+    return fetcher("/v2/swap/reverse", {
         from,
         to,
         invoiceAmount,
@@ -410,6 +416,25 @@ export const createReverseSwap = (
         referralId: getReferral(),
         pairHash,
     });
+    */
+
+    // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/components/CreateButton.tsx#L120-L126
+    const params = {
+        type: "reversesubmarine",
+        pairId: from + "/" + to, // in v1, it was: `assetName + "/BTC"`
+        orderSide: "buy",
+        invoiceAmount: invoiceAmount, // The same as in v2.
+        expectedAmount: receiveAmount,
+        preimageHash: preimageHash, // Should be OK.
+        claimPublicKey: claimPublicKey, // In v1, there is `keyPair.publicKey.toString("hex");`. It appears to be the same (claimPublicKey is in HEX).
+        pairHash: provider.pk
+    };
+
+    const result = fetcher<ReverseCreatedResponse>("/createswap", params);
+
+    console.log("[swapCreator.createReverseSwap] $=%o", result);
+    return result;
+}
 
 export const createChainSwap = (
     from: string,
@@ -537,9 +562,8 @@ export const broadcastTransaction = async (
     const promises: Promise<{
         id: string;
     }>[] = [
-        fetcher<{ id: string }>(`/v2/chain/${asset}/transaction`, {
-            hex: txHex,
-        }),
+            // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/helper.js#L236
+        fetcher<{ id: string }>(`/broadcasttransaction`, { hex: txHex, }),
         broadcastToExplorer(asset, txHex),
     ];
 
@@ -588,7 +612,10 @@ export const getReverseTransaction = (id: string) =>
         id: string;
         hex: string;
         timeoutBlockHeight: number;
-    }>(`/v2/swap/reverse/${id}/transaction`);
+    }>(
+        "/getswaptransaction", // Originally: `/v2/swap/reverse/${id}/transaction`,
+        { id: id }
+    );
 
 export const getSwapStatus = (id: string) =>
     fetcher<SwapStatus>(`/v2/swap/${id}`);

@@ -18,6 +18,9 @@ import { validateAddress } from "../utils/compat";
 import { isInvoice, isLnurl } from "../utils/invoice";
 import { getUrlParam, resetUrlParam, urlParamIsSet } from "../utils/urlParams";
 
+// WEX.
+import type { WexSwapProvider } from "../utils/wexClient";
+
 const isValidForAsset = (asset: typeof BTC | typeof LBTC, address: string) => {
     try {
         return validateAddress(asset, address);
@@ -264,6 +267,10 @@ export type CreateContextType = {
     invoiceError: Accessor<DictKey>;
     bolt12Loading: Accessor<boolean>;
     setBolt12Loading: Setter<boolean>;
+
+    // WEX
+    selectedProvider: Accessor<WexSwapProvider | null>;
+    setSelectedProvider: Setter<WexSwapProvider | null>;
 };
 
 const CreateContext = createContext<CreateContextType>();
@@ -316,8 +323,15 @@ const CreateProvider = (props: { children: JSX.Element }) => {
     );
     const [bolt12Loading, setBolt12Loading] = createSignal(false);
 
+    /* WEX */
+    const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
+
     createEffect(() => {
+        console.log("[CreateProvider.createEffect] *");
+
         if (amountValid() && pairValid()) {
+            console.log("[CreateProvider.createEffect] Amount and pair are valid.");
+
             if (
                 (swapType() !== SwapType.Submarine && addressValid()) ||
                 (swapType() === SwapType.Submarine &&
@@ -325,10 +339,15 @@ const CreateProvider = (props: { children: JSX.Element }) => {
                     (assetReceive() !== RBTC || addressValid()))
             ) {
                 setValid(true);
+
+                console.log("[CreateProvider.createEffect] $<VALID>");
                 return;
             }
         }
+
         setValid(false);
+
+        console.log("[CreateProvider.createEffect] $<INVALID>");
     });
 
     // amounts
@@ -412,6 +431,10 @@ const CreateProvider = (props: { children: JSX.Element }) => {
                 setInvoiceError,
                 bolt12Loading,
                 setBolt12Loading,
+
+                /* WEX */
+                selectedProvider,
+                setSelectedProvider,
             }}>
             {props.children}
         </CreateContext.Provider>
