@@ -216,7 +216,9 @@ export const SwapChecker = () => {
             prepareSwap,
             claimSwap,
         );
-        ws.connect();
+
+        // WEX-TODO: Uncomment this once it works.
+        // ws.connect();
     });
 
     onCleanup(() => {
