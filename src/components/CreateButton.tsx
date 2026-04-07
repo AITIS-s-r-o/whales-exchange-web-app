@@ -138,6 +138,9 @@ const CreateButton = () => {
         setSendAmount,
         setReceiveAmount,
         bolt12Loading,
+        // WEX.
+        selectedProvider,
+        setSelectedProvider,
     } = useCreateContext();
     const { getEtherSwap, signer, providers, walletConnected } =
         useWeb3Signer();
@@ -535,6 +538,7 @@ const CreateButton = () => {
                     console.log("[CreateButton.createSwap] swapType is 'Reverse'");
 
                     data = await createReverse(
+                        selectedProvider(),
                         pairs(),
                         coalesceLn(assetSend()),
                         coalesceLn(assetReceive()),

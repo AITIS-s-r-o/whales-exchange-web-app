@@ -99,6 +99,10 @@ const Create = () => {
         onchainAddress,
         lnurl,
         bolt12Offer,
+
+        // WEX.
+        selectedProvider,
+        setSelectedProvider,
     } = useCreateContext();
     const { signer } = useWeb3Signer();
     const navigate = useNavigate();
@@ -285,7 +289,6 @@ const Create = () => {
     };
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
-    const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
     createEffect(() => {
         wexInitProviderSignal(selectedProvider);
     });

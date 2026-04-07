@@ -392,6 +392,7 @@ export const createSubmarineSwap = (
     });
 
 export const createReverseSwap = (
+    provider: WexSwapProvider,
     from: string,
     to: string,
     invoiceAmount: number,
@@ -400,6 +401,8 @@ export const createReverseSwap = (
     claimPublicKey?: string,
     claimAddress?: string, // TODO: Unused? Is it OK?
 ): Promise<ReverseCreatedResponse> => {
+    console.log("[swapCreator.createReverseSwap] * provider.pk=%s, from=%s, to=%s, invoiceAmount=%d, preimageHash=%s, pairHash=%s, claimPublicKey=%s, claimAddress=%s",
+        provider.pk, from, to, invoiceAmount, preimageHash, pairHash, claimPublicKey, claimAddress);
 
     /* WEX
     return fetcher("/v2/swap/reverse", {
@@ -420,12 +423,16 @@ export const createReverseSwap = (
         pairId: from + "/" + to, // in v1, it was: `assetName + "/BTC"`
         orderSide: "buy",
         invoiceAmount: invoiceAmount, // The same as in v2.
+        expectedAmount: invoiceAmount, // TODO. Fix this
         preimageHash: preimageHash, // Should be OK.
         claimPublicKey: claimPublicKey, // In v1, there is `keyPair.publicKey.toString("hex");`. It appears to be the same (claimPublicKey is in HEX).
-        pairHash: pairHash // Hopefully, the same as in v1: config()[`${assetName}/BTC`]["hash"];
+        pairHash: provider.pk
     };
 
-    return fetcher("/createswap", params);
+    const result = fetcher<ReverseCreatedResponse>("/createswap", params);
+
+    console.log("[swapCreator.createReverseSwap] $=%o", result);
+    return result;
 }
 
 export const createChainSwap = (

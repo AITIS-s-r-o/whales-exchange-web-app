@@ -19,6 +19,7 @@ import {
 } from "./boltzClient";
 import { getPair } from "./helper";
 import { type RescueFile, derivePreimageFromRescueKey } from "./rescueFile";
+import type { WexSwapProvider } from "../utils/wexClient";
 
 export type SwapBase = {
     type: SwapType;
@@ -141,6 +142,7 @@ export const createSubmarine = async (
 };
 
 export const createReverse = async (
+    provider: WexSwapProvider,
     pairs: Pairs,
     assetSend: string,
     assetReceive: string,
@@ -152,8 +154,8 @@ export const createReverse = async (
     newKey: newKeyFn,
     originalDestination?: string,
 ): Promise<ReverseSwap> => {
-    console.log("[swapCreator.createReverse] * pairs=%o, assetSend=%s, assetReceive=%s, sendAmount=%o, receiveAmount=%o, claimAddress=%o, useRif=%o, rescueFile=%o, originalDestination=%o",
-        pairs, assetSend, assetReceive, sendAmount, receiveAmount, claimAddress, useRif, rescueFile, originalDestination);
+    console.log("[swapCreator.createReverse] * provider=%o, pairs=%o, assetSend=%s, assetReceive=%s, sendAmount=%o, receiveAmount=%o, claimAddress=%o, useRif=%o, rescueFile=%o, originalDestination=%o",
+        provider, pairs, assetSend, assetReceive, sendAmount, receiveAmount, claimAddress, useRif, rescueFile, originalDestination);
 
     const key = await newKey(assetReceive as AssetType);
     const preimage = generatePreimage({
@@ -165,6 +167,7 @@ export const createReverse = async (
     console.log("[swapCreator.createReverse] preimage is '%s'.", hex.encode(preimage));
 
     const res = await createReverseSwap(
+        provider,
         assetSend,
         assetReceive,
         Number(sendAmount),
