@@ -46,7 +46,7 @@ const bip353Prefix = "₿";
 export const decodeInvoice = async (
     invoice: string,
 ): Promise<{ type: InvoiceType; satoshis: number; preimageHash: string }> => {
-    console.log("[Invoice.decodeInvoice] * type=%s, satoshis=%d, preimageHash=%s", type, satoshis, preimageHash);
+    console.log("[Invoice.decodeInvoice] * invoice=%s", invoice);
 
     try {
         const decoded = bolt11.decode(invoice);
