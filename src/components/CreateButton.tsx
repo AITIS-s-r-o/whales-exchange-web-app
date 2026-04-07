@@ -383,6 +383,8 @@ const CreateButton = () => {
         claimAddress: string,
         useRif: boolean,
     ): Promise<boolean> => {
+        console.log("[CreateButton.createSwap] * claimAddress=%s, useRif=%s", claimAddress, useRif);
+
         if (
             !rescueFileBackupDone() &&
             assetSend() !== RBTC &&
@@ -396,6 +398,8 @@ const CreateButton = () => {
             let data: SomeSwap;
             switch (swapType()) {
                 case SwapType.Submarine: {
+                    console.log("[CreateButton.createSwap] swapType is 'Submarine'");
+
                     const createSubmarineSwap = async () => {
                         data = await createSubmarine(
                             pairs(),
@@ -528,6 +532,8 @@ const CreateButton = () => {
                 }
 
                 case SwapType.Reverse:
+                    console.log("[CreateButton.createSwap] swapType is 'Reverse'");
+
                     data = await createReverse(
                         pairs(),
                         coalesceLn(assetSend()),
@@ -542,6 +548,8 @@ const CreateButton = () => {
                     break;
 
                 case SwapType.Chain:
+                    console.log("[CreateButton.createSwap] swapType is 'Chain'");
+
                     data = await createChain(
                         pairs(),
                         assetSend(),
@@ -557,6 +565,7 @@ const CreateButton = () => {
             }
 
             try {
+                console.log("[CreateButton.createSwap] Validate response; data=%o, deriveKey=%o", data, deriveKey);
                 await validateResponse(data, deriveKey, getEtherSwap);
             } catch (e) {
                 const error = e instanceof Error ? e : new Error(String(e));
@@ -617,9 +626,12 @@ const CreateButton = () => {
     };
 
     const buttonClick = async () => {
+        console.log("[CreateButton.buttonClick] *");
+
         setLoading(true);
         try {
             if (validWayToFetchInvoice()) {
+                console.log("[CreateButton.buttonClick] About to fetch an invoice.");
                 await fetchInvoice();
             }
 
@@ -629,15 +641,22 @@ const CreateButton = () => {
                 onchainAddress,
             );
 
-            if (!valid()) return;
+            if (!valid()) {
+                console.log("[CreateButton.buttonClick] $<NOT_VALID>");
+                return;
+            }
 
+            console.log("[CreateButton.buttonClick] Create swap.");
             await createSwap(claimAddress, useRif);
         } catch (e) {
             log.error("Error creating swap", e);
+            console.log("[CreateButton.buttonClick] Error creating swap.", e);
             notify("error", e);
         } finally {
             setLoading(false);
         }
+
+        console.log("[CreateButton.buttonClick] *");
     };
 
     onMount(() => {

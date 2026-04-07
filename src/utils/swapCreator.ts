@@ -152,12 +152,17 @@ export const createReverse = async (
     newKey: newKeyFn,
     originalDestination?: string,
 ): Promise<ReverseSwap> => {
+    console.log("[swapCreator.createReverse] * pairs=%o, assetSend=%s, assetReceive=%s, sendAmount=%o, receiveAmount=%o, claimAddress=%o, useRif=%o, rescueFile=%o, originalDestination=%o",
+        pairs, assetSend, assetReceive, sendAmount, receiveAmount, claimAddress, useRif, rescueFile, originalDestination);
+
     const key = await newKey(assetReceive as AssetType);
     const preimage = generatePreimage({
         asset: assetReceive as AssetType,
         keyIndex: key?.index,
         rescueFile,
     });
+
+    console.log("[swapCreator.createReverse] preimage is '%s'.", hex.encode(preimage));
 
     const res = await createReverseSwap(
         assetSend,
@@ -171,7 +176,9 @@ export const createReverse = async (
         claimAddress,
     );
 
-    return {
+    console.log("[swapCreator.createReverse] Response is: %o", res);
+
+    const result = {
         ...annotateSwapBaseData(
             res,
             SwapType.Reverse,
@@ -186,6 +193,9 @@ export const createReverse = async (
         preimage: hex.encode(preimage),
         claimPrivateKeyIndex: key?.index,
     };
+
+    console.log("[swapCreator.createReverse] $=%o", result);
+    return result;
 };
 
 export const createChain = async (

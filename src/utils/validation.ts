@@ -127,16 +127,23 @@ const validateReverse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
+    console.log("[CreateButton.validateReverse] * swap=%o", swap);
+
     const invoiceData = await decodeInvoice(swap.invoice);
+    console.log("[CreateButton.validateReverse] Invoice data is: %o", invoiceData);
 
     // Amounts
     if (invoiceData.satoshis !== swap.sendAmount) {
+        console.log("[CreateButton.validateReverse] $<INVALID_SEND_AMOUNTS>", invoiceData.satoshis, swap.sendAmount);
+
         throw new Error(
             invalidSendAmountMsg(invoiceData.satoshis, swap.sendAmount),
         );
     }
 
     if (swap.onchainAmount <= swap.receiveAmount) {
+        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNTS>", swap.onchainAmount, swap.receiveAmount);
+
         throw new Error(
             invalidReceiveAmountMsg(swap.onchainAmount, swap.receiveAmount),
         );
@@ -145,12 +152,15 @@ const validateReverse = async (
     // Invoice
     const preimageHash = sha256(hex.decode(swap.preimage));
     if (invoiceData.preimageHash !== hex.encode(preimageHash)) {
+        console.log("[CreateButton.validateReverse] $<INVALID_PREIMAGE_HASH>", invoiceData.preimageHash, preimageHash, hex.encode(preimageHash));
+
         throw new Error(
             `invalid swap preimage hash. Expected ${hex.encode(preimageHash)}, got ${invoiceData.preimageHash}`,
         );
     }
 
     if (swap.assetReceive === RBTC) {
+        console.log("[CreateButton.validateReverse] Validate RBTC contract");
         await validateContract(getEtherSwap);
         return;
     }
@@ -173,6 +183,7 @@ const validateReverse = async (
     );
 
     if (!compareTrees(tree, compareTree)) {
+        console.log("[CreateButton.validateReverse] $<SWAP_TREE_MISMATCH>");
         throw new Error("swap tree mismatch");
     }
 
@@ -184,6 +195,8 @@ const validateReverse = async (
         swap.lockupAddress,
         swap.blindingKey,
     );
+
+    console.log("[CreateButton.validateReverse] $");
 };
 
 const validateSubmarine = async (
@@ -318,6 +331,8 @@ export const validateResponse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
+    console.log("[CreateButton.validateResponse] * swap=%o", swap);
+
     switch (swap.type) {
         case SwapType.Submarine:
             await validateSubmarine(
@@ -338,6 +353,8 @@ export const validateResponse = async (
         default:
             throw new Error("unknown_swap_type");
     }
+
+    console.log("[CreateButton.validateResponse] $");
 };
 
 export const validateInvoice = async (inputValue: string) => {
