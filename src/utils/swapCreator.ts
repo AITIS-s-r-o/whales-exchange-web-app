@@ -171,6 +171,7 @@ export const createReverse = async (
         assetSend,
         assetReceive,
         Number(sendAmount),
+        Number(receiveAmount),
         hex.encode(sha256(preimage)),
         getPair(pairs, SwapType.Reverse, assetSend, assetReceive).hash,
         key !== undefined
