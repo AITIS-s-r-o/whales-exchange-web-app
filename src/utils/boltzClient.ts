@@ -8,7 +8,7 @@ import type { TransactionInterface } from "./compat";
 import { txToHex } from "./compat";
 import { fetcher, getReferral } from "./helper";
 import { validateInvoiceForOffer } from "./invoice";
-import type { WexSwapProvider } from "./wexClient";
+import type { WexSwapProvider, WexCreateReverseSwapResponse } from "./wexClient";
 
 const cooperativeErrorMessage = "cooperative signatures for swaps are disabled";
 const checkCooperative = () => {
@@ -391,7 +391,7 @@ export const createSubmarineSwap = (
         referralId: getReferral(),
     });
 
-export const createReverseSwap = (
+export const createReverseSwap = async (
     provider: WexSwapProvider,
     from: string,
     to: string,
@@ -430,7 +430,15 @@ export const createReverseSwap = (
         pairHash: provider.pk
     };
 
-    const result = fetcher<ReverseCreatedResponse>("/createswap", params);
+    const response = await fetcher<WexCreateReverseSwapResponse>("/createswap", params);
+
+    let result: ReverseCreatedResponse;
+
+    if (response.success) {
+        result = response.data as ReverseCreatedResponse;
+    } else {
+        throw new Error(response.error);
+    }
 
     console.log("[swapCreator.createReverseSwap] $=%o", result);
     return result;
