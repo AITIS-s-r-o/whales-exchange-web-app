@@ -137,6 +137,7 @@ type SubmarineCreatedResponse = {
 type ReverseCreatedResponse = {
     id: string;
     invoice: string;
+    feeInvoice: string;
     swapTree: SwapTree;
     lockupAddress: string;
     timeoutBlockHeight: number;
