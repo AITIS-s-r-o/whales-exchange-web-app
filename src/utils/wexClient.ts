@@ -1,6 +1,7 @@
 import log from "loglevel";
 
 import { fetcher } from "./helper";
+import { ReverseCreatedResponse } from "./boltzClient";
 
 /**
  * Single swap provider information from Electrum get_submarine_swap_providers call.
@@ -77,7 +78,7 @@ export interface WexCreateReverseSwapResponse extends WexRestResponseBase {
 
 /**
  * Gets sorted list of swap providers from the API server.
- * 
+ *
  * @returns Returns a list swap providers, sorted by PoW (descending) and then by pubkey (ascending). If the method fails, empty array is returned.
  */
 export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]> => {
@@ -88,7 +89,7 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
             return [];
         }
 
-        const utcTimeSec: number = Math.floor(Date.now() / 1000); 
+        const utcTimeSec: number = Math.floor(Date.now() / 1000);
         const result = response.data;
 
         // Log debug data.
