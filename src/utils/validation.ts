@@ -227,7 +227,7 @@ const validateReverse = async (
     if (!equalBytes(redeemScript, compareRedeemScript)) {
         console.log("[CreateButton.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
 
-        throw new Error(`invalid reedem script. Expected ${hex.encode(preimageHash)}, got ${invoiceData.preimageHash}`);
+        throw new Error(`invalid reedem script. Expected ${redeemScript}, got ${compareRedeemScript}`);
     }
 
     /*
