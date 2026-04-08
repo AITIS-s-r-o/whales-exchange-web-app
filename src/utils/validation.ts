@@ -215,10 +215,12 @@ const validateReverse = async (
 
     // Redeem script
     const redeemScript = hex.decode(swap.redeemScript);
+    const refundPublicKey = script.decompile(Array.from(redeemScript))[13] as Buffer;
+
     const compareRedeemScript = reverseSwapScript(
         preimageHash,
         ourKeys.publicKey, // In v1.2.1 it is: ECPair.fromPrivateKey(hex.decode(swap.privateKey)).publicKey,
-        hex.decode(swap.refundPublicKey), // In v1.2.1 it is: script.decompile(Array.from(redeemScript))[13] as Buffer,
+        refundPublicKey, // Note: swap.refundPublicKey is null.
         swap.timeoutBlockHeight,
     );
 
