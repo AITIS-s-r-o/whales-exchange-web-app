@@ -7,6 +7,7 @@ tags
 dist/
 ts-out/
 coverage/
+dist/
 node_modules/
 src/config.ts
 /test-results/

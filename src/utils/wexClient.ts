@@ -68,6 +68,14 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
 }
 
 /**
+ * Response to CreateSwapAsync call.
+ */
+export interface WexCreateReverseSwapResponse extends WexRestResponseBase {
+    /** Swap data. */
+    data: ReverseCreatedResponse | null;
+}
+
+/**
  * Gets sorted list of swap providers from the API server.
  * 
  * @returns Returns a list swap providers, sorted by PoW (descending) and then by pubkey (ascending). If the method fails, empty array is returned.

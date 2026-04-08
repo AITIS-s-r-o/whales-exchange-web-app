@@ -132,17 +132,20 @@ const validateReverse = async (
     const invoiceData = await decodeInvoice(swap.invoice);
     console.log("[CreateButton.validateReverse] Invoice data is: %o", invoiceData);
 
+    const feeInvoiceData = await decodeInvoice(swap.feeInvoice);
+    console.log("[CreateButton.validateReverse] Fee invoice data is: %o", feeInvoiceData);
+
     // Amounts
-    if (invoiceData.satoshis !== swap.sendAmount) {
-        console.log("[CreateButton.validateReverse] $<INVALID_SEND_AMOUNTS>", invoiceData.satoshis, swap.sendAmount);
+    if (invoiceData.satoshis + feeInvoiceData.satoshis !== swap.sendAmount) {
+        console.log("[CreateButton.validateReverse] $<INVALID_SEND_AMOUNTS>", invoiceData.satoshis, feeInvoiceData.satoshis, swap.sendAmount);
 
         throw new Error(
-            invalidSendAmountMsg(invoiceData.satoshis, swap.sendAmount),
+            invalidSendAmountMsg(invoiceData.satoshis + feeInvoiceData.satoshis, swap.sendAmount),
         );
     }
 
     if (swap.onchainAmount <= swap.receiveAmount) {
-        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNTS>", swap.onchainAmount, swap.receiveAmount);
+        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNT>", swap.onchainAmount, swap.receiveAmount);
 
         throw new Error(
             invalidReceiveAmountMsg(swap.onchainAmount, swap.receiveAmount),
