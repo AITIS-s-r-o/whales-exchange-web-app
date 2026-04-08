@@ -145,7 +145,7 @@ const validateReverse = async (
     }
 
     if (swap.onchainAmount <= swap.receiveAmount) {
-        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNTS>", swap.onchainAmount, swap.receiveAmount);
+        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNT>", swap.onchainAmount, swap.receiveAmount);
 
         throw new Error(
             invalidReceiveAmountMsg(swap.onchainAmount, swap.receiveAmount),
