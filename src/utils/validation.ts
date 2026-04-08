@@ -4,6 +4,7 @@ import { hex } from "@scure/base";
 import { equalBytes } from "@scure/btc-signer/utils.js";
 import { BigNumber } from "bignumber.js";
 import type { Types } from "boltz-core";
+import { reverseSwapScript } from "boltz-core";
 import {
     Scripts,
     SwapTreeSerializer,
@@ -13,7 +14,7 @@ import {
 } from "boltz-core";
 import type { BaseContract } from "ethers";
 import { ethers } from "ethers";
-
+import { script } from "liquidjs-lib";
 import { type AssetType, LBTC, RBTC } from "../consts/Assets";
 import { Denomination, Side, SwapType } from "../consts/Enums";
 import type { deriveKeyFn } from "../context/Global";
@@ -22,6 +23,7 @@ import type { ChainSwapDetails } from "./boltzClient";
 import { decodeAddress } from "./compat";
 import { formatAmountDenomination } from "./denomination";
 import type { ECKeys } from "./ecpair";
+import { ECPair } from "./ecpair";
 import { decodeInvoice, isInvoice, isLnurl } from "./invoice";
 import type {
     ChainSwap,
@@ -85,6 +87,44 @@ const validateAddress = (
         }
     }
 };
+
+/*
+const getScriptHashFunction = (isNativeSegwit: boolean) =>
+    isNativeSegwit ? Scripts.p2wshOutput : Scripts.p2shP2wshOutput;
+
+const validateAddress = (
+    swap: ReverseSwap,
+    isNativeSegwit: boolean,
+    address: string,
+    buffer: BufferConstructor,
+) => {
+    const compareScript = getScriptHashFunction(isNativeSegwit)(
+        buffer.from(swap.redeemScript, "hex"),
+    );
+    const decodedAddress = decodeAddress(swap.assetReceive, address);
+
+    if (!decodedAddress.script.equals(compareScript)) {
+        return false;
+    }
+
+    if (swap.asset === "L-BTC") {
+        const blindingPrivateKey = buffer.from(
+            (swap as SwapResponseLiquid).blindingKey,
+            "hex",
+        );
+        const blindingPublicKey = buffer.from(
+            ecc.pointFromScalar(blindingPrivateKey),
+        );
+
+        if (!blindingPublicKey.equals(decodedAddress.blindingKey)) {
+            log.warn("swap address validation: invalid Liquid blinding key");
+            return false;
+        }
+    }
+
+    return true;
+};
+*/
 
 const validateBip21 = (
     bip21: string,
@@ -168,6 +208,22 @@ const validateReverse = async (
         return;
     }
 
+    // Redeem script
+    const redeemScript = hex.decode(swap.redeemScript);
+    const compareRedeemScript = reverseSwapScript(
+        preimageHash,
+        ECPair.fromPrivateKey(hex.decode(swap.privateKey)).publicKey,
+        script.decompile(Array.from(redeemScript))[13] as Buffer,
+        swap.timeoutBlockHeight,
+    );
+
+    if (!equalBytes(redeemScript, compareRedeemScript)) {
+        console.log("[CreateButton.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+
+        throw new Error(`invalid reedem script. Expected ${hex.encode(preimageHash)}, got ${invoiceData.preimageHash}`);
+    }
+
+    /*
     // SwapTree
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
 
@@ -198,6 +254,10 @@ const validateReverse = async (
         swap.lockupAddress,
         swap.blindingKey,
     );
+    */
+
+    // TODO.
+    //validateAddress(swap.assetReceive, swap, true, swap.lockupAddress, buffer);
 
     console.log("[CreateButton.validateReverse] $");
 };
