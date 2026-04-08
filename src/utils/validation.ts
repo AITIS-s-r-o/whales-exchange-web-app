@@ -215,7 +215,9 @@ const validateReverse = async (
 
     // Redeem script
     const redeemScript = hex.decode(swap.redeemScript);
-    const refundPublicKey = script.decompile(Array.from(redeemScript))[13] as Buffer;
+
+    const decompiledRedeemScript = script.decompile(Buffer.from(redeemScript));
+    const refundPublicKey = decompiledRedeemScript[13] as Buffer;
 
     const compareRedeemScript = reverseSwapScript(
         preimageHash,
@@ -227,7 +229,7 @@ const validateReverse = async (
     if (!equalBytes(redeemScript, compareRedeemScript)) {
         console.log("[CreateButton.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
 
-        throw new Error(`invalid reedem script. Expected ${redeemScript}, got ${compareRedeemScript}`);
+        throw new Error(`invalid redeem script. Expected ${swap.redeemScript}, got ${compareRedeemScript.toString()}`);
     }
 
     /*
