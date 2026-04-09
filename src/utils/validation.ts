@@ -87,43 +87,31 @@ const validateAddress = (
     }
 };
 
-/*
 const getScriptHashFunction = (isNativeSegwit: boolean) =>
     isNativeSegwit ? Scripts.p2wshOutput : Scripts.p2shP2wshOutput;
 
-const validateAddress = (
+// v1.2.1 code.
+const validateAddressV1 = (
     swap: ReverseSwap,
     isNativeSegwit: boolean,
-    address: string,
-    buffer: BufferConstructor,
+    address: string
 ) => {
+    console.log("[validation.validateAddressV1] * swap=%o, isNativeSegwit=%o, address=%s", swap, isNativeSegwit, address);
+
+    const redeemScriptArray = hex.decode(swap.redeemScript);
     const compareScript = getScriptHashFunction(isNativeSegwit)(
-        buffer.from(swap.redeemScript, "hex"),
+        Buffer.from(redeemScriptArray),
     );
     const decodedAddress = decodeAddress(swap.assetReceive, address);
 
-    if (!decodedAddress.script.equals(compareScript)) {
+    if (!equalBytes(decodedAddress.script, compareScript)) {
+        console.log("[validation.validateAddressV1] $<ADDRESS_VALIDATION_FAILED>", decodedAddress.toString());
         return false;
     }
 
-    if (swap.asset === "L-BTC") {
-        const blindingPrivateKey = buffer.from(
-            (swap as SwapResponseLiquid).blindingKey,
-            "hex",
-        );
-        const blindingPublicKey = buffer.from(
-            ecc.pointFromScalar(blindingPrivateKey),
-        );
-
-        if (!blindingPublicKey.equals(decodedAddress.blindingKey)) {
-            log.warn("swap address validation: invalid Liquid blinding key");
-            return false;
-        }
-    }
-
+    console.log("[validation.validateAddressV1] $");
     return true;
 };
-*/
 
 const validateBip21 = (
     bip21: string,
@@ -264,8 +252,12 @@ const validateReverse = async (
     );
     */
 
-    // TODO.
-    //validateAddress(swap.assetReceive, swap, true, swap.lockupAddress, buffer);
+    const result = validateAddressV1(swap, true, swap.lockupAddress);
+    if (!result) {
+        console.log("[CreateButton.validateReverse] $<ADDRESS_VALIDATION_FAILED>", redeemScript, compareRedeemScript);
+
+        throw new Error(`invalid address. Expected '${swap.lockupAddress}'.`);
+    }
 
     console.log("[CreateButton.validateReverse] $");
 };
