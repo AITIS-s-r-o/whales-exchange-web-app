@@ -4,6 +4,7 @@ import { hex } from "@scure/base";
 import { equalBytes } from "@scure/btc-signer/utils.js";
 import { BigNumber } from "bignumber.js";
 import type { Types } from "boltz-core";
+import { reverseSwapScript } from "boltz-core";
 import {
     Scripts,
     SwapTreeSerializer,
@@ -13,7 +14,7 @@ import {
 } from "boltz-core";
 import type { BaseContract } from "ethers";
 import { ethers } from "ethers";
-
+import { script } from "liquidjs-lib";
 import { type AssetType, LBTC, RBTC } from "../consts/Assets";
 import { Denomination, Side, SwapType } from "../consts/Enums";
 import type { deriveKeyFn } from "../context/Global";
@@ -84,6 +85,32 @@ const validateAddress = (
             throw new Error("blinding public key mismatch");
         }
     }
+};
+
+const getScriptHashFunction = (isNativeSegwit: boolean) =>
+    isNativeSegwit ? Scripts.p2wshOutput : Scripts.p2shP2wshOutput;
+
+// v1.2.1 code.
+const validateAddressV1 = (
+    swap: ReverseSwap,
+    isNativeSegwit: boolean,
+    address: string
+) => {
+    console.log("[validation.validateAddressV1] * swap=%o, isNativeSegwit=%o, address=%s", swap, isNativeSegwit, address);
+
+    const redeemScriptArray = hex.decode(swap.redeemScript);
+    const compareScript = getScriptHashFunction(isNativeSegwit)(
+        Buffer.from(redeemScriptArray),
+    );
+    const decodedAddress = decodeAddress(swap.assetReceive, address);
+
+    if (!equalBytes(decodedAddress.script, compareScript)) {
+        console.log("[validation.validateAddressV1] $<ADDRESS_VALIDATION_FAILED>", decodedAddress.toString());
+        return false;
+    }
+
+    console.log("[validation.validateAddressV1] $");
+    return true;
 };
 
 const validateBip21 = (
@@ -168,6 +195,31 @@ const validateReverse = async (
         return;
     }
 
+    const ourKeys = deriveKey(
+        swap.claimPrivateKeyIndex,
+        swap.assetReceive as AssetType,
+    );
+
+    // Redeem script
+    const redeemScript = hex.decode(swap.redeemScript);
+
+    const decompiledRedeemScript = script.decompile(Buffer.from(redeemScript));
+    const refundPublicKey = decompiledRedeemScript[13] as Buffer;
+
+    const compareRedeemScript = reverseSwapScript(
+        preimageHash,
+        ourKeys.publicKey, // In v1.2.1 it is: ECPair.fromPrivateKey(hex.decode(swap.privateKey)).publicKey,
+        refundPublicKey, // Note: swap.refundPublicKey is null.
+        swap.timeoutBlockHeight,
+    );
+
+    if (!equalBytes(redeemScript, compareRedeemScript)) {
+        console.log("[CreateButton.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+
+        throw new Error(`invalid redeem script. Expected ${swap.redeemScript}, got ${compareRedeemScript.toString()}`);
+    }
+
+    /*
     // SwapTree
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
 
@@ -198,6 +250,14 @@ const validateReverse = async (
         swap.lockupAddress,
         swap.blindingKey,
     );
+    */
+
+    const result = validateAddressV1(swap, true, swap.lockupAddress);
+    if (!result) {
+        console.log("[CreateButton.validateReverse] $<ADDRESS_VALIDATION_FAILED>", redeemScript, compareRedeemScript);
+
+        throw new Error(`invalid address. Expected '${swap.lockupAddress}'.`);
+    }
 
     console.log("[CreateButton.validateReverse] $");
 };

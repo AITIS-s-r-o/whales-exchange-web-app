@@ -142,6 +142,8 @@ type ReverseCreatedResponse = {
     lockupAddress: string;
     timeoutBlockHeight: number;
     onchainAmount: number;
+    redeemScript?: string | null;
+    privateKey: string | null;
     refundPublicKey?: string;
     blindingKey?: string;
     refundAddress?: string;
