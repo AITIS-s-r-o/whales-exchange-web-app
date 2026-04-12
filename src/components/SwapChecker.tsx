@@ -43,7 +43,7 @@ class BoltzWebSocket {
 
     public connect = () => {
         log.debug("Opening WebSocket");
-        void this.openWebSocket(`${this.url}/ws`);
+        void this.openWebSocket(`${this.url}/v2/ws`);
     };
 
     public close = () => {
