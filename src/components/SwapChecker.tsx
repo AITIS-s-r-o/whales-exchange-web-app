@@ -43,7 +43,7 @@ class BoltzWebSocket {
 
     public connect = () => {
         log.debug("Opening WebSocket");
-        void this.openWebSocket(`${this.url}/v2/ws`);
+        void this.openWebSocket(`${this.url}/ws`);
     };
 
     public close = () => {
@@ -217,8 +217,7 @@ export const SwapChecker = () => {
             claimSwap,
         );
 
-        // WEX-TODO: Uncomment this once it works.
-        // ws.connect();
+        ws.connect();
     });
 
     onCleanup(() => {
