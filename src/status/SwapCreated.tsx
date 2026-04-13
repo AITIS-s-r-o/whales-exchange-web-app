@@ -1,6 +1,6 @@
 import { sha256 } from "@noble/hashes/sha2.js";
 import { hex } from "@scure/base";
-import { Show } from "solid-js";
+import { Show, createResource } from "solid-js";
 
 import LockupEvm from "../components/LockupEvm";
 import PayInvoice from "../components/PayInvoice";
@@ -10,20 +10,48 @@ import { SwapType } from "../consts/Enums";
 import { usePayContext } from "../context/Pay";
 import type { ChainSwap, ReverseSwap } from "../utils/swapCreator";
 
+import { decodeInvoice } from "../utils/invoice";
+
 const SwapCreated = () => {
     const { swap } = usePayContext();
 
     const chain = swap() as ChainSwap;
     const reverse = swap() as ReverseSwap;
 
+    const feeInvoice = () => {
+        const s = swap();
+        return s.type === SwapType.Reverse ? (s as ReverseSwap).feeInvoice : undefined;
+    };
+
+    const [feeInvoiceData] = createResource(
+        feeInvoice,
+        async (invoice) => {
+            if (!invoice) return undefined;
+            return await decodeInvoice(invoice);
+        }
+    );
+
     return (
         <Show
             when={swap().type === SwapType.Chain}
             fallback={
-                <PayInvoice
-                    sendAmount={reverse.sendAmount}
-                    invoice={reverse.invoice}
-                />
+                <Show when={feeInvoiceData.state === "ready" && feeInvoiceData()}>
+                    {(data) => (
+                        <div>
+                            <PayInvoice
+                                title="pay_fee_invoice_to"
+                                sendAmount={data().satoshis}
+                                invoice={reverse.feeInvoice}
+                            />
+
+                            <PayInvoice
+                                title="pay_invoice_to"
+                                sendAmount={reverse.sendAmount}
+                                invoice={reverse.invoice}
+                            />
+                        </div>
+                    )}
+                </Show>
             }>
             <Show
                 when={chain.assetSend === RBTC}

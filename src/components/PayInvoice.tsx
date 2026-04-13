@@ -11,8 +11,9 @@ import { isMobile } from "../utils/helper";
 import { invoicePrefix } from "../utils/invoice";
 import { enableWebln } from "../utils/webln";
 import CopyBox from "./CopyBox";
+import type { DictKey } from "../i18n/i18n";
 
-const PayInvoice = (props: { sendAmount: number; invoice: string }) => {
+const PayInvoice = (props: { title: DictKey, sendAmount: number; invoice: string }) => {
     const { t, denomination, separator, webln } = useGlobalContext();
 
     const payWeblnInvoice = async (pr: string) => {
@@ -25,7 +26,7 @@ const PayInvoice = (props: { sendAmount: number; invoice: string }) => {
     return (
         <div>
             <h2 data-testid="pay-invoice-title">
-                {t("pay_invoice_to", {
+                {t(props.title, {
                     amount: formatAmount(
                         BigNumber(props.sendAmount),
                         denomination(),
