@@ -83,9 +83,9 @@ const dict = {
         send_between:
             "Send between {{ min }} and {{ max }} {{ denomination }} to",
         pay_invoice_to:
-            "Proceed with the the swap invoice payment of {{ amount }} {{ denomination }}",
+            "Pay this swap invoice about {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:
-            "Proceed with the fee invoice payment of {{ amount }} {{ denomination }}",
+            "Pay this fee invoice about {{ amount }} {{ denomination }}",
         no_wallet: "No wallet installed",
         connect_wallet: "Connect wallet",
         please_connect_wallet: "Please connect wallet",
