@@ -40,7 +40,7 @@ const SwapCreated = () => {
                         <div>
                             <PayInvoice
                                 title="pay_fee_invoice_to"
-                                description="The small fee invoice that is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment."
+                                description="pay_fee_invoice_to_description"
                                 sendAmount={data().satoshis}
                                 invoice={reverse.feeInvoice}
                             />
@@ -49,7 +49,7 @@ const SwapCreated = () => {
 
                             <PayInvoice
                                 title="pay_invoice_to"
-                                description="The small fee invoice that is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment."
+                                description="pay_invoice_to_description"
                                 sendAmount={reverse.sendAmount}
                                 invoice={reverse.invoice}
                             />
