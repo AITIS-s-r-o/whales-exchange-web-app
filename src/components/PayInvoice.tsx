@@ -13,7 +13,7 @@ import { enableWebln } from "../utils/webln";
 import CopyBox from "./CopyBox";
 import type { DictKey } from "../i18n/i18n";
 
-const PayInvoice = (props: { title: DictKey, sendAmount: number; invoice: string }) => {
+const PayInvoice = (props: { title: DictKey, description: string, sendAmount: number; invoice: string }) => {
     const { t, denomination, separator, webln } = useGlobalContext();
 
     const payWeblnInvoice = async (pr: string) => {
@@ -35,6 +35,13 @@ const PayInvoice = (props: { title: DictKey, sendAmount: number; invoice: string
                     denomination: formatDenomination(denomination(), BTC),
                 })}
             </h2>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    {props.description}
+                </p>
+            </div>
+
             <hr />
             <a href={invoicePrefix + props.invoice}>
                 <QrCode data={props.invoice} />
