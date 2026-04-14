@@ -86,8 +86,10 @@ const dict = {
             "Pay this swap invoice {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:
             "Pay this fee invoice {{ amount }} {{ denomination }}",
-        pay_invoice_to_description: "This small fee invoice is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment.",
-        pay_fee_invoice_to_description: "The large swap invoice is trustless and in case the swap provider is non-cooperative or malicious, the client is protected and can get the money back.",
+        pay_invoice_to_description:
+            "The large swap invoice is trustless and in case the swap provider is non-cooperative or malicious, the client is protected and can get the money back.",
+        pay_fee_invoice_to_description:
+            "This small fee invoice is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment.", 
         no_wallet: "No wallet installed",
         connect_wallet: "Connect wallet",
         please_connect_wallet: "Please connect wallet",
