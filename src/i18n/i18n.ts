@@ -82,6 +82,8 @@ const dict = {
         send_to: "Send {{ amount }} {{ denomination }} to",
         send_between:
             "Send between {{ min }} and {{ max }} {{ denomination }} to",
+        pay_invoice_intro:
+            "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below to continue.",
         pay_invoice_to:
             "Pay this swap invoice {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:

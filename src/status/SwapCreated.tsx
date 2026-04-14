@@ -9,6 +9,7 @@ import { RBTC } from "../consts/Assets";
 import { SwapType } from "../consts/Enums";
 import { usePayContext } from "../context/Pay";
 import type { ChainSwap, ReverseSwap } from "../utils/swapCreator";
+import { useGlobalContext } from "../context/Global";
 
 import { decodeInvoice } from "../utils/invoice";
 
@@ -31,6 +32,8 @@ const SwapCreated = () => {
         }
     );
 
+    const { t } = useGlobalContext();
+
     return (
         <Show
             when={swap().type === SwapType.Chain}
@@ -38,6 +41,13 @@ const SwapCreated = () => {
                 <Show when={feeInvoiceData.state === "ready" && feeInvoiceData()}>
                     {(data) => (
                         <div>
+                            <div>
+                                <p class="text-sm text-gray-500">
+                                    {t("pay_invoice_intro")}
+                                </p>
+                            </div>
+                            <hr style="margin-bottom: 50px;" />
+
                             <PayInvoice
                                 title="pay_fee_invoice_to"
                                 description="pay_fee_invoice_to_description"
@@ -45,7 +55,7 @@ const SwapCreated = () => {
                                 invoice={reverse.feeInvoice}
                             />
 
-                            <div style="margin-top: 50px;"></div>
+                            <div style="margin-top: 50px;" />
 
                             <PayInvoice
                                 title="pay_invoice_to"
