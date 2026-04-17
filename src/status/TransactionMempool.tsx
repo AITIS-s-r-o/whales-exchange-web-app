@@ -13,7 +13,7 @@ const TransactionMempool = (props: { swap: Accessor<SomeSwap> }) => {
         <div>
             <h2>{t("tx_in_mempool")}</h2>
             <p>{t("tx_in_mempool_subline")}</p>
-            <Show when={props.swap().type === SwapType.Chain}>
+            <Show when={props.swap().type === SwapType.Reverse}>
                 <h3>{t("tx_in_mempool_warning")}</h3>
             </Show>
             <LoadingSpinner />
