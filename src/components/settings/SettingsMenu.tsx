@@ -106,13 +106,15 @@ const SettingsMenuContent = () => {
                         tooltipLabel={"hide_wallet_address_tooltip"}
                         settingElement={<PrivacyMode />}
                     />
+                    {/* 
                     <Show when={!isMobile()}>
                         <Entry
                             label={"zero_conf"}
                             tooltipLabel={"zero_conf_tooltip"}
                             settingElement={<ZeroConf />}
                         />
-                    </Show>
+                    </Show> 
+                    */}
                     <Entry
                         label={"rescue_key"}
                         tooltipLabel={"download_boltz_rescue_key"}
