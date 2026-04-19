@@ -451,7 +451,7 @@ const GlobalProvider = (props: { children: JSX.Element }) => {
 
     const [zeroConf, setZeroConf] = makePersisted(
         // eslint-disable-next-line solid/reactivity
-        createSignal<boolean>(true),
+        createSignal<boolean>(false),
         {
             name: "zeroConf",
         },
@@ -481,11 +481,14 @@ const GlobalProvider = (props: { children: JSX.Element }) => {
         },
     );
 
+    // WEX: Zero-conf is not supported.
+    /*
     createEffect(() => {
         if (isMobile()) {
             setZeroConf(true);
         }
     });
+    */
 
     // i18n
     createEffect(() => {
