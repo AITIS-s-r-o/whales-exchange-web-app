@@ -115,11 +115,10 @@ const claimReverseSwap = async (
     const details = [
         {
             ...swapOutput,
+            txHash: txToId(lockupTx),
             redeemScript: redeemScript,
-            txHash: lockupTx.hash,
             preimage: preimage,
             keys: privateKey.privateKey,
-            transactionId: txToId(lockupTx),
             blindingPrivateKey: parseBlindingKey(swap, false),
         },
     ] as unknown as (ClaimDetails & { blindingPrivateKey: Uint8Array })[];
