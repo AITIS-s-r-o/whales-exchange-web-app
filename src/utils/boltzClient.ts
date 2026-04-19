@@ -573,9 +573,10 @@ export const broadcastTransaction = async (
     const promises: Promise<{
         id: string;
     }>[] = [
-            // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/helper.js#L236
-        fetcher<{ id: string }>(`/broadcasttransaction`, { hex: txHex, }),
-        broadcastToExplorer(asset, txHex),
+        // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/helper.js#L236
+        fetcher<{ id: string }>(`/broadcasttransaction`, { currency: asset, transactionHex: txHex, }),
+        // TODO.
+        // broadcastToExplorer(asset, txHex),
     ];
 
     const results = await Promise.allSettled(promises);
