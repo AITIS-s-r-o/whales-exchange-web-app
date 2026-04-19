@@ -95,6 +95,11 @@ const claimReverseSwap = async (
     const preimage = hex.decode(swap.preimage);
 
     const decodedAddress = decodeAddress(asset, swap.claimAddress);
+
+    const redeemScript = hex.decode(swap.redeemScript);
+    const swapOutput = detectSwap(redeemScript, lockupTx);
+
+    /*
     const boltzPublicKey = hex.decode(swap.refundPublicKey);
     const keyAgg = createMusig(privateKey, boltzPublicKey);
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
@@ -104,18 +109,18 @@ const claimReverseSwap = async (
     if (swapOutput === undefined) {
         throw new Error("Swap output is undefined");
     }
+    */
+
 
     const details = [
         {
             ...swapOutput,
-            cooperative,
-            swapTree: tree,
-            privateKey: privateKey.privateKey,
+            redeemScript: redeemScript,
+            txHash: lockupTx.hash,
             preimage: preimage,
-            type: OutputType.Taproot,
+            keys: privateKey.privateKey,
             transactionId: txToId(lockupTx),
             blindingPrivateKey: parseBlindingKey(swap, false),
-            internalKey: keyAgg.aggPubkey,
         },
     ] as unknown as (ClaimDetails & { blindingPrivateKey: Uint8Array })[];
     const claimTx = await createAdjustedClaim(
@@ -139,6 +144,7 @@ const claimReverseSwap = async (
             0,
         );
 
+        /*
         const withMsg = tweaked.message(sigHash);
         const withNonce = withMsg.generateNonce();
 
@@ -158,6 +164,7 @@ const claimReverseSwap = async (
         const withBoltz = signed.addPartial(boltzPublicKey, boltzSig.signature);
 
         setCooperativeWitness(claimTx, 0, withBoltz.aggregatePartials());
+        */
 
         return claimTx;
     } catch (e) {
