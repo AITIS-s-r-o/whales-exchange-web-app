@@ -122,19 +122,27 @@ const claimReverseSwap = async (
             blindingPrivateKey: parseBlindingKey(swap, false),
         },
     ] as unknown as (ClaimDetails & { blindingPrivateKey: Uint8Array })[];
-    const claimTx = await createAdjustedClaim(
-        swap,
-        details,
-        decodedAddress.script,
-        asset === LBTC ? (getNetwork(asset) as LiquidNetwork) : undefined,
-        decodedAddress.blindingKey,
-    );
+
+    let claimTx: TransactionInterface | PromiseLike<TransactionInterface>;
+    try {
+        claimTx = await createAdjustedClaim(
+            swap,
+            details,
+            decodedAddress.script,
+            asset === LBTC ? (getNetwork(asset) as LiquidNetwork) : undefined,
+            decodedAddress.blindingKey
+        );
+    } catch (e) {
+        log.error("Error creating adjusted claim", e);
+        throw e;
+    }
 
     if (!cooperative) {
         return claimTx;
     }
 
     try {
+        /*
         const sigHash = hashForWitnessV1(
             asset,
             getNetwork(asset),
@@ -143,7 +151,6 @@ const claimReverseSwap = async (
             0,
         );
 
-        /*
         const withMsg = tweaked.message(sigHash);
         const withNonce = withMsg.generateNonce();
 
