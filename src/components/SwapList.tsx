@@ -11,6 +11,7 @@ import type { SomeSwap } from "../utils/swapCreator";
 import { desktopItemsPerPage, mobileItemsPerPage } from "./Pagination";
 import { SwapIcons } from "./SwapIcons";
 import { hiddenInformation } from "./settings/PrivacyMode";
+import { fetcher } from "../utils/helper";
 
 export type Swap = (SomeSwap | RestorableSwap) & {
     action?: RescueAction;
@@ -106,6 +107,11 @@ const SwapList = (props: {
             )
         ) {
             await deleteSwap(swapId);
+
+            // Fire and forget.
+            const params = { id: swapId };
+            const _ = fetcher("/delete-swap", params);
+
             await props.onDelete();
         }
     };

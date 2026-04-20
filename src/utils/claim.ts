@@ -95,6 +95,8 @@ const claimReverseSwap = async (
     const preimage = hex.decode(swap.preimage);
 
     const decodedAddress = decodeAddress(asset, swap.claimAddress);
+
+    /* WEX
     const boltzPublicKey = hex.decode(swap.refundPublicKey);
     const keyAgg = createMusig(privateKey, boltzPublicKey);
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
@@ -104,28 +106,40 @@ const claimReverseSwap = async (
     if (swapOutput === undefined) {
         throw new Error("Swap output is undefined");
     }
+    */
+
+    const redeemScript = hex.decode(swap.redeemScript);
+    const swapOutput = detectSwap(redeemScript, lockupTx);
 
     const details = [
         {
             ...swapOutput,
-            cooperative,
-            swapTree: tree,
-            privateKey: privateKey.privateKey,
+            redeemScript: redeemScript,
             preimage: preimage,
-            type: OutputType.Taproot,
+            privateKey: privateKey.privateKey,
+            type: OutputType.Bech32,
             transactionId: txToId(lockupTx),
             blindingPrivateKey: parseBlindingKey(swap, false),
-            internalKey: keyAgg.aggPubkey,
         },
     ] as unknown as (ClaimDetails & { blindingPrivateKey: Uint8Array })[];
-    const claimTx = await createAdjustedClaim(
-        swap,
-        details,
-        decodedAddress.script,
-        asset === LBTC ? (getNetwork(asset) as LiquidNetwork) : undefined,
-        decodedAddress.blindingKey,
-    );
 
+    let claimTx: TransactionInterface | PromiseLike<TransactionInterface>;
+    try {
+        claimTx = await createAdjustedClaim(
+            swap,
+            details,
+            decodedAddress.script,
+            asset === LBTC ? (getNetwork(asset) as LiquidNetwork) : undefined,
+            decodedAddress.blindingKey
+        );
+    } catch (e) {
+        log.error("Error creating adjusted claim", e);
+        throw e;
+    }
+
+    return claimTx;
+
+    /* WEX
     if (!cooperative) {
         return claimTx;
     }
@@ -164,6 +178,7 @@ const claimReverseSwap = async (
         log.warn("Uncooperative Taproot claim because", e);
         return claimReverseSwap(deriveKey, swap, lockupTx, false);
     }
+    */
 };
 
 export const createTheirPartialChainSwapSignature = async (
