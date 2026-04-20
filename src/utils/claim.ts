@@ -138,12 +138,14 @@ const claimReverseSwap = async (
         throw e;
     }
 
+    return claimTx;
+
+    /* WEX
     if (!cooperative) {
         return claimTx;
     }
 
     try {
-        /*
         const sigHash = hashForWitnessV1(
             asset,
             getNetwork(asset),
@@ -171,13 +173,13 @@ const claimReverseSwap = async (
         const withBoltz = signed.addPartial(boltzPublicKey, boltzSig.signature);
 
         setCooperativeWitness(claimTx, 0, withBoltz.aggregatePartials());
-        */
 
         return claimTx;
     } catch (e) {
         log.warn("Uncooperative Taproot claim because", e);
         return claimReverseSwap(deriveKey, swap, lockupTx, false);
     }
+    */
 };
 
 export const createTheirPartialChainSwapSignature = async (
