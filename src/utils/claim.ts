@@ -99,7 +99,7 @@ const claimReverseSwap = async (
     const redeemScript = hex.decode(swap.redeemScript);
     const swapOutput = detectSwap(redeemScript, lockupTx);
 
-    /*
+    /* WEX
     const boltzPublicKey = hex.decode(swap.refundPublicKey);
     const keyAgg = createMusig(privateKey, boltzPublicKey);
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
