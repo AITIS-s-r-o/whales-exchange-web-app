@@ -60,7 +60,7 @@ const SwapCreated = () => {
                             <PayInvoice
                                 title="pay_invoice_to"
                                 description="pay_invoice_to_description"
-                                sendAmount={reverse.sendAmount}
+                                sendAmount={reverse.sendAmount - data().satoshis}
                                 invoice={reverse.invoice}
                             />
                         </div>
