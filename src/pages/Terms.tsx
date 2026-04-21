@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 
 import "../style/legal.scss";
+import { config } from "../configs/mainnet";
 
 const Terms: Component = () => {
     return (
@@ -8,8 +9,8 @@ const Terms: Component = () => {
             <h1>Terms of Service</h1>
             <h2>1. Introduction</h2>
             <p>
-                Welcome to Whale's Exchange website. These Terms of Service ("Terms") govern your use of our website, https://whales.exchange/ (the "Site"). By accessing or using
-                the Site, you agree to comply with and be bound by these Terms. If you do not agree with these Terms, please do not use the Site.
+                Welcome to Whale's Exchange website. These Terms of Service ("Terms") govern your use of our website, {`${config.whalesSecretUrl}`} (the "Site"). By accessing or
+                using the Site, you agree to comply with and be bound by these Terms. If you do not agree with these Terms, please do not use the Site.
             </p>
 
             <h2>2. Description of Service</h2>
