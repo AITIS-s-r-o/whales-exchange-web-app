@@ -10,14 +10,14 @@ const Terms: Component = () => {
             <h1>Terms of Service</h1>
             <h2>1. Introduction</h2>
             <p>
-                Welcome to Whale's Exchange website. These Terms of Service ("Terms") govern your use of our website, {`${config.whalesSecretUrl}`} (the "Site"). By accessing or
+                Welcome to Whale's Exchange website. These Terms of Service ("Terms") govern your use of our website, {`${config.whalesExchangeUrl}`} (the "Site"). By accessing or
                 using the Site, you agree to comply with and be bound by these Terms. If you do not agree with these Terms, please do not use the Site.
             </p>
 
             <h2>2. Description of Service</h2>
             <p>
                 The Service allows users to swap between different Bitcoin layers. Whale's Exchange combines <ExternalLink href="https://boltz.exchange/">Boltz
-                    Exchange</ExternalLink> frontend with Electrum Swap protocol. Boltz Exchange pioneered the concept of atomic swaps on Bitcoin with simple to use interface.
+                Exchange</ExternalLink> frontend with Electrum Swap protocol. Boltz Exchange pioneered the concept of atomic swaps on Bitcoin with simple to use interface.
                 Electrum Swap protocol decentralized atomic swaps on Bitcoin using <ExternalLink href="https://electrum.org/">Electrum wallet</ExternalLink>. Whale's Exchange
                 web interface is based on Boltz Exchange and connects to Electrum Swap servers to facilitate swaps between different Bitcoin layers.
             </p>

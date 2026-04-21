@@ -59,6 +59,7 @@ const defaults = {
     loglevel: "info" as log.LogLevelDesc,
     defaultLanguage: "en",
 
+    whalesExchangeUrl: "https://whales.exchange",
     whalesSecretUrl: "https://whalessecret.com",
     whalesSecretName: "Whale's Secret",
 
