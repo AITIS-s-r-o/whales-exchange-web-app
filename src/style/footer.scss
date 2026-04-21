@@ -67,3 +67,15 @@
         }
     }
 }
+
+.wex_footer_link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.wex_footer_link:hover,
+.wex_footer_link.active {
+    color: var(--color-primary);
+    text-decoration: underline;
+}

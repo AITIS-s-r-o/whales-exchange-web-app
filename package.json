@@ -1,7 +1,7 @@
 {
-    "name": "boltz-frontend",
-    "version": "1.8.18",
-    "description": "Boltz Exchange, Atomic Swaps, Web App",
+    "name": "whales-exchange-frontend",
+    "version": "1.0.0",
+    "description": "Whale's Exchange, Atomic Swaps, Web App",
     "engines": {
         "node": ">=24.0.0"
     },

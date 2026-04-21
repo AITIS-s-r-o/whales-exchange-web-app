@@ -1,14 +1,14 @@
 import { A } from "@solidjs/router";
-/*WEX import { BsGlobe } from "solid-icons/bs";*/
-import { OcLinkexternal2 } from "solid-icons/oc";
+/*WEX import { BsGlobe } from "solid-icons/bs";
+import { OcLinkexternal2 } from "solid-icons/oc";*/
 import { /*WEX For,*/ Show, createSignal } from "solid-js";
 
 import Warnings from "../components/Warnings";
-import { config } from "../config";
+/*WEX import { config } from "../config";*/
 import { useGlobalContext } from "../context/Global";
 /*WEX import locales from "../i18n/i18n"; */
 import "../style/nav.scss";
-import ExternalLink from "./ExternalLink";
+/*WEX import ExternalLink from "./ExternalLink"; */
 
 const Nav = (props: { network: string; isPro?: boolean }) => {
     /*WEX let timeout: ReturnType<typeof setTimeout> | undefined; */
@@ -76,15 +76,24 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                     <A href="/swap" onClick={() => setHamburger(false)}>
                         {t("swap")}
                     </A>
+                    { /* WEX - no rescue page for now as we only support reverse swaps now
                     <A href="/rescue" onClick={() => setHamburger(false)}>
                         {t("rescue")}
-                    </A>
+                    </A> */ }
                     <A href="/history" onClick={() => setHamburger(false)}>
                         {t("history")}
                     </A>
+                    { /* WEX
                     <A href="/products" onClick={() => setHamburger(false)}>
                         {t("products")}
+                    </A> */ }
+                    <A href="/help" onClick={() => setHamburger(false)}>
+                        {t("help")}
                     </A>
+                    <A href="/about" onClick={() => setHamburger(false)}>
+                        {t("about")}
+                    </A>
+                    { /* WEX
                     <Show when={config.supportUrl}>
                         <ExternalLink class="external" href={config.supportUrl}>
                             {t("help")}
@@ -96,7 +105,7 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                             {t("docs")}
                             <OcLinkexternal2 size={23} />
                         </ExternalLink>
-                    </Show>
+                    </Show> */ }
                 </div>
                 <svg
                     id="hamburger"

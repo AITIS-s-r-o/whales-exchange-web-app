@@ -58,23 +58,28 @@ const defaults = {
 
     loglevel: "info" as log.LogLevelDesc,
     defaultLanguage: "en",
+
+    whalesSecretUrl: "https://whalessecret.com",
+    whalesSecretName: "Whale's Secret",
+
     supportUrl: "https://support.boltz.exchange/hc/center",
     twitterUrl: "https://x.com/WhalesSecret",
     githubUrl: "https://github.com/AITIS-s-r-o/whales-exchange-web-app",
     repoUrl: "https://github.com/AITIS-s-r-o/whales-exchange-web-app",
-    docsUrl: "https://docs.boltz.exchange",
-    blogUrl: "https://blog.boltz.exchange",
-    partnerUrl: "https://partner.boltz.exchange",
-    nostrUrl:
-        "https://primal.net/p/nprofile1qqsqcdcltmv4qanpx3p7svcufdsg9rkk00x7l2sknra4e6whkv59l7clgcdzj",
-    statusUrl: "https://status.boltz.exchange",
-    youtubeUrl:
-        "https://www.youtube.com/playlist?list=PLkqOa9SGBeZfAEHvKkGKjeRIASeu6bNO3",
-    brandingUrl: "https://github.com/BoltzExchange/logo",
-    regtestUrl: "https://github.com/BoltzExchange/regtest/",
-    email: "hi@bol.tz",
+
+    // docsUrl: "https://docs.boltz.exchange",
+    // blogUrl: "https://blog.boltz.exchange",
+    // partnerUrl: "https://partner.boltz.exchange",
+    // nostrUrl:
+    //     "https://primal.net/p/nprofile1qqsqcdcltmv4qanpx3p7svcufdsg9rkk00x7l2sknra4e6whkv59l7clgcdzj",
+    // statusUrl: "https://status.boltz.exchange",
+    // youtubeUrl:
+    //     "https://www.youtube.com/playlist?list=PLkqOa9SGBeZfAEHvKkGKjeRIASeu6bNO3",
+    // brandingUrl: "https://github.com/BoltzExchange/logo",
+    // regtestUrl: "https://github.com/BoltzExchange/regtest/",
+    // email: "hi@bol.tz",
     dnsOverHttps: "https://1.1.1.1/dns-query",
-    chatwootUrl: "https://support.boltz.exchange",
+    // chatwootUrl: "https://support.boltz.exchange",
     preimageValidation: "https://validate-payment.com",
     rateProviders: {
         Yadio: "https://api.yadio.io/exrates/btc",
