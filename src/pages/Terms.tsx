@@ -22,14 +22,14 @@ const Terms: Component = () => {
             <p>
                 Whale's Exchange serves as an interface to Electrum Swap world via web browser, without the need to run Electrum wallet. The swaps themselves are operated by
                 Electrum Swap servers, which are independent entities that run the swap protocol (see <a href="https://electrum.readthedocs.io/en/latest/swapserver.html">How to
-                offer Submarine Swaps</a>  for more information on how to set up a swap server).
+                offer Submarine Swaps</a> for more information on how to set up a swap server).
             </p>
             <p>
                 Whale's Exchange use advanced cryptography and are non-custodial, which means users retain full control of their bitcoin throughout the entire flow of a swap (with
                 the exception of a small reverse swap fee invoice). Users need to provide the following information to use the Service:
             </p>
             <p>
-                2.1. Select the swap provider from the list of swap providers that is available on the website. The list of swap providers is obtained from
+                2.1. Select the swap provider from the list of swap providers that is available on the website. The list of swap providers is obtained from 
                 <a href="https://nostr.com/">Nostr</a>, where all Electrum Swap providers publish their offers.
             </p>
             <p>
