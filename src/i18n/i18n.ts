@@ -41,7 +41,7 @@ const dict = {
         minimum_amount: "Minimum amount is {{ amount }} {{ denomination }}",
         maximum_amount: "Maximum amount is {{ amount }} {{ denomination }}",
         assets: "Multi-Layer",
-        footer: "Made with 🧡 by Team ",
+        footer: "Made with 🧡 by Team",
         create_swap: "Create Atomic Swap",
         create_swap_subline: "Payment Includes Network and Swap Provider Fee",
         wex_select_provider: "Select Electrum Swap Provider",
