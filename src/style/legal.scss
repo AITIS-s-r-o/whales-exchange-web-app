@@ -108,5 +108,14 @@
 }
 
 #wex-privacy-table {
+    border-collapse: collapse;
     border: solid 1px var(--color-white-10);
 }
+
+#wex-privacy-table tr,
+#wex-privacy-table td {
+    border: solid 1px var(--color-white-10);
+    padding: 8px;
+}
+
+

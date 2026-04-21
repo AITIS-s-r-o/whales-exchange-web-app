@@ -41,7 +41,7 @@ const Privacy: Component = () => {
                 <li>Always keep your data safe and private.</li>
             </ul>
             <p>
-                If you have any questions about this privacy notice, including any requests to exercise your legal rights, please contact us via
+                If you have any questions about this privacy notice, including any requests to exercise your legal rights, please contact us via 
                 <ExternalLink href="https://whalessecret.com/contact-us">Whale's Secret contact form</ExternalLink>.
             </p>
 
@@ -240,7 +240,7 @@ const Privacy: Component = () => {
                 to be seen, collected or used by other users.
             </p>
 
-            <h2>6. Disclosure of Your Information</h2>
+            <h2>8. Disclosure of Your Information</h2>
             <p>
                We send personal data to the following sets of data processors in order to perform the Services:
             </p>
@@ -342,7 +342,8 @@ const Privacy: Component = () => {
             <h2>11. Contact</h2>
             <p>
                 All questions relating to data and your privacy are welcomed and should be addressed to our support team. If you have any questions, comments or requests regarding
-                this privacy policy then please contact the Site support team via the contact form.
+                this privacy policy then please contact the Site support team via the <ExternalLink href="https://whalessecret.com/contact-us">Whale's Secret contact
+                form</ExternalLink>.
             </p>
             <p class="last-updated">
                 <strong>Last updated: May 1, 2026</strong>
