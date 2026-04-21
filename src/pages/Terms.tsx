@@ -1,5 +1,6 @@
 import type { Component } from "solid-js";
 
+import ExternalLink from "../components/ExternalLink";
 import "../style/legal.scss";
 import { config } from "../configs/mainnet";
 
@@ -15,15 +16,16 @@ const Terms: Component = () => {
 
             <h2>2. Description of Service</h2>
             <p>
-                The Service allows users to swap between different Bitcoin layers. Whale's Exchange combines <a href="https://boltz.exchange/">Boltz Exchange</a> frontend with
-                Electrum Swap protocol. Boltz Exchange pioneered the concept of atomic swaps on Bitcoin with simple to use interface. Electrum Swap protocol decentralized atomic
-                swaps on Bitcoin using <a href="https://electrum.org/">Electrum wallet</a>. Whale's Exchange web interface is based on Boltz Exchange and connects to Electrum Swap servers to
-                facilitate swaps between different Bitcoin layers.
+                The Service allows users to swap between different Bitcoin layers. Whale's Exchange combines <ExternalLink href="https://boltz.exchange/">Boltz
+                    Exchange</ExternalLink> frontend with Electrum Swap protocol. Boltz Exchange pioneered the concept of atomic swaps on Bitcoin with simple to use interface.
+                Electrum Swap protocol decentralized atomic swaps on Bitcoin using <ExternalLink href="https://electrum.org/">Electrum wallet</ExternalLink>. Whale's Exchange
+                web interface is based on Boltz Exchange and connects to Electrum Swap servers to facilitate swaps between different Bitcoin layers.
             </p>
             <p>
                 Whale's Exchange serves as an interface to Electrum Swap world via web browser, without the need to run Electrum wallet. The swaps themselves are operated by
-                Electrum Swap servers, which are independent entities that run the swap protocol (see <a href="https://electrum.readthedocs.io/en/latest/swapserver.html">How to
-                offer Submarine Swaps</a> for more information on how to set up a swap server).
+                Electrum Swap servers, which are independent entities that run the swap protocol (see 
+                <ExternalLink href="https://electrum.readthedocs.io/en/latest/swapserver.html">How to offer Submarine Swaps</ExternalLink> for more information on how to set up
+                a swap server).
             </p>
             <p>
                 Whale's Exchange use advanced cryptography and are non-custodial, which means users retain full control of their bitcoin throughout the entire flow of a swap (with
@@ -31,7 +33,7 @@ const Terms: Component = () => {
             </p>
             <p>
                 2.1. Select the swap provider from the list of swap providers that is available on the website. The list of swap providers is obtained from 
-                <a href="https://nostr.com/">Nostr</a>, where all Electrum Swap providers publish their offers.
+                <ExternalLink href="https://nostr.com/">Nostr</ExternalLink>, where all Electrum Swap providers publish their offers.
             </p>
             <p>
                 2.2. Select the Bitcoin layer that you want to swap from and the Bitcoin layer that you want to swap to.
@@ -114,7 +116,7 @@ const Terms: Component = () => {
 
             <h2>6. Contact Info</h2>
             <p>
-                To contact us, please use <a href="https://whalessecret.com/contact-us">the contact form on the Whale's Secret website</a>.
+                To contact us, please use <ExternalLink href="https://whalessecret.com/contact-us">the contact form on the Whale's Secret website</ExternalLink>.
             </p>
 
             <p class="last-updated">
