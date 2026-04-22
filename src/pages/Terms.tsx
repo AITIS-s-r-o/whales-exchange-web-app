@@ -110,8 +110,7 @@ const Terms: Component = () => {
 
             <h2>5. Governing Law</h2>
             <p>
-                Whale's Exchange reserves the right to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice. You agree that
-                we shall not be liable to you or to any third party for any modification, suspension, or discontinuance of the Service.
+                These terms shall be governed by and construed in accordance with the laws of Czech Republic, without regard to its conflict of law principles. 
             </p>
 
             <h2>6. Contact Info</h2>
