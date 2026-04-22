@@ -10,7 +10,7 @@ const Privacy: Component = () => {
             <h1>Privacy Policy</h1>
 
             <p>
-                AITIS s.r.o. ("we," "us," or "our") operates {`${config.whalesExchangeUrl}`} (the "Site"), which is an interface to enable access to theElectrum Swap protocol
+                AITIS s.r.o. ("we," "us," or "our") operates {`${config.whalesExchangeUrl}`} (the "Site"), which is an interface to enable access to the Electrum Swap protocol
                 without using Electrum wallet (the "Service"). This privacy policy sets out how the Site uses and protects any information that you give to the Site or that
                 the Site collects about you when you use this website. If you require any more information or have any questions about our privacy policy, please feel free
                 to use <ExternalLink href="https://whalessecret.com/contact-us">Whale's Secret contact form</ExternalLink>.
