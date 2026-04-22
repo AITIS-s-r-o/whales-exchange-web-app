@@ -88,6 +88,7 @@ const InvoiceInput = () => {
         }
 
         // Auto switch direction based on address
+        /* WEX
         if (actualAsset !== LN && actualAsset !== null) {
             setAssetSend(assetSend() === actualAsset ? LN : assetSend());
             setAssetReceive(actualAsset);
@@ -97,6 +98,7 @@ const InvoiceInput = () => {
             notify("success", t("switch_paste"));
             return;
         }
+        */
 
         try {
             if (isLnurl(invoice)) {
