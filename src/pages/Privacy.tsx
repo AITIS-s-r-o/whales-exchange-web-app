@@ -226,9 +226,9 @@ const Privacy: Component = () => {
                 support services. We will take all steps to ensure that your data is treated securely and in accordance with this privacy policy.
             </p>
             <p>
-                All information you provide to us is stored on our secure servers. Any payment transactions carried out by payment processing services will be encrypted using
-                Secured Sockets Layer technology. Where we have given you (or where you have chosen) a password that enables you to access certain parts of our Site, you are
-                responsible for keeping this password confidential. We ask you not to share a password with anyone.
+                All information you provide to us is stored on our secure servers. All the data transferred to us are encrypted using Secured Sockets Layer technology. The Local
+                Storage data the application stores in your browser contains sensitive information. You are responsible for keeping this data confidential. We ask you not to share
+                this data with anyone.
             </p>
             <p>
                 Unfortunately, the transmission of information via the internet is not completely secure. Although we will do our best to protect your personal data, we cannot
