@@ -354,13 +354,11 @@ const dict = {
         chat_with_us: "Chat with us",
 
         // Help page.
-        help_description:
-            "Get support",
+        help_description: "Get support",
 
         // About page.
         about: "About",
-        about_description:
-            "Learn more about Whale's Exchange",
+        about_description: "Learn more about Whale's Exchange",
 
         // Plugin
         boltz_plugin_name: "Boltz BTCPay Plugin",
