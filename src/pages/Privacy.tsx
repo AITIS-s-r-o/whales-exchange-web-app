@@ -85,8 +85,8 @@ const Privacy: Component = () => {
             </p>
             <ul>
                 <li>
-                    Collecting and storing information about the swap itself, such as the amount swapped, the type of swap, and the status of the swap, sw transaction destinations
-                    such as Bitcoin addresses or Lightning invoices.
+                    Collecting and storing information about the swap itself, such as the amount swapped, the type of swap, and the status of the swap, swap transaction
+                    destinations such as Bitcoin addresses or Lightning invoices.
                 </li>
                 <li>
                     Collecting and storing data related to transaction origins, including transaction identifiers or Lightning invoices.
