@@ -63,7 +63,7 @@ const defaults = {
     whalesSecretUrl: "https://whalessecret.com",
     whalesSecretName: "Whale's Secret",
 
-    supportUrl: "https://support.boltz.exchange/hc/center",
+    // supportUrl: "https://support.boltz.exchange/hc/center",
     twitterUrl: "https://x.com/WhalesSecret",
     githubUrl: "https://github.com/AITIS-s-r-o/whales-exchange-web-app",
     repoUrl: "https://github.com/AITIS-s-r-o/whales-exchange-web-app",
