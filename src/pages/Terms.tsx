@@ -28,7 +28,7 @@ const Terms: Component = () => {
                 a swap server).
             </p>
             <p>
-                Whale's Exchange use advanced cryptography and are non-custodial, which means users retain full control of their bitcoin throughout the entire flow of a swap (with
+                Whale's Exchange uses advanced cryptography and is non-custodial, which means users retain full control of their bitcoin throughout the entire flow of a swap (with
                 the exception of a small reverse swap fee invoice). Users need to provide the following information to use the Service:
             </p>
             <p>
