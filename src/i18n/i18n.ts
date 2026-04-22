@@ -360,6 +360,10 @@ const dict = {
         about: "About",
         about_description: "Learn more about Whale's Exchange",
 
+        // Contact page.
+        contact: "Contact Us",
+        contact_description: "Contact us if you need support or want to contribute to the project",
+
         // Plugin
         boltz_plugin_name: "Boltz BTCPay Plugin",
         boltz_plugin_description:

@@ -93,6 +93,9 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                     <A href="/about" onClick={() => setHamburger(false)}>
                         {t("about")}
                     </A>
+                    <A href="/contact" onClick={() => setHamburger(false)}>
+                        {t("contact")}
+                    </A>
                     { /* WEX
                     <Show when={config.supportUrl}>
                         <ExternalLink class="external" href={config.supportUrl}>
