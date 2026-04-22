@@ -33,13 +33,15 @@ import Pay from "./pages/Pay";
 import Privacy from "./pages/Privacy";
 import RefundRescue from "./pages/RefundRescue";
 import Rescue from "./pages/Rescue";
-import RescueEvm from "./pages/RescueEvm";
+/* WEX import RescueEvm from "./pages/RescueEvm"; */
 import RescueExternal from "./pages/RescueExternal";
 import Terms from "./pages/Terms";
-import Btcpay from "./pages/products/Btcpay";
+/* WEX import Btcpay from "./pages/products/Btcpay";
 import Client from "./pages/products/Client";
 import Pro from "./pages/products/Pro";
-import Products from "./pages/products/Products";
+import Products from "./pages/products/Products";*/
+import Help from "./pages/Help";
+import About from "./pages/About";
 import "./style/index.scss";
 import "./utils/patches";
 
@@ -66,7 +68,7 @@ const App = (props: RouteSectionProps) => {
                     <PayProvider>
                         <RescueProvider>
                             <SwapChecker />
-                            <Chatwoot />
+                            {/* WEX <Chatwoot /> */}
                             <Nav
                                 isPro={config.isPro}
                                 network={config.network}
@@ -117,10 +119,13 @@ const cleanup = render(
         <Router root={App}>
             <Route path="/" component={Hero} />
             <Route path="/swap" component={Create} />
-            <Route path="/products" component={Products} />
+            <Route path="/help" component={Help} />
+            <Route path="/about" component={About} />
+            { /* WEX 
             <Route path="/products/btcpay" component={Btcpay} />
             <Route path="/products/client" component={Client} />
             <Route path="/products/pro" component={Pro} />
+            */ }
             {/* Compatibility with link in Breez:
                                 https://github.com/breez/breezmobile/blob/a1b0ffff902dfa2210af8fdb047b715535ff11e9/src/json/vendors.json#L30 */}
             <Route path="/swapbox" component={Create} />
@@ -130,10 +135,11 @@ const cleanup = render(
             <Route path="/backup/mnemonic" component={BackupMnemonic} />
             <Route path="/backup/mnemonic/verify" component={MnemonicVerify} />
             <Route path="/backup/verify" component={BackupVerify} />
+            { /* WEX
             <Route
                 path="/swap/rescue/evm/:asset/:txHash/:action"
                 component={RescueEvm}
-            />
+            /> */ }
             <Route path="/error" component={() => <Error />} />
             <Route path="/rescue" component={Rescue} />
             <Route path="/rescue/external" component={RescueExternal} />

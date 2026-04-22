@@ -9,6 +9,7 @@ import { config } from "../config";
 import { useGlobalContext } from "../context/Global";
 import "../style/footer.scss";
 import ExternalLink from "./ExternalLink";
+import { OcLinkexternal2 } from "solid-icons/oc";
 
 const Footer = () => {
     const { t } = useGlobalContext();
@@ -94,7 +95,13 @@ const Footer = () => {
                     {__GIT_COMMIT__}
                 </ExternalLink>
             </p>
-            <p>{t("footer")}</p>
+            <p>
+                {t("footer")}
+                <ExternalLink href={`${config.whalesSecretUrl}`} target="_blank" class="wex_footer_link" rel="noopener external">
+                    {config.whalesSecretName}
+                    <OcLinkexternal2 size={16} />
+                </ExternalLink>
+            </p>
         </footer>
     );
 };
