@@ -112,8 +112,7 @@ export default function WexProviderTable(props: Props) {
                                 <th/>
                                 <th>{props.t("wex_provider_table_pubkey")}</th>
                                 <th>{props.t("wex_provider_table_fee")}</th>
-                                { /* WEX - we currently only support reverse swaps, so we can hide the forward swap column to avoid confusion. We can re-add it later.
-                                <th>{props.t("wex_provider_table_max_forward")}</th> */ }
+                                <th>{props.t("wex_provider_table_max_forward")}</th>
                                 <th>{props.t("wex_provider_table_max_reverse")}</th>
                                 <th>{props.t("wex_provider_table_last_seen")}</th>
                             </tr>
