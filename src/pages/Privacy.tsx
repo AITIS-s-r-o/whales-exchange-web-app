@@ -62,7 +62,7 @@ const Privacy: Component = () => {
             <h2>3. Information Collection and Use</h2>
             <p>We will collect and process the following data about you:</p>
             <p>
-                a) Information you give us "Submitted Information": This is information you give us about you by browsing our Site, filling in forms on the Site, or by
+                a) Information you give us ("Submitted Information"): This is information you give us about you by browsing our Site, filling in forms on the Site, or by
                 corresponding with us (for example, by e-mail). It includes information you provide when you use Services or and when you report a problem with the Services,
                 or the Site. If you contact us, we will keep a record of that correspondence. The information you give us may include your name, e-mail address, and any other
                 information you provide to us.
@@ -80,7 +80,7 @@ const Privacy: Component = () => {
             </ul>
             <p>
                 c) Information to help us deliver our Service to you and to help you perform the atomic swaps with the swap providers. We send the requests to create swap on your
-                behalf to the swap providers you select. Swap providers are third parties with who you collaborate to perform bitcoin swaps. Information we may collect about you
+                behalf to the swap providers you select. Swap providers are third parties with which you collaborate to perform bitcoin swaps. Information we may collect about you
                 is related to swaps you perform. This includes:
             </p>
             <ul>
