@@ -5,7 +5,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 14px 8px;
+    padding: 14px 8px 0px 8px;
 }
 @media (min-width: 769px) {
     .nav-inner {
@@ -280,4 +280,29 @@ body:has(#hamburger.active) {
     font-family: GoodTimes;
     font-style: normal;
     text-decoration: none !important;
+}
+
+.wex-sponsor-box {
+    display: flex;
+    align-items: center;
+}
+
+.wex-sponsor {
+    padding: 0.5rem 0.2rem;
+    margin-top: auto;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    color: rgba(255,255,255,0.92);
+    font-size: 0.7rem;
+    line-height: 1;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 520px) {
+        padding: 0.45rem 0.1rem;
+    }
+}
+
+.wex-sponsor a {
+    font-size: 0.7rem;
 }

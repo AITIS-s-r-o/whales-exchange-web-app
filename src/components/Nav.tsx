@@ -9,6 +9,8 @@ import { useGlobalContext } from "../context/Global";
 /*WEX import locales from "../i18n/i18n"; */
 import "../style/nav.scss";
 /*WEX import ExternalLink from "./ExternalLink"; */
+import { config } from "../config";
+import ExternalLink from "../components/ExternalLink";
 
 const Nav = (props: { network: string; isPro?: boolean }) => {
     /*WEX let timeout: ReturnType<typeof setTimeout> | undefined; */
@@ -126,6 +128,11 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                         d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
                     />
                 </svg>
+            </div>
+            <div class="wex-sponsor-box">
+                <div class="wex-sponsor">
+                    {t("wex_sponsor_1")} <ExternalLink href={config.whalesSecretUrl} target="_blank">{config.whalesSecretName} &ndash; {t("wex_sponsor_2")}</ExternalLink>
+                </div>
             </div>
         </nav>
     );

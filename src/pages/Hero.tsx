@@ -68,6 +68,11 @@ export const Hero = () => {
     return (
         <div id="hero" class="inner-wrap">
             <div
+                id="wex-beta-warning"
+                class="wex-hero-warning">
+                {t("beta_warning")}
+            </div>
+            <div
                 id="create-overlay"
                 class={hideHero() ? "" : "glow"}
                 onClick={() => setHideHero(true)}>
