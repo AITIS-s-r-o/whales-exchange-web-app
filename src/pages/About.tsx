@@ -60,7 +60,7 @@ const About = () => {
             <h2>Whale's Exchange</h2>
             <p>
                 Whale's Exchange combines Boltz Exchange web interface with Electrum Swap. It allows participating in Electrum swaps without needing to run Electrum wallet.
-                This allows for expanding the user base of Electrum Swap ecosystem to more users.
+                This allows expanding the user base of Electrum Swap ecosystem to more users.
             </p>
             <p>
                 While the web interface and the background API bridge are obviously centralized, the swaps themselves preserve the trust-minimized character that is inherent to
