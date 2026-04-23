@@ -63,5 +63,5 @@ The project can be built and run on Linux and Windows (WSL or Git Bash). The pro
 
 ## Resources
 
-- Get Help: [Support Center](https://whales.exchange/about)
+- Get Help: [Support Center](https://t.me/whales_secret_support)
 - Follow us: [X/Twitter](https://x.com/WhalesSecret)
