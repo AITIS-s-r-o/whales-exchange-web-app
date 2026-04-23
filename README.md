@@ -12,36 +12,32 @@ The Whale's Exchange Web App allows users to do atomic swaps on Bitcoin with a s
 Architecturally, the system consists of three main components:
 
 ```
-┌───────────────────────────────────────────────────────────────┐
-│                        Whale's Exchange                       │
-└───────────────────────────────────────────────────────────────┘
-
-┌───────────────────────────────────────────────────────────────┐      ┐
-│   Whale's Exchange Frontend                                   │      │
-│                                                               │      │  Client
-│   Code: SolidJS in TypeScript                                 │      │  Machine
-│   https://github.com/AITIS-s-r-o/whales-exchange-web-app      │      │
-└──────────────────┬────────────────────────────────────────────┘      ┘
-                   │
-                   │ WebSocket Connection + HTTP API Calls
-                   │
-                   ▼
-┌───────────────────────────────────────────────────────────────┐      ┐
-│  Whale's Exchange Backend                                     │      │
-│                                                               │      │
-│  Code: .NET / C# Backend Service                              │      │
-│  https://github.com/AITIS-s-r-o/whales-exchange-backend       │      │
-└──────────────────┬────────────────────────────────────────────┘      │
-                   │                                                   │  Server
-                   │ RPC Requests                                      │  Machine
-                   │                                                   │
-                   ▼                                                   │
-┌───────────────────────────────────────────────────────────────┐      │
-│   Electrum Swap Server                                        │      │
-│                                                               │      │
-│   Code: Python                                                │      │
-│   Link: https://github.com/AITIS-s-r-o/electrum-swap-backend  │      │
-└──────────────────┬────────────────────────────────────────────┘      ┘
+┌───────────────────────────────────────────────────────────────┐      ┐                 ┐
+│   Whale's Exchange Frontend                                   │      │                 │
+│                                                               │      │  Client         │
+│   Code: SolidJS in TypeScript                                 │      │  Machine        │
+│   https://github.com/AITIS-s-r-o/whales-exchange-web-app      │      │                 │
+└──────────────────┬────────────────────────────────────────────┘      ┘                 │
+                   │                                                                     │
+                   │ WebSocket Connection + HTTP API Calls                               │
+                   │                                                                     │
+                   ▼                                                                     │
+┌───────────────────────────────────────────────────────────────┐      ┐                 │
+│  Whale's Exchange Backend                                     │      │                 │
+│                                                               │      │                 │   Whale's
+│  Code: .NET / C# Backend Service                              │      │                 │   Exchange
+│  https://github.com/AITIS-s-r-o/whales-exchange-backend       │      │                 │
+└──────────────────┬────────────────────────────────────────────┘      │                 │
+                   │                                                   │  Server         │
+                   │ RPC Requests                                      │  Machine        │
+                   │                                                   │                 │
+                   ▼                                                   │                 │
+┌───────────────────────────────────────────────────────────────┐      │                 │
+│   Electrum Swap Server                                        │      │                 │
+│                                                               │      │                 │
+│   Code: Python                                                │      │                 │
+│   Link: https://github.com/AITIS-s-r-o/electrum-swap-backend  │      │                 │
+└──────────────────┬────────────────────────────────────────────┘      ┘                 ┘
                    │                                                   
       ┌────────────┼────────────┬─────────────┐                        
       │            │            │             │                        
