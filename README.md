@@ -53,6 +53,8 @@ npm run mainnet # Choices are: mainnet / testnet / regtest
 npm run dev
 ```
 
+The project can be built and run on Linux and Windows (WSL or Git Bash). The project _should_ run on macOS but it is not actively tested.
+
 ## Resources
 
 - Get Help: [Support Center](https://whales.exchange/about)
