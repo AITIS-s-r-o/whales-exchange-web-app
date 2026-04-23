@@ -298,7 +298,6 @@ const CreateProvider = (props: { children: JSX.Element }) => {
         name: "assetSend",
     });
 
-    /* WEX
     createEffect(() => {
         if (assetReceive() === LN) {
             setSwapType(SwapType.Submarine);
@@ -308,7 +307,6 @@ const CreateProvider = (props: { children: JSX.Element }) => {
             setSwapType(SwapType.Chain);
         }
     });
-    */
 
     // asset selection
     const [assetSelect, setAssetSelect] = createSignal(false);
