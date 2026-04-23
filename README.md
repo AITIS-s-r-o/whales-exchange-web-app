@@ -5,7 +5,7 @@ based on the [Electrum Swap protocol](https://electrum.readthedocs.io/en/latest/
 
 The app was forked from [boltz-web-app](https://github.com/BoltzExchange/boltz-web-app).
 
-## Architecture
+## Design
 
 The Whale's Exchange Web App allows users to do atomic swaps on Bitcoin with a simple-to-use interface accessible through your browser without needing to install Electrum. The Web app interacts with the [backend service](https://github.com/AITIS-s-r-o/whales-exchange-backend) which facilitates the swap logic and operations by communicating with the [Electrum Swap Server](https://github.com/AITIS-s-r-o/electrum-swap-backend).
 
