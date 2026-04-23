@@ -363,7 +363,6 @@ const dict = {
 
         // Contact page.
         contact: "Contact Us",
-        contact_description: "Contact us if you need support or want to contribute to the project",
 
         // Beta warning.
         beta_warning: "Warning: This project is currently in its beta version. Only use it for testing purposes with small amounts that you are willing to lose.",
