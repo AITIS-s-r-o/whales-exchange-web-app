@@ -4,7 +4,7 @@ This repository contains the official Whale's Exchange App served at
 [whales.exchange](https://whales.exchange). It enables **non-custodial** swaps
 across different Bitcoin layers based on the Electrum Swap protocol.
 
-The app was forked from [boltz.exchange](https://boltz.exchange).
+The app was forked from [boltz-web-app](https://github.com/BoltzExchange/boltz-web-app).
 
 ## Architecture
 
