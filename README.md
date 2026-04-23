@@ -49,6 +49,7 @@ To run the web app locally from source, follow these instructions:
 
 ```bash
 npm install
+npm run mainnet # Choices are: mainnet / testnet / regtest
 npm run dev
 ```
 
