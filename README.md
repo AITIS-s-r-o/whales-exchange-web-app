@@ -7,7 +7,9 @@ The app was forked from [boltz-web-app](https://github.com/BoltzExchange/boltz-w
 
 ## Architecture
 
-The Whale's Exchange App is built using SolidJS and TypeScript. It interacts with the [backend service](https://github.com/AITIS-s-r-o/whales-exchange-backend) that facilitate the swap logic and operations by communicating with the [Electrum Swap Server](https://github.com/AITIS-s-r-o/electrum-swap-backend). The backend services are available in separate repositories:
+The Whale's Exchange Web App allows users to do atomic swaps on Bitcoin with a simple-to-use interface accessible through your browser without needing to install Electrum. The Web app interacts with the [backend service](https://github.com/AITIS-s-r-o/whales-exchange-backend) which facilitates the swap logic and operations by communicating with the [Electrum Swap Server](https://github.com/AITIS-s-r-o/electrum-swap-backend).
+
+Architecturally, the system consists of three main components:
 
 ```
 ┌───────────────────────────────────────────────────────────────┐
