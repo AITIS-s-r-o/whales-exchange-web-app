@@ -19,7 +19,7 @@ const Contact = () => {
                 <li><ExternalLink href="https://github.com/AITIS-s-r-o/whales-exchange-web-app">Whale's Exchange Web App</ExternalLink> (this frontend application);</li>
                 <li>
                     <ExternalLink href="https://github.com/AITIS-s-r-o/whales-exchange-backend">Whale's Exchange Backend</ExternalLink> (API bridge to Electrum backend RPC in
-                    C#);
+                    .NET);
                 </li>
                 <li>
                     <ExternalLink href="https://github.com/AITIS-s-r-o/electrum-swap-backend">Whale's Exchange Electrum Swap Bridge</ExternalLink> (modified Electrum wallet
