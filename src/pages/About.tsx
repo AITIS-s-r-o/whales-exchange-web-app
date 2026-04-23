@@ -49,7 +49,7 @@ const About = () => {
 
             <h2>Electrum Wallet</h2>
             <p>
-                Electrum is a popular Bitcoin wallet that has been around since 2011. It is feature rich and often among first to implement new Bitcoin features.
+                Electrum is a popular Bitcoin wallet that has been around since 2011. It is a feature rich wallet and often among first ones to implement new Bitcoin features.
             </p>
             <p>
                 Electrum Swap is a protocol that pushes the concept of atomic swaps on Bitcoin to the next level by decentralizing the swap process and allowing anyone to run
