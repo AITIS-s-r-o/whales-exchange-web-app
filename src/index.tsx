@@ -8,7 +8,7 @@ import { Navigate, Route, Router, useParams } from "@solidjs/router";
 import log from "loglevel";
 import { render } from "solid-js/web";
 
-import Chatwoot from "./chatwoot";
+/* WEX import Chatwoot from "./chatwoot"; */
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import Notification from "./components/Notification";
@@ -42,6 +42,7 @@ import Pro from "./pages/products/Pro";
 import Products from "./pages/products/Products";*/
 import Help from "./pages/Help";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import "./style/index.scss";
 import "./utils/patches";
 
@@ -121,6 +122,7 @@ const cleanup = render(
             <Route path="/swap" component={Create} />
             <Route path="/help" component={Help} />
             <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
             { /* WEX 
             <Route path="/products/btcpay" component={Btcpay} />
             <Route path="/products/client" component={Client} />

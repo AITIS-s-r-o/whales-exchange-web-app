@@ -67,6 +67,8 @@ const dict = {
         wex_provider_table_seen_month_ago: "month ago",
         wex_provider_table_seen_months_ago: "months ago",
         wex_reverse_forward_disabled: "Forward swaps are not supported yet. Please come back soon!",
+        wex_sponsor_1: "This project is sponsored by",
+        wex_sponsor_2: "unified .NET API to digital assets platforms.",
         new_swap: "New Swap",
         feecheck:
             "Network fee was updated based on network situation, please confirm new amounts and continue with swap.",
@@ -359,6 +361,13 @@ const dict = {
         // About page.
         about: "About",
         about_description: "Learn more about Whale's Exchange",
+
+        // Contact page.
+        contact: "Contact Us",
+        contact_description: "Contact us if you need support or want to contribute to the project",
+
+        // Beta warning.
+        beta_warning: "Warning: This project is currently in its beta version. Only use it for testing purposes with small amounts that you are willing to lose.",
 
         // Plugin
         boltz_plugin_name: "Boltz BTCPay Plugin",
