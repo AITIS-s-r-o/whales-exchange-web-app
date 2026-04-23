@@ -59,7 +59,7 @@ const About = () => {
 
             <h2>Whale's Exchange</h2>
             <p>
-                Whale's Exchange combines Boltz Exchange web interface with Electrum Swap. It allows participating in Electrum swaps without the need to run Electrum wallet.
+                Whale's Exchange combines Boltz Exchange web interface with Electrum Swap. It allows participating in Electrum swaps without needing to run Electrum wallet.
                 This allows for expanding the user base of Electrum Swap ecosystem to more users.
             </p>
             <p>
