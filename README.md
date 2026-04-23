@@ -41,15 +41,15 @@ Architecturally, the system consists of three main components:
 │                                                               │      │
 │   Code: Python                                                │      │
 │   Link: https://github.com/AITIS-s-r-o/electrum-swap-backend  │      │
-└──────────────────┬────────────────────────────────────────────┘      │
-                   │                                                   │
-      ┌────────────┼────────────┬─────────────┐                        │
-      │            │            │             │                        │
-      ▼            ▼            ▼             ▼                        │
- ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐                   │
- │   Swap   │ │   Swap   │ │   Swap   │ │   Swap   │                   │
- │ Provider │ │ Provider │ │ Provider │ │ Provider │                   │
- │    1     │ │    2     │ │    3     │ │    N     │                   │
+└──────────────────┬────────────────────────────────────────────┘      ┘
+                   │                                                   
+      ┌────────────┼────────────┬─────────────┐                        
+      │            │            │             │                        
+      ▼            ▼            ▼             ▼                        
+ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐                   ┐  
+ │   Swap   │ │   Swap   │ │   Swap   │ │   Swap   │                   │ External
+ │ Provider │ │ Provider │ │ Provider │ │ Provider │                   │ Services
+ │    1     │ │    2     │ │    3     │ │    N     │                   │ 
  └──────────┘ └──────────┘ └──────────┘ └──────────┘                   ┘
 ```
 
