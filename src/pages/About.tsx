@@ -11,7 +11,7 @@ const About = () => {
             <p>
                 Whale's Exchange is an <ExternalLink href="https://github.com/AITIS-s-r-o/whales-exchange-web-app/">open-source</ExternalLink> non-custodial 
                 <ExternalLink href="https://bitcoinops.org/en/newsletters/2025/07/18/#electrum-4-6-0-released">Electrum Swap</ExternalLink> interface based on 
-                <ExternalLink href="https://boltz.exchange">Boltz Exchange</ExternalLink> frontend. To understand what is Whale's Exchange, it is important to understand what
+                <ExternalLink href="https://boltz.exchange">Boltz Exchange</ExternalLink> frontend. To understand what Whale's Exchange is, it is important to understand what
                 submarine swaps are and also understand the two project that it is built on.
             </p>
             
