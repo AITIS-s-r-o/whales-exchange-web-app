@@ -1,17 +1,13 @@
 # Whale's Exchange Web App
 
-This repository contains the official Whale's Exchange App served at
-[whales.exchange](https://whales.exchange). It enables **non-custodial** swaps
-across different Bitcoin layers based on the Electrum Swap protocol.
+This repository contains the official Whale's Exchange App served at [whales.exchange](https://whales.exchange). It enables **non-custodial** swaps across different Bitcoin layers
+based on the [Electrum Swap protocol](https://electrum.readthedocs.io/en/latest/swapserver.html).
 
 The app was forked from [boltz-web-app](https://github.com/BoltzExchange/boltz-web-app).
 
 ## Architecture
 
-The Whale's Exchange App is built using SolidJS and TypeScript for the frontend. It interacts with the backend services that handle the swap logic and operations. The backend services are available in separate repositories:
-
-* https://github.com/AITIS-s-r-o/electrum-swap-backend - Electrum server that facilitates the actual swaps
-* https://github.com/AITIS-s-r-o/whales-exchange-backend - Backend service in .NET (C#) that communicates with the Electrum swap server and provides APIs for the frontend app
+The Whale's Exchange App is built using SolidJS and TypeScript. It interacts with the [backend service](https://github.com/AITIS-s-r-o/whales-exchange-backend) that facilitate the swap logic and operations by communicating with the [Electrum Swap Server](https://github.com/AITIS-s-r-o/electrum-swap-backend). The backend services are available in separate repositories:
 
 ```
 ┌───────────────────────────────────────────────────────────────┐
