@@ -360,7 +360,6 @@ const dict = {
 
         // About page.
         about: "About",
-        about_description: "Learn more about Whale's Exchange",
 
         // Contact page.
         contact: "Contact Us",
