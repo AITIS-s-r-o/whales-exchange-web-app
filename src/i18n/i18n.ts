@@ -355,9 +355,6 @@ const dict = {
         view_on_github: "View on Github",
         chat_with_us: "Chat with us",
 
-        // Help page.
-        help_description: "Get support",
-
         // About page.
         about: "About",
         about_description: "Learn more about Whale's Exchange",

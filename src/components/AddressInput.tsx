@@ -80,7 +80,6 @@ const AddressInput = () => {
             console.log("[AddressInput.handleInputChange] address=%s, invoice=%s, bip21Amount=%o", address, invoice, bip21Amount);
             console.log("[AddressInput.handleInputChange] assetName=%s, actualAsset=%s", assetName, actualAsset);
 
-            /* WEB -- support only for reverse swaps at the moment.
             switch (actualAsset) {
                 case LN: {
                     setAssetReceive(LN);
@@ -110,7 +109,6 @@ const AddressInput = () => {
                     break;
                 }
             }
-            */
         } catch (e) {
             setAddressValid(false);
 
