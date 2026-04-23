@@ -43,7 +43,7 @@ The Whale's Exchange App is built using SolidJS and TypeScript for the frontend.
 
 ## Contributing
 
-We welcome contributions to the Whale's Exchange App! If you have an idea for a new feature, improvement, or bug fix, please submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions to the Whale's Exchange! If you have an idea for a new feature, improvement, or bug fix, please submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
 
 To run the web app locally from source, follow these instructions:
 
