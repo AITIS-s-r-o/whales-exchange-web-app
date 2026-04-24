@@ -17,15 +17,15 @@ const About = () => {
             
             <h2>Submarine Swaps</h2>
             <p>
-                Submarine swaps are a type of atomic swap that allows users to exchange onchain bitcoins with offchain bitcoins and vice-versa. Lightning Network users may
-                sometimes have too little or too much liquidity in their channels, and submarine swaps allow them to swap between onchain and offchain bitcoin without trusting
+                Submarine swaps are a type of atomic swap that allows users to exchange on-chain bitcoins with off-chain bitcoins and vice-versa. Lightning Network users may
+                sometimes have too little or too much liquidity in their channels, and submarine swaps allow them to swap between on-chain and off-chain bitcoin without trusting
                 a third party custodian.
             </p>
             <p>
-                A Forward Swap (BTC→LN) is a swap where the user swaps onchain bitcoin (BTC) for offchain bitcoin (LN).
+                A Forward Swap (BTC→LN) is a swap where the user swaps on-chain bitcoin (BTC) for off-chain bitcoin (LN).
             </p>
             <p>
-                A Reverse Swap (LN→BTC) is a swap where the user swaps offchain bitcoin (LN) for onchain bitcoin (BTC). In the first version of Whale's Exchange, only the reverse
+                A Reverse Swap (LN→BTC) is a swap where the user swaps off-chain bitcoin (LN) for on-chain bitcoin (BTC). In the first version of Whale's Exchange, only the reverse
                 swaps are supported.
             </p>
             <p>
