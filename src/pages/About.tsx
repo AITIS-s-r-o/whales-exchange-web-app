@@ -11,8 +11,8 @@ const About = () => {
             <p>
                 Whale's Exchange is an <ExternalLink href="https://github.com/AITIS-s-r-o/whales-exchange-web-app/">open-source</ExternalLink> non-custodial 
                 <ExternalLink href="https://bitcoinops.org/en/newsletters/2025/07/18/#electrum-4-6-0-released">Electrum Swap</ExternalLink> interface based on 
-                <ExternalLink href="https://boltz.exchange">Boltz Exchange</ExternalLink> frontend. To understand what is Whale's Exchange, it is important to understand what
-                submarine swaps are and also understand the two project that it is built on.
+                <ExternalLink href="https://boltz.exchange">Boltz Exchange</ExternalLink> frontend. To understand what Whale's Exchange is, it is important to understand what
+                submarine swaps are and also understand the two projects that it is built on.
             </p>
             
             <h2>Submarine Swaps</h2>
@@ -49,7 +49,7 @@ const About = () => {
 
             <h2>Electrum Wallet</h2>
             <p>
-                Electrum is a popular Bitcoin wallet that has been around since 2011. It is feature rich and often among first to implement new Bitcoin features.
+                Electrum is a popular Bitcoin wallet that has been around since 2011. It is a feature rich wallet and often among first ones to implement new Bitcoin features.
             </p>
             <p>
                 Electrum Swap is a protocol that pushes the concept of atomic swaps on Bitcoin to the next level by decentralizing the swap process and allowing anyone to run
@@ -59,8 +59,8 @@ const About = () => {
 
             <h2>Whale's Exchange</h2>
             <p>
-                Whale's Exchange combines Boltz Exchange web interface with Electrum Swap. It allows participating in Electrum swaps without the need to run Electrum wallet.
-                This allows for expanding the user base of Electrum Swap ecosystem to more users.
+                Whale's Exchange combines Boltz Exchange web interface with Electrum Swap. It allows participating in Electrum swaps without needing to run Electrum wallet.
+                This allows expanding the user base of Electrum Swap ecosystem to more users.
             </p>
             <p>
                 While the web interface and the background API bridge are obviously centralized, the swaps themselves preserve the trust-minimized character that is inherent to
