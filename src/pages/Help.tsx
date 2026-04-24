@@ -33,7 +33,10 @@ const Help = () => {
                 To perform a Reverse Swap:
             </p>
             <ul>
-                <li>Go to <a href="/">the main page</a> and select a swap provider from the list of providers.</li>
+                <li>
+                    Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
+                    Reverse) and fees and these parameters can change over time.
+                </li>
                 <li>Enter the amount you want to swap, or the amount you want to receive.</li>
                 <li>Enter your destination on-chain address. Always use a previously unused address.</li>
                 <li>Click the "Create Atomic Swap" button.</li>
