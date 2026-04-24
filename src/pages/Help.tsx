@@ -32,7 +32,7 @@ const Help = () => {
             <p>
                 To perform a Reverse Swap:
             </p>
-            <ul>
+            <ol>
                 <li>
                     Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
                     Reverse) and fees and these parameters can change over time.
@@ -71,7 +71,7 @@ const Help = () => {
                         possible.
                     </p>
                 </li>
-            </ul>
+            </ol>
 
             <h2 id="how-are-swap-providers-ordered">4. How are swap providers ordered in the list of swap providers?</h2>
             <p>
