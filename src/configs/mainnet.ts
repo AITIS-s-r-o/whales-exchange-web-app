@@ -1,21 +1,22 @@
 import type { Config } from "src/configs/base";
 import { Explorer, baseConfig, chooseUrl } from "src/configs/base";
 
+/* WEX
 const rskFallback = import.meta.env.VITE_RSK_FALLBACK_ENDPOINT;
 
 const rskRpcUrls = ["https://public-node.rsk.co"];
 if (rskFallback) {
     rskRpcUrls.push(rskFallback);
-}
+} */
 
 const config = {
     ...baseConfig,
-    torUrl: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/",
+    // WEX torUrl: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/",
     network: "mainnet",
     loglevel: "debug",
     apiUrl: {
-        normal: "https://api.boltz.exchange",
-        tor: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/api",
+        normal: "https://api.whales.exchange",
+        // WEX tor: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/api",
     },
     assets: {
         BTC: {
@@ -37,7 +38,7 @@ const config = {
                 },
             ],
         },
-        /*WEX
+        /* WEX
         "L-BTC": {
             blockExplorerUrl: {
                 id: Explorer.Esplora,

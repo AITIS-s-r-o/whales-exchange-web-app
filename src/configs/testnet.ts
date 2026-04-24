@@ -6,7 +6,7 @@ const config = {
     network: "testnet",
     loglevel: "debug",
     apiUrl: {
-        normal: "https://api.testnet.boltz.exchange",
+        normal: "https://localhost:7101",
     },
     assets: {
         BTC: {
@@ -28,7 +28,7 @@ const config = {
                 },
             ],
         },
-        "L-BTC": {
+        /*WEX "L-BTC": {
             blockExplorerUrl: {
                 id: Explorer.Esplora,
                 normal: "https://blockstream.info/liquidtestnet",
@@ -69,7 +69,7 @@ const config = {
                     "0x82bc3558863b3f0C9914539DbB2d143AfB9c8768",
                 deployVerifier: "0x5e8F98ddAd4Da6eE8A8eA3D64E09385dF6b609D0",
             },
-        },
+        }, */
     },
 } as Config;
 
