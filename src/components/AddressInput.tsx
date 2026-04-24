@@ -3,7 +3,7 @@ import { createEffect, on } from "solid-js";
 import { calculateSendAmount } from "src/utils/calculate";
 import { btcToSat } from "src/utils/denomination";
 
-import { LN, RBTC } from "../consts/Assets";
+import { LN, RBTC, LBTC } from "../consts/Assets";
 import { SwapType } from "../consts/Enums";
 import { useCreateContext } from "../context/Create";
 import { useGlobalContext } from "../context/Global";
@@ -73,16 +73,23 @@ const AddressInput = () => {
 
         try {
             const assetName = assetReceive();
-            const actualAsset =
-                /* WEX (await probeUserInput(assetName, invoice)) ??
-                (await probeUserInput(assetName, address)); */
-                await probeUserInput(assetName, address);
+            const actualAsset = 
+                (await probeUserInput(assetName, invoice)) ??
+                (await probeUserInput(assetName, address));
 
             console.log("[AddressInput.handleInputChange] address=%s, invoice=%s, bip21Amount=%o", address, invoice, bip21Amount);
             console.log("[AddressInput.handleInputChange] assetName=%s, actualAsset=%s", assetName, actualAsset);
 
             switch (actualAsset) {
+                // WEX We do not support Liquid or Rootstock.
+                case LBTC:
+                case RBTC:
+                    throw new Error();
+
                 case LN: {
+                    /* WEX in first version we do not support forward swaps, so disable switching to forward swap if LN invoice is pasted to the input */
+                    throw new Error();
+
                     setAssetReceive(LN);
                     if (assetSend() === LN) {
                         setAssetSend(assetName);
