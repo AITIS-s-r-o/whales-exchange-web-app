@@ -54,12 +54,20 @@ Architecturally, the system consists of three main components:
 
 We welcome contributions to the Whale's Exchange! If you have an idea for a new feature, improvement, or bug fix, please submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
 
-To run the web app locally from source, follow these instructions:
+To run the web app locally from source for development, follow these instructions:
 
 ```bash
 npm install
 npm run mainnet # Choices are: mainnet / testnet / regtest
 npm run dev
+```
+
+To run the web app in production, follow these instructions:
+
+```bash
+npm install
+npm run mainnet && npm run build
+npx serve dist
 ```
 
 The project can be built and run on Linux and Windows (WSL or Git Bash). The project _should_ run on macOS but it is not actively tested.
