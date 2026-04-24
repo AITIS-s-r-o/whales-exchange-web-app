@@ -25,7 +25,7 @@ const Help = () => {
 
             <h2 id="how-do-i-perform-a-forward-swap">2. How do I perform a Forward Swap?</h2>
             <p>
-                Currently, only Reverse Swaps are supported. Please <a href="/contact">contact us</a> if you want to help us implement Forward Swaps.
+                Currently, only Reverse Swaps are supported. If you are interested in this feature, or you want to help us implement it, please <a href="/contact">contact us</a>.
             </p>
 
             <h2 id="how-do-i-perform-a-reverse-swap">3. How do I perform a Reverse Swap?</h2>
