@@ -74,8 +74,9 @@ const AddressInput = () => {
         try {
             const assetName = assetReceive();
             const actualAsset =
-                (await probeUserInput(assetName, invoice)) ??
-                (await probeUserInput(assetName, address));
+                /* WEX (await probeUserInput(assetName, invoice)) ??
+                (await probeUserInput(assetName, address)); */
+                await probeUserInput(assetName, address);
 
             console.log("[AddressInput.handleInputChange] address=%s, invoice=%s, bip21Amount=%o", address, invoice, bip21Amount);
             console.log("[AddressInput.handleInputChange] assetName=%s, actualAsset=%s", assetName, actualAsset);
