@@ -73,7 +73,7 @@ const AddressInput = () => {
 
         try {
             const assetName = assetReceive();
-            const actualAsset = 
+            const actualAsset =
                 (await probeUserInput(assetName, invoice)) ??
                 (await probeUserInput(assetName, address));
 
