@@ -17,7 +17,7 @@ const About = () => {
             
             <h2>Submarine Swaps</h2>
             <p>
-                Submarine swaps are a type of atomic swap that allows users to exchange on-chain bitcoins with off-chain bitcoins and vice-versa. Lightning Network users may
+                Submarine swaps are a type of atomic swap that allows users to exchange on-chain bitcoin with off-chain bitcoin and vice-versa. Lightning Network users may
                 sometimes have too little or too much liquidity in their channels, and submarine swaps allow them to swap between on-chain and off-chain bitcoin without trusting
                 a third party custodian.
             </p>
@@ -44,7 +44,7 @@ const About = () => {
             <h2>Boltz Exchange</h2>
             <p>
                 Boltz Exchange pioneered the concept of atomic swaps on Bitcoin with simple to use interface. It evolved into a web service that allows users to swap between
-                various digital assets, not just bitcoins, on different layers and chains.
+                various digital assets, not just Bitcoin, on different layers and chains.
             </p>
 
             <h2>Electrum Wallet</h2>
