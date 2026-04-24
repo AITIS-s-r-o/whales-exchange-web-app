@@ -68,7 +68,7 @@ const dict = {
         wex_provider_table_seen_months_ago: "months ago",
         wex_reverse_forward_disabled: "Forward swaps are not supported yet. Please come back soon!",
         wex_sponsor_1: "This project is sponsored by",
-        wex_sponsor_2: "unified .NET API to digital assets platforms.",
+        wex_sponsor_2: "unified .NET API for digital assets platforms.",
         new_swap: "New Swap",
         feecheck:
             "Network fee was updated based on network situation, please confirm new amounts and continue with swap.",
@@ -360,7 +360,6 @@ const dict = {
 
         // About page.
         about: "About",
-        about_description: "Learn more about Whale's Exchange",
 
         // Contact page.
         contact: "Contact Us",
