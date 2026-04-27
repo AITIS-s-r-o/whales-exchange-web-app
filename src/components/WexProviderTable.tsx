@@ -2,7 +2,7 @@ import type { Accessor } from "solid-js";
 import { BigNumber } from "bignumber.js";
 import { For } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
-import { CAP_FORWARDV1 } from "../utils/wexClient";
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
 import "../style/wexProviderTable.scss";
 import { createHash } from "crypto";
 import { formatAmount } from "../utils/denomination";
@@ -124,7 +124,7 @@ export default function WexProviderTable(props: Props) {
                                     const isSelected = () => props.selected()?.pk === p.pk;
                                     const lastSeen = () => getLastSeen(p.time, props.t);
                                     const color = () => pubkeyToRgbColor(p.pk);
-                                    const caps = new Set(p.capabilities ?? []);
+                                    const canForwardSwap = () => (p.capabilities ?? []).includes(WEX_CAP_FORWARDV1);
 
                                     return (
                                         <tr
@@ -144,7 +144,7 @@ export default function WexProviderTable(props: Props) {
                                             </td>
                                             <td class="text-right">
                                                 {
-                                                    caps.has(CAP_FORWARDV1) ? (
+                                                    canForwardSwap() ? (
                                                         <>
                                                             {
                                                                 formatAmount(

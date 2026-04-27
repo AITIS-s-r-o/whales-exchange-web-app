@@ -48,7 +48,7 @@ import { validateResponse } from "../utils/validation";
 import LoadingSpinner from "./LoadingSpinner";
 import { getMagicRoutingHintSavedFees } from "./OptimizedRoute";
 
-import { CAP_FORWARDV1 } from "../utils/wexClient";
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
 
 // In milliseconds
 const invoiceFetchTimeout = 25_000;
@@ -277,8 +277,7 @@ const CreateButton = () => {
     };
 
     const wex_selectedProviderSupportsForwardSwaps = (): boolean => {
-        const caps = new Set(selectedProvider()?.capabilities ?? [])
-        return caps.has(CAP_FORWARDV1);
+        return (selectedProvider()?.capabilities ?? []).includes(WEX_CAP_FORWARDV1);
     };
 
     const validWayToFetchInvoice = (): boolean => {

@@ -1,7 +1,7 @@
 import type { Accessor } from "solid-js";
 import { BigNumber } from "bignumber.js";
 import type { WexSwapProvider } from "../utils/wexClient";
-import { CAP_FORWARDV1 } from "../utils/wexClient";
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
 import { createMemo } from "solid-js";
 import { pubkeyToRgbColor } from "./WexProviderTable";
 import "../style/wexProvider.scss";
@@ -48,10 +48,7 @@ export default function WexProvider(props: Props) {
 
     const pubkey = createMemo(() => currentProvider()?.pk || "");
     const fee = createMemo(() => currentProvider()?.fwdFee || 0);
-    const hasFwdV1 = createMemo(() => {
-        const caps = new Set(currentProvider()?.capabilities ?? [])
-        return caps.has(CAP_FORWARDV1);
-    });
+    const hasFwdV1 = createMemo(() => (currentProvider()?.capabilities ?? []).includes(WEX_CAP_FORWARDV1));
     const fwdMax = createMemo(() => currentProvider()?.fwdMax || 0);
     const revMax = createMemo(() => currentProvider()?.revMax || 0);
 

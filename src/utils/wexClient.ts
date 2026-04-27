@@ -3,7 +3,7 @@ import log from "loglevel";
 import { fetcher } from "./helper";
 import { ReverseCreatedResponse } from "./boltzClient";
 
-export const CAP_FORWARDV1 = "forwardv1";
+export const WEX_CAP_FORWARDV1 = "forwardv1";
 
 /**
  * Single swap provider information from Electrum get_submarine_swap_providers call.
