@@ -2,6 +2,7 @@ import type { Accessor } from "solid-js";
 import { BigNumber } from "bignumber.js";
 import { For } from "solid-js";
 import type { WexSwapProvider } from "../utils/wexClient";
+import { CAP_FORWARDV1 } from "../utils/wexClient";
 import "../style/wexProviderTable.scss";
 import { createHash } from "crypto";
 import { formatAmount } from "../utils/denomination";
@@ -123,6 +124,7 @@ export default function WexProviderTable(props: Props) {
                                     const isSelected = () => props.selected()?.pk === p.pk;
                                     const lastSeen = () => getLastSeen(p.time, props.t);
                                     const color = () => pubkeyToRgbColor(p.pk);
+                                    const caps = new Set(p.capabilities ?? []);
 
                                     return (
                                         <tr
@@ -141,15 +143,25 @@ export default function WexProviderTable(props: Props) {
                                                 {p.fwdFee}%
                                             </td>
                                             <td class="text-right">
-                                                {formatAmount(
-                                                    BigNumber(p.fwdMax),
-                                                    props.denomination(),
-                                                    props.separator(),
-                                                )}
-                                                <span
-                                                    class="denominator"
-                                                    data-denominator={props.denomination()}
-                                                />
+                                                {
+                                                    caps.has(CAP_FORWARDV1) ? (
+                                                        <>
+                                                            {
+                                                                formatAmount(
+                                                                    BigNumber(p.fwdMax),
+                                                                    props.denomination(),
+                                                                    props.separator(),
+                                                                )
+                                                            }
+                                                            <span
+                                                                class="denominator"
+                                                                data-denominator={props.denomination()}
+                                                            />
+                                                        </>
+                                                    ) : (
+                                                        "N/A"
+                                                    )
+                                                }
                                             </td>
                                             <td class="text-right">
                                                 {formatAmount(

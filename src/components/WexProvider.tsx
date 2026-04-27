@@ -1,6 +1,7 @@
 import type { Accessor } from "solid-js";
 import { BigNumber } from "bignumber.js";
 import type { WexSwapProvider } from "../utils/wexClient";
+import { CAP_FORWARDV1 } from "../utils/wexClient";
 import { createMemo } from "solid-js";
 import { pubkeyToRgbColor } from "./WexProviderTable";
 import "../style/wexProvider.scss";
@@ -47,6 +48,10 @@ export default function WexProvider(props: Props) {
 
     const pubkey = createMemo(() => currentProvider()?.pk || "");
     const fee = createMemo(() => currentProvider()?.fwdFee || 0);
+    const hasFwdV1 = createMemo(() => {
+        const caps = new Set(currentProvider()?.capabilities ?? [])
+        return caps.has(CAP_FORWARDV1);
+    });
     const fwdMax = createMemo(() => currentProvider()?.fwdMax || 0);
     const revMax = createMemo(() => currentProvider()?.revMax || 0);
 
@@ -84,15 +89,25 @@ export default function WexProvider(props: Props) {
                                     <tr>
                                         <td class="value">{fee()}%</td>
                                         <td class="value">
-                                            {formatAmount(
-                                                BigNumber(fwdMax()),
-                                                props.denomination(),
-                                                props.separator(),
-                                            )}
-                                            <span
-                                                class="denominator"
-                                                data-denominator={props.denomination()}
-                                            />
+                                            {
+                                                hasFwdV1() ? (
+                                                    <>
+                                                        {
+                                                            formatAmount(
+                                                                BigNumber(fwdMax()),
+                                                                props.denomination(),
+                                                                props.separator(),
+                                                            )
+                                                        }
+                                                        <span
+                                                            class="denominator"
+                                                            data-denominator={props.denomination()}
+                                                        />
+                                                    </>
+                                                ) : (
+                                                    "N/A"
+                                                )
+                                            }
                                         </td>
                                         <td class="value">
                                             {formatAmount(
