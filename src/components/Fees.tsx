@@ -197,14 +197,12 @@ const Fees = () => {
             }
 
             const calculateLimit = (limit: number): number => {
-                return swapType() === SwapType.Submarine
-                    ? calculateSendAmount(
+                return calculateSendAmount(
                           BigNumber(limit),
                           boltzFee(),
                           minerFee(),
                           swapType(),
-                      ).toNumber()
-                    : limit;
+                      ).toNumber();
             };
 
             setMinimum(
