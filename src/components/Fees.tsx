@@ -204,7 +204,12 @@ const Fees = () => {
                           minerFee(),
                           swapType(),
                       ).toNumber()
-                    : limit;
+                    : calculateSendAmount(
+                        BigNumber(limit),
+                        boltzFee(),
+                        minerFee(),
+                        swapType(),
+                    ).toNumber();
             };
 
             setMinimum(

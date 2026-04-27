@@ -576,7 +576,7 @@ const Create = () => {
                                 />
                             </div>
                         </div>
-                        <Reverse t={t} />
+                        <Reverse />
                         <div>
                             <Asset side={Side.Receive} signal={assetReceive} />
                             <div
