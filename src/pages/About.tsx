@@ -76,7 +76,7 @@ const About = () => {
                 Therefore, we can say that Whale's Exchange is somewhere in between Electrum Wallet and Boltz Exchange in terms of how much trust you have to put into it as a user.
             </p>
             <p>
-                Whale's Exchange does not receive any fees from the swaps as it does not participate in the swaps at all. It only faciliates communication between the user
+                Whale's Exchange does not receive any fees from the swaps as it does not participate in the swaps at all. It only facilitates communication between the user
                 and the swap providers.
             </p>
 
