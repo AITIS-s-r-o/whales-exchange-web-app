@@ -197,6 +197,7 @@ const Fees = () => {
             }
 
             const calculateLimit = (limit: number): number => {
+                // WEX Unlike Boltz, we need to account for fees for both forward and reverse swaps.
                 return calculateSendAmount(
                           BigNumber(limit),
                           boltzFee(),
