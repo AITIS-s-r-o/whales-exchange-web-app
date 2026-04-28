@@ -18,8 +18,8 @@ interface Props {
     t: (key: string) => string;
 }
 
-const Reverse = (props: Props) => {
-    /* WEX const {
+const Reverse = () => {
+    const {
         assetReceive,
         assetSend,
         setAssetSend,
@@ -33,10 +33,6 @@ const Reverse = (props: Props) => {
         const sendOld = assetSend();
         setAssetSend(assetReceive());
         setAssetReceive(sendOld);
-    };*/
-
-    const setDirection = () => {
-        alert(props.t("wex_reverse_forward_disabled"));
     };
 
     return (

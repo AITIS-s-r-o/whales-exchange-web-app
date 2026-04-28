@@ -197,14 +197,13 @@ const Fees = () => {
             }
 
             const calculateLimit = (limit: number): number => {
-                return swapType() === SwapType.Submarine
-                    ? calculateSendAmount(
+                // WEX Unlike Boltz, we need to account for fees for both forward and reverse swaps.
+                return calculateSendAmount(
                           BigNumber(limit),
                           boltzFee(),
                           minerFee(),
                           swapType(),
-                      ).toNumber()
-                    : limit;
+                      ).toNumber();
             };
 
             setMinimum(

@@ -87,9 +87,6 @@ const AddressInput = () => {
                     throw new Error();
 
                 case LN: {
-                    /* WEX in first version we do not support forward swaps, so disable switching to forward swap if LN invoice is pasted to the input */
-                    throw new Error();
-
                     setAssetReceive(LN);
                     if (assetSend() === LN) {
                         setAssetSend(assetName);

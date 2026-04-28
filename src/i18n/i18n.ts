@@ -66,7 +66,6 @@ const dict = {
         wex_provider_table_seen_days_ago: "days ago",
         wex_provider_table_seen_month_ago: "month ago",
         wex_provider_table_seen_months_ago: "months ago",
-        wex_reverse_forward_disabled: "Forward swaps are not supported yet. Please come back soon!",
         wex_sponsor_1: "This project is sponsored by",
         wex_sponsor_2: "unified .NET API for digital assets platforms.",
         new_swap: "New Swap",
@@ -107,7 +106,8 @@ const dict = {
         invalid_refund_file: "Invalid rescue key",
         invalid_backup_file: "Invalid backup file",
         invalid_invoice:
-            "Please provide a valid Lightning invoice, BOLT12 or LNURL",
+            "Please provide a valid Lightning BOLT11 invoice",
+        wex_provider_no_support_forward: "Select provider that supports forward swaps",
         invalid_0_amount: "Invoices without amount are not supported",
         copy_invoice: "lightning invoice",
         copy_address: "address",
