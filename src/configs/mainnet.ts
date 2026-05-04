@@ -11,12 +11,12 @@ if (rskFallback) {
 
 const config = {
     ...baseConfig,
-    // WEX torUrl: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/",
+    torUrl: "http://4i3yvnr3if75gzanohcobma5hoxrwhirvprfhnb7mhi2pv6alczxwuyd.onion/",
     network: "mainnet",
     loglevel: "debug",
     apiUrl: {
         normal: "https://api.whales.exchange",
-        // WEX tor: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/api",
+        tor: "http://nfcmvekgiuwgjfg5ztibroz3je33sg3sy7vk5lccjxtvscjcnotn4jqd.onion",
     },
     assets: {
         BTC: {
