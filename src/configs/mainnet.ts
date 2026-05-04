@@ -16,7 +16,7 @@ const config = {
     loglevel: "debug",
     apiUrl: {
         normal: "https://api.whales.exchange",
-        // WEX tor: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/api",
+        tor: "https://nfcmvekgiuwgjfg5ztibroz3je33sg3sy7vk5lccjxtvscjcnotn4jqd.onion",
     },
     assets: {
         BTC: {
