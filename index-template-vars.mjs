@@ -43,7 +43,7 @@ const config = {
             "@type": "Organization",
             name: "Whale's Exchange",
             url: "https://whales.exchange",
-            logo: "https://whales.exchange/logo.svg",
+            logo: "https://whales.exchange/logo.png",
             sameAs: ["https://x.com/WhalesSecret"],
 /*WEX            hasPart: {
                 "@context": "https://schema.org",
