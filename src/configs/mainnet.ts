@@ -11,7 +11,7 @@ if (rskFallback) {
 
 const config = {
     ...baseConfig,
-    // WEX torUrl: "http://boltzzzbnus4m7mta3cxmflnps4fp7dueu2tgurstbvrbt6xswzcocyd.onion/",
+    torUrl: "http://4i3yvnr3if75gzanohcobma5hoxrwhirvprfhnb7mhi2pv6alczxwuyd.onion/",
     network: "mainnet",
     loglevel: "debug",
     apiUrl: {
