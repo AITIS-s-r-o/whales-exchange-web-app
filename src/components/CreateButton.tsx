@@ -405,6 +405,7 @@ const CreateButton = () => {
 
                     const createSubmarineSwap = async () => {
                         data = await createSubmarine(
+                            selectedProvider(),
                             pairs(),
                             coalesceLn(assetSend()),
                             coalesceLn(assetReceive()),

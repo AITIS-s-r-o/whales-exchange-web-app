@@ -1,7 +1,7 @@
 import log from "loglevel";
 
 import { fetcher } from "./helper";
-import { ReverseCreatedResponse } from "./boltzClient";
+import { SubmarineCreatedResponse, ReverseCreatedResponse } from "./boltzClient";
 
 /**
  * Single swap provider information from Electrum get_submarine_swap_providers call.
@@ -66,6 +66,14 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
      * Providers are ordered first by PoW (descending) and then by public key (ascending).
      */
     data: WexSwapProvider[] | null;
+}
+
+/**
+ * Response to CreateSwapAsync call.
+ */
+export interface WexCreateSubmarineSwapResponse extends WexRestResponseBase {
+    /** Swap data. */
+    data: SubmarineCreatedResponse | null;
 }
 
 /**
