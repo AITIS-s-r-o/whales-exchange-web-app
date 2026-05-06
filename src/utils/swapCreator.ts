@@ -155,7 +155,7 @@ export const createReverse = async (
     newKey: newKeyFn,
     originalDestination?: string,
 ): Promise<ReverseSwap> => {
-    log.debug(`[swapCreator.createReverse] * provider=${provider}, pairs=${pairs}, assetSend=${assetSend}, assetReceive=${assetReceive}, sendAmount=${sendAmount}, `
+    log.debug(`[swapCreator.createReverse] * provider=${provider.pk}, pairs=${pairs}, assetSend=${assetSend}, assetReceive=${assetReceive}, sendAmount=${sendAmount}, `
         + `receiveAmount=${receiveAmount}, claimAddress=${claimAddress}, useRif=${useRif}, rescueFile=${rescueFile}, originalDestination=${originalDestination}`);
 
     const key = await newKey(assetReceive as AssetType);
@@ -165,7 +165,7 @@ export const createReverse = async (
         rescueFile,
     });
 
-    log.debug(`[swapCreator.createReverse] preimage is '%s'.`, hex.encode(preimage));
+    log.debug(`[swapCreator.createReverse] preimage is '${hex.encode(preimage)}'.`);
 
     const res = await createReverseSwap(
         provider,
@@ -181,7 +181,7 @@ export const createReverse = async (
         claimAddress,
     );
 
-    console.log("[swapCreator.createReverse] Response is: %o", res);
+    log.debug(`[swapCreator.createReverse] Response is:`, res);
 
     const result = {
         ...annotateSwapBaseData(
@@ -199,7 +199,7 @@ export const createReverse = async (
         claimPrivateKeyIndex: key?.index,
     };
 
-    console.log("[swapCreator.createReverse] $=%o", result);
+    log.debug(`[swapCreator.createReverse] $=`, result);
     return result;
 };
 
