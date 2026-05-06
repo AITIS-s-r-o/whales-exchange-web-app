@@ -262,7 +262,7 @@ const validateReverse = async (
 
     const result = validateAddressV1(swap, true, swap.lockupAddress);
     if (!result) {
-        log.debug(`[validation.validateReverse] Address validation failed for swap ${swap}.`);
+        log.debug(`[validation.validateReverse] Address validation failed for swap`, swap);
         log.debug(`[validation.validateReverse] $<ADDRESS_VALIDATION_FAILED>`);
 
         throw new Error(`invalid address. Expected '${swap.lockupAddress}'.`);
