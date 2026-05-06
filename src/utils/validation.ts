@@ -157,13 +157,13 @@ const validateReverse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
-    log.debug(`[validation.validateReverse] * swap=${swap}`);
+    log.debug(`[validation.validateReverse] * swap=`, swap);
 
     const invoiceData = await decodeInvoice(swap.invoice);
-    log.debug(`[validation.validateReverse] Invoice data is: ${invoiceData}`);
+    log.debug(`[validation.validateReverse] Invoice data is`, invoiceData);
 
     const feeInvoiceData = await decodeInvoice(swap.feeInvoice);
-    log.debug(`[validation.validateReverse] Fee invoice data is: ${feeInvoiceData}`);
+    log.debug(`[validation.validateReverse] Fee invoice data is`, feeInvoiceData);
 
     // Amounts
     if (invoiceData.satoshis + feeInvoiceData.satoshis !== swap.sendAmount) {
