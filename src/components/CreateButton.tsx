@@ -580,7 +580,7 @@ const CreateButton = () => {
             }
 
             try {
-                log.debug(`[CreateButton.createSwap] Validate response; data=${data}`);
+                log.debug(`[CreateButton.createSwap] Validate response; data=`, data);
                 await validateResponse(data, deriveKey, getEtherSwap);
             } catch (e) {
                 const error = e instanceof Error ? e : new Error(String(e));
