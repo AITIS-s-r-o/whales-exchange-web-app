@@ -189,12 +189,6 @@ const validateReverse = async (
         );
     }
 
-    if (swap.assetReceive === RBTC) {
-        console.log("[CreateButton.validateReverse] Validate RBTC contract");
-        await validateContract(getEtherSwap);
-        return;
-    }
-
     const ourKeys = deriveKey(
         swap.claimPrivateKeyIndex,
         swap.assetReceive as AssetType,
@@ -272,11 +266,6 @@ const validateSubmarine = async (
         throw new Error(
             invalidSendAmountMsg(swap.onchainAmount, swap.sendAmount),
         );
-    }
-
-    if (swap.assetSend === RBTC) {
-        await validateContract(getEtherSwap);
-        return;
     }
 
     const ourKeys = deriveKey(
