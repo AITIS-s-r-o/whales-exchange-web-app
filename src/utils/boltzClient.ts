@@ -391,8 +391,8 @@ export const createSubmarineSwap = async (
     refundPublicKey?: string,
 ): Promise<SubmarineCreatedResponse> => {
 
-    console.log("[swapCreator.createSubmarineSwap] * provider.pk=%s, from=%s, to=%s, invoice=%s, pairHash=%s, refundPublicKey=%s",
-        provider.pk, from, to, invoice, pairHash, refundPublicKey);
+    log.debug(`[swapCreator.createSubmarineSwap] * provider.pk=${provider.pk}, from=${from}, to=${to}, invoice=${invoice}, pairHash=${pairHash},`
+        + ` refundPublicKey=${refundPublicKey}`);
 
     const params = {
         type: "submarine",
@@ -416,7 +416,7 @@ export const createSubmarineSwap = async (
         throw new Error(response.error);
     }
 
-    console.log("[swapCreator.createSubmarineSwap] $=%o", result);
+    log.debug(`[swapCreator.createSubmarineSwap] $=%o`, result);
     return result;
 }
 

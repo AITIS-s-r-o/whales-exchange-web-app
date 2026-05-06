@@ -46,7 +46,7 @@ const bip353Prefix = "₿";
 export const decodeInvoice = async (
     invoice: string,
 ): Promise<{ type: InvoiceType; satoshis: number; preimageHash: string }> => {
-    console.log("[Invoice.decodeInvoice] * invoice=%s", invoice);
+    log.debug(`[Invoice.decodeInvoice] * invoice=${invoice}`);
 
     try {
         const decoded = bolt11.decode(invoice);
@@ -63,7 +63,7 @@ export const decodeInvoice = async (
             ).data as string,
         };
 
-        console.log("[Invoice.decodeInvoice] $<RES_1>", res);
+        log.debug(`[Invoice.decodeInvoice] $<RES_1>`, res);
         return res;
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -79,12 +79,12 @@ export const decodeInvoice = async (
 
             decoded.free();
 
-            console.log("[Invoice.decodeInvoice] $<RES_2>", res);
+            log.debug(`[Invoice.decodeInvoice] $<RES_2>`, res);
             return res;
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {
-            console.log("[Invoice.decodeInvoice] <INVALID_INVOICE>", e);
+            log.debug(`[Invoice.decodeInvoice] $<INVALID_INVOICE>`, e);
             throw new Error("invalid_invoice");
         }
     }
