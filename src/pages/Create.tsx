@@ -597,7 +597,7 @@ const Create = () => {
                                     data-testid="sendAmount"
                                     autocomplete="off"
                                     value={sendAmountFormatted()}
-                                    readonly={swapType() === SwapType.Submarine}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeSendAmount(e)}
@@ -632,7 +632,7 @@ const Create = () => {
                                     data-testid="receiveAmount"
                                     autocomplete="off"
                                     value={receiveAmountFormatted()}
-                                    readonly={swapType() === SwapType.Submarine}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeReceiveAmount(e)}
