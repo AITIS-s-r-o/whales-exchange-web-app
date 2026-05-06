@@ -194,6 +194,7 @@ const CreateButton = () => {
 
                 if (swapType() === SwapType.Submarine && !wex_selectedProviderSupportsForwardSwaps()) {
                     setButtonLabel({ key: "wex_provider_no_support_forward" });
+                    setButtonDisable(true);
                     return;
                 }
 
