@@ -325,6 +325,15 @@ const Create = () => {
     };
 
     onMount(async () => {
+        try {
+            const data = await wexGetSubmarineSwapProviders();
+            setProviders(data);
+            if (data.length > 0)
+                setSelectedProvider(data[0]);
+        } catch (e) {
+            log.error(`Failed to load swap providers: ${formatError(e)}`);
+        }
+
         // if user reloads during backup phase, we don't have enough information
         // to create the swap after the backup is done, so we redirect to /swap
         // once the backup is done
@@ -341,14 +350,6 @@ const Create = () => {
             return;
         }
 
-        try {
-            const data = await wexGetSubmarineSwapProviders();
-            setProviders(data);
-            if (data.length > 0)
-                setSelectedProvider(data[0]);
-        } catch (e) {
-            log.error(`Failed to load swap providers: ${formatError(e)}`);
-        }
 
         sendAmountRef?.focus({ preventScroll: true });
     });
