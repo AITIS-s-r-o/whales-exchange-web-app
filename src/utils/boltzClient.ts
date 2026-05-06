@@ -431,7 +431,7 @@ export const createReverseSwap = async (
         throw new Error(response.error);
     }
 
-    log.debug(`[swapCreator.createReverseSwap] $=${JSON.stringify(result)}`);
+    log.debug(`[swapCreator.createReverseSwap] $=,`, result);
     return result;
 }
 
