@@ -353,8 +353,33 @@ const Create = () => {
     });
 
     createEffect(
-        on([boltzFee, minerFee, swapType, assetReceive], () => {
+        on([minerFee, swapType, assetReceive], () => {
             if (amountChanged() === Side.Receive) {
+                setSendAmount(
+                    calculateSendAmount(
+                        receiveAmount(),
+                        boltzFee(),
+                        minerFee(),
+                        swapType(),
+                    ),
+                );
+            } else {
+                setReceiveAmount(
+                    calculateReceiveAmount(
+                        sendAmount(),
+                        boltzFee(),
+                        minerFee(),
+                        swapType(),
+                    ),
+                );
+            }
+            if (receiveAmount().isGreaterThan(0)) validateAmount();
+        }),
+    );
+
+    createEffect(
+        on([boltzFee], () => {
+            if (swapType() === SwapType.Submarine) {
                 setSendAmount(
                     calculateSendAmount(
                         receiveAmount(),
