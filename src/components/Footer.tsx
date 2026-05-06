@@ -1,7 +1,7 @@
 import { /*WEXBsEnvelopeFill, */BsGithub, BsTwitter/*WEX, BsYoutube */} from "solid-icons/bs";
-/*WEX
 import { Show } from "solid-js";
 
+/*WEX
 import nostr from "../assets/nostr.svg";
 import substack from "../assets/substack.svg";
 */
@@ -55,8 +55,9 @@ const Footer = () => {
                     <BsEnvelopeFill size={22} color="#22374F" />
                 </ExternalLink>*/ }
             </div>
-            { /*WEX
+
             <p class="footer-nav">
+                { /*WEX
                 <ExternalLink href={config.partnerUrl}>
                     {t("partner")}
                 </ExternalLink>{" "}
@@ -72,13 +73,13 @@ const Footer = () => {
                 <ExternalLink href={config.regtestUrl}>
                     {t("regtest")}
                 </ExternalLink>
+                */ }
                 <Show when={config.torUrl}>
-                    |{" "}
                     <ExternalLink href={config.torUrl}>
                         {t("onion")}
                     </ExternalLink>
                 </Show>
-            </p>*/ }
+            </p>
             <p class="legal-nav">
                 <a href="/terms">{t("terms")}</a>
                 <a href="/privacy">{t("privacy")}</a>
