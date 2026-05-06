@@ -1,3 +1,4 @@
+import log from "loglevel";
 import { makePersisted } from "@solid-primitives/storage";
 import type { Navigator } from "@solidjs/router";
 import { useNavigate } from "@solidjs/router";
@@ -327,10 +328,10 @@ const CreateProvider = (props: { children: JSX.Element }) => {
     const [selectedProvider, setSelectedProvider] = createSignal<WexSwapProvider | null>(null);
 
     createEffect(() => {
-        console.log("[CreateProvider.createEffect] *");
+        log.debug("[CreateProvider.createEffect] *");
 
         if (amountValid() && pairValid()) {
-            console.log("[CreateProvider.createEffect] Amount and pair are valid.");
+            log.debug("[CreateProvider.createEffect] Amount and pair are valid.");
 
             if (
                 (swapType() !== SwapType.Submarine && addressValid()) ||
@@ -340,14 +341,14 @@ const CreateProvider = (props: { children: JSX.Element }) => {
             ) {
                 setValid(true);
 
-                console.log("[CreateProvider.createEffect] $<VALID>");
+                log.debug("[CreateProvider.createEffect] $<VALID>");
                 return;
             }
         }
 
         setValid(false);
 
-        console.log("[CreateProvider.createEffect] $<INVALID>");
+        log.debug("[CreateProvider.createEffect] $<INVALID>");
     });
 
     // amounts
