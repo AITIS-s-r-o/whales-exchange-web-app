@@ -99,7 +99,7 @@ const decodeAddress = (asset: string, addr: string): DecodedAddress => {
     const decoded = btcAddr.decode(addr);
     const script = OutScript.encode(decoded);
 
-    log.debug(`[decodeAddress] $<RESULT_3>=${script}`);
+    log.debug(`[decodeAddress] $<RESULT_3>=`, script);
     return { script };
 };
 
@@ -155,7 +155,7 @@ const probeUserInputOption = async (
 
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (e) {
-                log.debug(`[probeUserInputOption] $=false; exception=%o`, e);
+                log.debug(`[probeUserInputOption] $=false; exception=`, e);
                 return false;
             }
     }
