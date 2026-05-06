@@ -354,6 +354,7 @@ const Create = () => {
 
     createEffect(
         on([boltzFee, minerFee, swapType, assetReceive], () => {
+            // WEX: Recalculate send amount when swap fee changes for submarine swaps.
             if (swapType() === SwapType.Submarine || amountChanged() === Side.Receive) {
                 setSendAmount(
                     calculateSendAmount(
