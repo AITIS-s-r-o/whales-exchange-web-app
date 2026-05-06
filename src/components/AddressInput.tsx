@@ -43,7 +43,7 @@ const AddressInput = () => {
         log.debug(`[AddressInput.handleInputChange] Context; swapType=${swapType()}, assetReceive=${assetReceive()}, onchainAddress=${onchainAddress()}`);
 
         const inputValue = input.value.trim();
-        log.debug(`[AddressInput.handleInputChange] Input value is ${inputValue}`);
+        log.debug(`[AddressInput.handleInputChange] Input value is ${inputValue}.`);
         setOnchainAddress(inputValue);
 
         if (inputValue.length === 0) {
@@ -77,8 +77,7 @@ const AddressInput = () => {
                 (await probeUserInput(assetName, invoice)) ??
                 (await probeUserInput(assetName, address));
 
-            log.debug(`[AddressInput.handleInputChange] address=${address}, invoice=${invoice}, bip21Amount=${bip21Amount}`);
-            log.debug(`[AddressInput.handleInputChange] assetName=${assetName}, actualAsset=${actualAsset}`);
+            log.debug(`[AddressInput.handleInputChange] address=${address}, invoice=${invoice}, bip21Amount=${bip21Amount}, assetName=${assetName}, actualAsset=${actualAsset}`);
 
             switch (actualAsset) {
                 // WEX We do not support Liquid or Rootstock.
