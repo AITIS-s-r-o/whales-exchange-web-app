@@ -161,7 +161,7 @@ const InvoiceInput = () => {
                 try {
                     const inv = await decodeInvoice(invoice());
                     if (inv.satoshis !== 0 && inv.satoshis !== amount) {
-                        // setInvoice("");
+                        setInvoice("");
                     }
 
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
