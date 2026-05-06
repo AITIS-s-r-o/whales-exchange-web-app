@@ -78,10 +78,9 @@ const Nav = (props: { network: string; isPro?: boolean }) => {
                     <A href="/swap" onClick={() => setHamburger(false)}>
                         {t("swap")}
                     </A>
-                    { /* WEX - no rescue page for now as we only support reverse swaps now
                     <A href="/rescue" onClick={() => setHamburger(false)}>
                         {t("rescue")}
-                    </A> */ }
+                    </A>
                     <A href="/history" onClick={() => setHamburger(false)}>
                         {t("history")}
                     </A>

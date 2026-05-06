@@ -48,6 +48,8 @@ import { validateResponse } from "../utils/validation";
 import LoadingSpinner from "./LoadingSpinner";
 import { getMagicRoutingHintSavedFees } from "./OptimizedRoute";
 
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
+
 // In milliseconds
 const invoiceFetchTimeout = 25_000;
 
@@ -140,7 +142,6 @@ const CreateButton = () => {
         bolt12Loading,
         // WEX.
         selectedProvider,
-        setSelectedProvider,
     } = useCreateContext();
     const { getEtherSwap, signer, providers, walletConnected } =
         useWeb3Signer();
@@ -178,6 +179,7 @@ const CreateButton = () => {
                 sendAmount,
                 receiveAmount,
                 walletConnected,
+                selectedProvider,
             ],
             () => {
                 setButtonDisable(false);
@@ -187,6 +189,11 @@ const CreateButton = () => {
                 }
                 if (!pairValid()) {
                     setButtonLabel({ key: "invalid_pair" });
+                    return;
+                }
+
+                if (swapType() === SwapType.Submarine && !wex_selectedProviderSupportsForwardSwaps()) {
+                    setButtonLabel({ key: "wex_provider_no_support_forward" });
                     return;
                 }
 
@@ -267,6 +274,10 @@ const CreateButton = () => {
                 },
             });
         }
+    };
+
+    const wex_selectedProviderSupportsForwardSwaps = (): boolean => {
+        return (selectedProvider()?.capabilities ?? []).includes(WEX_CAP_FORWARDV1);
     };
 
     const validWayToFetchInvoice = (): boolean => {

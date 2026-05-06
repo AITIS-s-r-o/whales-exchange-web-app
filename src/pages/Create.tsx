@@ -46,6 +46,8 @@ import { formatError } from "../utils/errors";
 import log from "loglevel";
 import { wexInitProviderSignal, getPairs } from "../utils/boltzClient";
 
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
+
 const Create = () => {
     let receiveAmountRef: HTMLInputElement | undefined;
     let sendAmountRef: HTMLInputElement | undefined;
@@ -439,6 +441,7 @@ const Create = () => {
     });
 
     const creatingSwap = () => location.state?.backupDone === BackupDone.True;
+    const canSwap = () => swapType() !== SwapType.Submarine || (selectedProvider()?.capabilities ?? []).includes(WEX_CAP_FORWARDV1);
 
     return (
         <Show when={wasmSupported()} fallback={<ErrorWasm />}>
@@ -484,13 +487,27 @@ const Create = () => {
                         <span>
                             {t("send")} {t("min")}:
                             <span
-                                onClick={() => setAmount(minimum())}
+                                onClick={() => {
+                                    if (canSwap()) {
+                                        setAmount(minimum());
+                                    }
+                                }}
                                 class="btn-small btn-light">
-                                {formatAmount(
-                                    BigNumber(minimum()),
-                                    denomination(),
-                                    separator(),
-                                )}
+                                {
+                                    canSwap() ? (
+                                        <>
+                                            {
+                                                formatAmount(
+                                                    BigNumber(minimum()),
+                                                    denomination(),
+                                                    separator(),
+                                                )
+                                            }
+                                        </>
+                                    ) : (
+                                        "N/A"
+                                    )
+                                }
                             </span>
                             <span
                                 class="denominator"
@@ -500,13 +517,27 @@ const Create = () => {
                         <span>
                             {t("max")}:
                             <span
-                                onClick={() => setAmount(maximum())}
+                                onClick={() => {
+                                    if (canSwap()) {
+                                        setAmount(maximum())
+                                    }
+                                }}
                                 class="btn-small btn-light">
-                                {formatAmount(
-                                    BigNumber(maximum()),
-                                    denomination(),
-                                    separator(),
-                                )}
+                                {
+                                    canSwap() ? (
+                                        <>
+                                            {
+                                                formatAmount(
+                                                    BigNumber(maximum()),
+                                                    denomination(),
+                                                    separator(),
+                                                )
+                                            }
+                                        </>
+                                    ) : (
+                                        "N/A"
+                                    )
+                                }
                             </span>
                             <span
                                 class="denominator"
@@ -576,7 +607,7 @@ const Create = () => {
                                 />
                             </div>
                         </div>
-                        <Reverse t={t} />
+                        <Reverse />
                         <div>
                             <Asset side={Side.Receive} signal={assetReceive} />
                             <div
