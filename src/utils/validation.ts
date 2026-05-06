@@ -294,7 +294,7 @@ const validateSubmarine = async (
     );
 
     if (!equalBytes(redeemScript, compareRedeemScript)) {
-        console.log("[CreateButton.validateSubmarine] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+        log.debug("[CreateButton.validateSubmarine] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
         throw new Error("swap address validation: redeem script mismatch");
     }
 
@@ -303,19 +303,19 @@ const validateSubmarine = async (
         validateAddressV1(swap, isNativeSegwit, swap.address),
     );
     if (addressComparisons.every((val) => !val)) {
-        console.log("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
+        log.debug("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
         throw new Error("swap address validation: address script mismatch");
     }
 
     // BIP-21
     const bip21Split = swap.bip21.split("?");
     if (bip21Split[0].split(":")[1] !== swap.address) {
-        console.log("[CreateButton.validateSubmarine] $<BIP21_ADDRESS_MISMATCH>");
+        log.debug("[CreateButton.validateSubmarine] $<BIP21_ADDRESS_MISMATCH>");
         throw new Error("swap address validation: BIP-21 address mismatch");
     }
 
     if (new URLSearchParams(bip21Split[1]).get("amount") !== formatAmountDenomination(denominations.btc, swap.sendAmount)) {
-        console.log("[CreateButton.validateSubmarine] $<BIP21_AMOUNT_MISMATCH>");
+        log.debug("[CreateButton.validateSubmarine] $<BIP21_AMOUNT_MISMATCH>");
         throw new Error("swap address validation: BIP-21 amount mismatch");
     }
 
@@ -433,7 +433,7 @@ export const validateResponse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
-    console.log("[CreateButton.validateResponse] * swap=%o", swap);
+    log.debug("[CreateButton.validateResponse] * swap=%o", swap);
 
     switch (swap.type) {
         case SwapType.Submarine:
@@ -456,7 +456,7 @@ export const validateResponse = async (
             throw new Error("unknown_swap_type");
     }
 
-    console.log("[CreateButton.validateResponse] $");
+    log.debug("[CreateButton.validateResponse] $");
 };
 
 export const validateInvoice = async (inputValue: string) => {
