@@ -398,7 +398,7 @@ const CreateButton = () => {
         claimAddress: string,
         useRif: boolean,
     ): Promise<boolean> => {
-        console.log("[CreateButton.createSwap] * claimAddress=%s, useRif=%s", claimAddress, useRif);
+        log.debug(`[CreateButton.createSwap] * claimAddress=${claimAddress}, useRif=${useRif}`);
 
         if (
             !rescueFileBackupDone() &&
@@ -413,7 +413,7 @@ const CreateButton = () => {
             let data: SomeSwap;
             switch (swapType()) {
                 case SwapType.Submarine: {
-                    console.log("[CreateButton.createSwap] swapType is 'Submarine'");
+                    log.debug(`[CreateButton.createSwap] swapType is 'Submarine'`);
 
                     const createSubmarineSwap = async () => {
                         data = await createSubmarine(
@@ -548,7 +548,7 @@ const CreateButton = () => {
                 }
 
                 case SwapType.Reverse:
-                    console.log("[CreateButton.createSwap] swapType is 'Reverse'");
+                    log.debug(`[CreateButton.createSwap] swapType is 'Reverse'`);
 
                     data = await createReverse(
                         selectedProvider(),
@@ -565,7 +565,7 @@ const CreateButton = () => {
                     break;
 
                 case SwapType.Chain:
-                    console.log("[CreateButton.createSwap] swapType is 'Chain'");
+                    log.debug(`[CreateButton.createSwap] swapType is 'Chain'`);
 
                     data = await createChain(
                         pairs(),
@@ -582,7 +582,7 @@ const CreateButton = () => {
             }
 
             try {
-                console.log("[CreateButton.createSwap] Validate response; data=%o, deriveKey=%o", data, deriveKey);
+                log.debug(`[CreateButton.createSwap] Validate response; data=`, data);
                 await validateResponse(data, deriveKey, getEtherSwap);
             } catch (e) {
                 const error = e instanceof Error ? e : new Error(String(e));
@@ -643,12 +643,12 @@ const CreateButton = () => {
     };
 
     const buttonClick = async () => {
-        console.log("[CreateButton.buttonClick] *");
+        log.debug("[CreateButton.buttonClick] *");
 
         setLoading(true);
         try {
             if (validWayToFetchInvoice()) {
-                console.log("[CreateButton.buttonClick] About to fetch an invoice.");
+                log.debug("[CreateButton.buttonClick] About to fetch an invoice.");
                 await fetchInvoice();
             }
 
@@ -659,21 +659,20 @@ const CreateButton = () => {
             );
 
             if (!valid()) {
-                console.log("[CreateButton.buttonClick] $<NOT_VALID>");
+                log.debug("[CreateButton.buttonClick] $<NOT_VALID>");
                 return;
             }
 
-            console.log("[CreateButton.buttonClick] Create swap.");
+            log.debug("[CreateButton.buttonClick] Create swap.");
             await createSwap(claimAddress, useRif);
         } catch (e) {
-            log.error("Error creating swap", e);
-            console.log("[CreateButton.buttonClick] Error creating swap.", e);
+            log.debug(`[CreateButton.buttonClick] Error creating swap: ${e}.`);
             notify("error", e);
         } finally {
             setLoading(false);
         }
 
-        console.log("[CreateButton.buttonClick] *");
+        log.debug("[CreateButton.buttonClick] $");
     };
 
     onMount(() => {

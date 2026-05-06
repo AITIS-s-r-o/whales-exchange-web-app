@@ -431,21 +431,8 @@ export const createReverseSwap = async (
     claimPublicKey?: string,
     claimAddress?: string,
 ): Promise<ReverseCreatedResponse> => {
-    console.log("[swapCreator.createReverseSwap] * provider.pk=%s, from=%s, to=%s, invoiceAmount=%d, receiveAmount=%d, preimageHash=%s, pairHash=%s, claimPublicKey=%s, claimAddress=%s",
-        provider.pk, from, to, invoiceAmount, receiveAmount, preimageHash, pairHash, claimPublicKey, claimAddress);
-
-    /* WEX
-    return fetcher("/v2/swap/reverse", {
-        from,
-        to,
-        invoiceAmount,
-        preimageHash,
-        claimPublicKey,
-        claimAddress,
-        referralId: getReferral(),
-        pairHash,
-    });
-    */
+    log.debug(`[swapCreator.createReverseSwap] * provider.pk=${provider.pk}, from=${from}, to=${to}, invoiceAmount=${invoiceAmount}, receiveAmount=${receiveAmount}, `
+        + `preimageHash=${preimageHash}, pairHash=${pairHash}, claimPublicKey=${claimPublicKey}, claimAddress=${claimAddress}`);
 
     // See https://github.com/BoltzExchange/boltz-web-app/blob/v1.2.1/src/components/CreateButton.tsx#L120-L126
     const params = {
@@ -470,7 +457,7 @@ export const createReverseSwap = async (
         throw new Error(response.error);
     }
 
-    console.log("[swapCreator.createReverseSwap] $=%o", result);
+    log.debug(`[swapCreator.createReverseSwap] $=,`, result);
     return result;
 }
 

@@ -38,12 +38,12 @@ const AddressInput = () => {
     } = useCreateContext();
 
     const handleInputChange = async (input: HTMLInputElement) => {
-        console.log("[AddressInput.handleInputChange] *");
+        log.debug("[AddressInput.handleInputChange] *");
 
-        console.log("[AddressInput.handleInputChange] Context; swapType=%s, assetReceive=%s, onchainAddress=%s", swapType(), assetReceive(), onchainAddress());
+        log.debug(`[AddressInput.handleInputChange] Context; swapType=${swapType()}, assetReceive=${assetReceive()}, onchainAddress=${onchainAddress()}`);
 
         const inputValue = input.value.trim();
-        console.log("[AddressInput.handleInputChange] Input value is %s", inputValue);
+        log.debug(`[AddressInput.handleInputChange] Input value is ${inputValue}.`);
         setOnchainAddress(inputValue);
 
         if (inputValue.length === 0) {
@@ -51,7 +51,7 @@ const AddressInput = () => {
             input.classList.remove("invalid");
             input.setCustomValidity("");
 
-            console.log("[AddressInput.handleInputChange] $<EMPTY_INPUT_VALUE>");
+            log.debug("[AddressInput.handleInputChange] $<EMPTY_INPUT_VALUE>");
             return;
         }
 
@@ -77,8 +77,7 @@ const AddressInput = () => {
                 (await probeUserInput(assetName, invoice)) ??
                 (await probeUserInput(assetName, address));
 
-            console.log("[AddressInput.handleInputChange] address=%s, invoice=%s, bip21Amount=%o", address, invoice, bip21Amount);
-            console.log("[AddressInput.handleInputChange] assetName=%s, actualAsset=%s", assetName, actualAsset);
+            log.debug(`[AddressInput.handleInputChange] address=${address}, invoice=${invoice}, bip21Amount=${bip21Amount}, assetName=${assetName}, actualAsset=${actualAsset}`);
 
             switch (actualAsset) {
                 // WEX We do not support Liquid or Rootstock.
@@ -118,8 +117,7 @@ const AddressInput = () => {
             setAddressValid(false);
 
             if (inputValue.length !== 0) {
-                // log.debug(`Invalid address input: ${formatError(e)}`);
-                console.log("Invalid address input; inputValue=%o, error=%o", inputValue, e);
+                log.debug(`[AddressInput.handleInputChange] Invalid address input; inputValue=${inputValue}, error=${e}`);
 
                 const msg = t("invalid_address", { asset: assetReceive() });
                 input.classList.add("invalid");
@@ -127,7 +125,7 @@ const AddressInput = () => {
             }
         }
 
-        console.log("[AddressInput.handleInputChange] $");
+        log.debug("[AddressInput.handleInputChange] $");
     };
 
     createEffect(
