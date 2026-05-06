@@ -130,6 +130,8 @@ type SubmarineCreatedResponse = {
     expectedAmount: number;
     claimPublicKey: string;
     timeoutBlockHeight: number;
+    onchainAmount: number;
+    redeemScript?: string | null;
     blindingKey?: string;
     claimAddress?: string;
 };

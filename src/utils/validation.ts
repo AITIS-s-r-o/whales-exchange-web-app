@@ -4,7 +4,7 @@ import { hex } from "@scure/base";
 import { equalBytes } from "@scure/btc-signer/utils.js";
 import { BigNumber } from "bignumber.js";
 import type { Types } from "boltz-core";
-import { reverseSwapScript } from "boltz-core";
+import { swapScript, reverseSwapScript } from "boltz-core";
 import {
     Scripts,
     SwapTreeSerializer,
@@ -92,7 +92,7 @@ const getScriptHashFunction = (isNativeSegwit: boolean) =>
 
 // v1.2.1 code.
 const validateAddressV1 = (
-    swap: ReverseSwap,
+    swap: SubmarineSwap | ReverseSwap,
     isNativeSegwit: boolean,
     address: string
 ) => {
@@ -268,9 +268,9 @@ const validateSubmarine = async (
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
     // Amounts
-    if (swap.expectedAmount !== swap.sendAmount) {
+    if (swap.onchainAmount !== swap.sendAmount) {
         throw new Error(
-            invalidSendAmountMsg(swap.expectedAmount, swap.sendAmount),
+            invalidSendAmountMsg(swap.onchainAmount, swap.sendAmount),
         );
     }
 
@@ -279,9 +279,49 @@ const validateSubmarine = async (
         return;
     }
 
-    // SwapTree
+    const ourKeys = deriveKey(
+        swap.refundPrivateKeyIndex,
+        swap.assetSend as AssetType,
+    );
+
     const invoiceData = await decodeInvoice(swap.invoice);
 
+    const redeemScript = hex.decode(swap.redeemScript);
+    const decompiledRedeemScript = script.decompile(Buffer.from(redeemScript));
+    const compareRedeemScript = swapScript(
+        hex.decode(invoiceData.preimageHash),
+        decompiledRedeemScript[4] as Buffer,
+        ourKeys.publicKey,
+        swap.timeoutBlockHeight,
+    );
+
+    if (!equalBytes(redeemScript, compareRedeemScript)) {
+        console.log("[CreateButton.validateSubmarine] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+        throw new Error("swap address validation: redeem script mismatch");
+    }
+
+    // Address
+    const addressComparisons = [true, false].map((isNativeSegwit) =>
+        validateAddressV1(swap, isNativeSegwit, swap.address),
+    );
+    if (addressComparisons.every((val) => !val)) {
+        console.log("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
+        throw new Error("swap address validation: address script mismatch");
+    }
+
+    // BIP-21
+    const bip21Split = swap.bip21.split("?");
+    if (bip21Split[0].split(":")[1] !== swap.address) {
+        console.log("[CreateButton.validateSubmarine] $<BIP21_ADDRESS_MISMATCH>");
+        throw new Error("swap address validation: BIP-21 address mismatch");
+    }
+
+    if (new URLSearchParams(bip21Split[1]).get("amount") !== formatAmountDenomination(denominations.btc, swap.sendAmount)) {
+        console.log("[CreateButton.validateSubmarine] $<BIP21_AMOUNT_MISMATCH>");
+        throw new Error("swap address validation: BIP-21 amount mismatch");
+    }
+
+    /*
     const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
 
     const ourKeys = deriveKey(
@@ -313,6 +353,7 @@ const validateSubmarine = async (
     );
 
     validateBip21(swap.bip21, swap.address, swap.expectedAmount);
+    */
 };
 
 const validateChainSwap = async (
