@@ -97,7 +97,7 @@ const validateAddressV1 = (
     isNativeSegwit: boolean,
     address: string
 ) => {
-    log.debug(`[validation.validateAddressV1] * isNativeSegwit=${isNativeSegwit}, address=${address}, swap=`, swap);
+    log.debug(`[validation.validateAddressV1] * swap=%o,isNativeSegwit=${isNativeSegwit},address=${address}`, swap);
 
     const redeemScriptArray = hex.decode(swap.redeemScript);
     const compareScript = getScriptHashFunction(isNativeSegwit)(
@@ -178,7 +178,7 @@ const validateReverse = async (
 
     if (swap.onchainAmount <= swap.receiveAmount) {
         log.debug(`[validation.validateReverse] On chain amount ${swap.onchainAmount} is not greater than receive amount ${swap.receiveAmount}.`);
-        log.debug(`[validation.validateReverse] $<INVALID_RCV_AMOUNT>`, swap.onchainAmount, swap.receiveAmount);
+        log.debug(`[validation.validateReverse] $<INVALID_RCV_AMOUNT>`);
 
         throw new Error(
             invalidReceiveAmountMsg(swap.onchainAmount, swap.receiveAmount),
