@@ -292,6 +292,7 @@ const Create = () => {
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     createEffect(() => {
+        log.debug("Initialize swap providers.");
         wexInitProviderSignal(selectedProvider);
     });
 
@@ -305,7 +306,7 @@ const Create = () => {
         }
 
         // Call async function outside of the effect.
-        void updatePairsFromProviderAsync(provider);
+        updatePairsFromProviderAsync(provider);
     });
 
     // Separate async function to avoid the warning
