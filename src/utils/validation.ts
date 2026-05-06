@@ -105,7 +105,7 @@ const validateAddressV1 = (
     );
     const decodedAddress = decodeAddress(swap.assetReceive, address);
 
-    log.debug(`[validation.validateAddressV1] Decoded address: ${decodedAddress}`);
+    log.debug(`[validation.validateAddressV1] Decoded address:`, decodedAddress);
 
     if (!equalBytes(decodedAddress.script, compareScript)) {
         log.debug(`[validation.validateAddressV1] $<ADDRESS_VALIDATION_FAILED>`);
