@@ -268,7 +268,7 @@ const validateReverse = async (
         throw new Error(`invalid address. Expected '${swap.lockupAddress}'.`);
     }
 
-    log.debug(`[validation.validateReverse] Swap is valid.`);
+    log.debug(`[validation.validateReverse] $`);
 };
 
 const validateSubmarine = async (
