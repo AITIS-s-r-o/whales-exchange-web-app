@@ -97,7 +97,7 @@ const validateAddressV1 = (
     isNativeSegwit: boolean,
     address: string
 ) => {
-    log.debug(`[validation.validateAddressV1] * swap=${swap}, isNativeSegwit=${isNativeSegwit}, address=${address}`);
+    log.debug(`[validation.validateAddressV1] * isNativeSegwit=${isNativeSegwit}, address=${address}, swap=`, swap);
 
     const redeemScriptArray = hex.decode(swap.redeemScript);
     const compareScript = getScriptHashFunction(isNativeSegwit)(
@@ -167,7 +167,9 @@ const validateReverse = async (
 
     // Amounts
     if (invoiceData.satoshis + feeInvoiceData.satoshis !== swap.sendAmount) {
-        log.debug(`[validation.validateReverse] $<INVALID_SEND_AMOUNTS>`, invoiceData.satoshis, feeInvoiceData.satoshis, swap.sendAmount);
+        log.debug(`[validation.validateReverse] Invoice amount ${invoiceData.satoshis} + fee invoice amount ${feeInvoiceData.satoshis} does not equal send amount `
+            + `${swap.sendAmount}.`);
+        log.debug(`[validation.validateReverse] $<INVALID_SEND_AMOUNTS>`);
 
         throw new Error(
             invalidSendAmountMsg(invoiceData.satoshis + feeInvoiceData.satoshis, swap.sendAmount),
