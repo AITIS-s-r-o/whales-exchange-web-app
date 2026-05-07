@@ -23,7 +23,7 @@ const PayOnchain = (props: {
 }) => {
     const { t, denomination, separator, setPairs, pairs } = useGlobalContext();
 
-    /*
+    /* WEX
     const [pairsFetch] = createResource(async () => {
         if (pairs() !== undefined) {
             return pairs();
@@ -38,20 +38,16 @@ const PayOnchain = (props: {
     const headerText = createMemo(() => {
         const denom = formatDenomination(denomination(), props.assetSend);
 
-        if (props.expectedAmount > 0) {
-            return t("send_to", {
-                denomination: denom,
-                amount: formatAmount(
-                    BigNumber(props.expectedAmount),
-                    denomination(),
-                    separator(),
-                ),
-            });
-        }
-
-        return "Please pay";
-
-        /*
+        // WEX if (props.expectedAmount > 0) {
+        return t("send_to", {
+            denomination: denom,
+            amount: formatAmount(
+                BigNumber(props.expectedAmount),
+                denomination(),
+                separator(),
+            ),
+        });
+        /* WEX
         if (pairs() === undefined) {
             return "";
         }
