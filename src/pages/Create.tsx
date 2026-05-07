@@ -328,7 +328,7 @@ const Create = () => {
         try {
             const data = await wexGetSubmarineSwapProviders();
             setProviders(data);
-            if (data.length > 0)
+            if (data.length > 0 && !creatingSwap())
                 setSelectedProvider(data[0]);
         } catch (e) {
             log.error(`Failed to load swap providers: ${formatError(e)}`);
