@@ -601,6 +601,7 @@ const CreateButton = () => {
 
             await setSwapStorage({
                 ...data,
+                provider: selectedProvider().pk,
                 signer:
                     // We do not have to commit to a signer when creating submarine swaps
                     swapType() !== SwapType.Submarine
