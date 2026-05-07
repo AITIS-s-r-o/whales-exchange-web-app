@@ -221,39 +221,6 @@ const validateReverse = async (
         throw new Error(`invalid redeem script. Expected ${swap.redeemScript}, got ${compareRedeemScript.toString()}`);
     }
 
-    /*
-    // SwapTree
-    const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
-
-    const ourKeys = deriveKey(
-        swap.claimPrivateKeyIndex,
-        swap.assetReceive as AssetType,
-    );
-    const theirPublicKey = hex.decode(swap.refundPublicKey);
-
-    const compareTree = reverseSwapTree(
-        swap.assetReceive === LBTC,
-        preimageHash,
-        ourKeys.publicKey,
-        theirPublicKey,
-        swap.timeoutBlockHeight,
-    );
-
-    if (!compareTrees(tree, compareTree)) {
-        console.log("[CreateButton.validateReverse] $<SWAP_TREE_MISMATCH>");
-        throw new Error("swap tree mismatch");
-    }
-
-    validateAddress(
-        swap.assetReceive,
-        tree,
-        ourKeys,
-        theirPublicKey,
-        swap.lockupAddress,
-        swap.blindingKey,
-    );
-    */
-
     const result = validateAddressV1(swap, true, swap.lockupAddress);
     if (!result) {
         log.debug(`[validation.validateReverse] Address validation failed for swap`, swap);
@@ -270,6 +237,8 @@ const validateSubmarine = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
+    swap.address = swap.lockupAddress;
+
     // Amounts
     if (swap.onchainAmount !== swap.sendAmount) {
         throw new Error(
@@ -300,7 +269,7 @@ const validateSubmarine = async (
 
     // Address
     const addressComparisons = [true, false].map((isNativeSegwit) =>
-        validateAddressV1(swap, isNativeSegwit, swap.lockupAddress),
+        validateAddressV1(swap, isNativeSegwit, swap.address),
     );
     if (addressComparisons.every((val) => !val)) {
         log.debug("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
