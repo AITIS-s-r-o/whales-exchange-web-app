@@ -292,6 +292,7 @@ const Create = () => {
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     createEffect(() => {
+        log.debug("Initialize swap providers.");
         wexInitProviderSignal(selectedProvider);
     });
 
@@ -305,7 +306,7 @@ const Create = () => {
         }
 
         // Call async function outside of the effect.
-        void updatePairsFromProviderAsync(provider);
+        updatePairsFromProviderAsync(provider);
     });
 
     // Separate async function to avoid the warning
@@ -324,6 +325,15 @@ const Create = () => {
     };
 
     onMount(async () => {
+        try {
+            const data = await wexGetSubmarineSwapProviders();
+            setProviders(data);
+            if (data.length > 0)
+                setSelectedProvider(data[0]);
+        } catch (e) {
+            log.error(`Failed to load swap providers: ${formatError(e)}`);
+        }
+
         // if user reloads during backup phase, we don't have enough information
         // to create the swap after the backup is done, so we redirect to /swap
         // once the backup is done
@@ -340,21 +350,14 @@ const Create = () => {
             return;
         }
 
-        try {
-            const data = await wexGetSubmarineSwapProviders();
-            setProviders(data);
-            if (data.length > 0)
-                setSelectedProvider(data[0]);
-        } catch (e) {
-            log.error(`Failed to load swap providers: ${formatError(e)}`);
-        }
 
         sendAmountRef?.focus({ preventScroll: true });
     });
 
     createEffect(
         on([boltzFee, minerFee, swapType, assetReceive], () => {
-            if (amountChanged() === Side.Receive) {
+            // WEX: Recalculate send amount when swap fee changes for submarine swaps.
+            if (swapType() === SwapType.Submarine || amountChanged() === Side.Receive) {
                 setSendAmount(
                     calculateSendAmount(
                         receiveAmount(),
@@ -596,6 +599,7 @@ const Create = () => {
                                     data-testid="sendAmount"
                                     autocomplete="off"
                                     value={sendAmountFormatted()}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeSendAmount(e)}
@@ -630,6 +634,7 @@ const Create = () => {
                                     data-testid="receiveAmount"
                                     autocomplete="off"
                                     value={receiveAmountFormatted()}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeReceiveAmount(e)}

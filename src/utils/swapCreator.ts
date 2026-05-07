@@ -105,6 +105,7 @@ const generatePreimage = ({
 };
 
 export const createSubmarine = async (
+    provider: WexSwapProvider,
     pairs: Pairs,
     assetSend: string,
     assetReceive: string,
@@ -117,8 +118,11 @@ export const createSubmarine = async (
 ): Promise<SubmarineSwap> => {
     const key = await newKey(assetSend as AssetType);
     const res = await createSubmarineSwap(
+        provider,
         assetSend,
         assetReceive,
+        Number(sendAmount),
+        Number(receiveAmount),
         invoice,
         getPair(pairs, SwapType.Submarine, assetSend, assetReceive).hash,
         key !== undefined

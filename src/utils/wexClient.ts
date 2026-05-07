@@ -1,7 +1,7 @@
 import log from "loglevel";
 
 import { fetcher } from "./helper";
-import { ReverseCreatedResponse } from "./boltzClient";
+import { SubmarineCreatedResponse, ReverseCreatedResponse } from "./boltzClient";
 
 export const WEX_CAP_FORWARDV1 = "forwardv1";
 
@@ -71,6 +71,14 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
      * Providers are ordered first by PoW (descending) and then by public key (ascending).
      */
     data: WexSwapProvider[] | null;
+}
+
+/**
+ * Response to CreateSwapAsync call.
+ */
+export interface WexCreateSubmarineSwapResponse extends WexRestResponseBase {
+    /** Swap data. */
+    data: SubmarineCreatedResponse | null;
 }
 
 /**

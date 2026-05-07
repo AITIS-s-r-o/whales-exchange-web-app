@@ -115,7 +115,7 @@ const dict = {
         copy_bip21: "BIP21",
         refund_swap: "Refund Swap",
         rescue_a_swap_subline:
-            "If you sent BTC or L-BTC into a Boltz swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
+            "If you sent BTC into a Whale's Exchange swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
         rescue_a_swap_mnemonic:
             "Enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
         refund_past_swaps: "Past swaps",
@@ -161,7 +161,7 @@ const dict = {
         already_refunded: "Swap already refunded",
         api_offline: "API is offline",
         api_offline_msg:
-            "Could not connect to the Boltz API, please try again later",
+            "Could not connect to the Whale's Exchange API, please try again later",
         refund_explainer: "You will be able to refund after the swap timeout!",
         wasm_not_supported: "Please activate WebAssembly in your browser",
         created: "Created",
@@ -251,7 +251,7 @@ const dict = {
         no_wallet_connected: "No wallet connected",
         no_lockup_transaction: "No lockup transaction found",
         routing_fee_limit: "Routing fee limit",
-        download_boltz_rescue_key: "Boltz Rescue Key",
+        download_boltz_rescue_key: "Whale's Exchange Rescue Key",
         download_boltz_rescue_key_subline:
             "Back up all your swaps with a single Rescue Key 🙌",
         download_boltz_rescue_key_subline_second:
@@ -259,12 +259,12 @@ const dict = {
         download_boltz_rescue_key_subline_third:
             "To continue, please download a new Rescue Key.",
         download_new_key: "Download New Key",
-        verify_boltz_rescue_key: "Verify Boltz Rescue Key",
+        verify_boltz_rescue_key: "Verify Whale's Exchange Rescue Key",
         verify_boltz_rescue_key_subline:
-            "Please select your previously saved Boltz Rescue Key to verify it.",
+            "Please select your previously saved Whale's Exchange Rescue Key to verify it.",
         verify_key: "Verify key",
         verify_key_failed:
-            "Verification of the Boltz Rescue Key failed. We recommend downloading a new Boltz Rescue Key to continue.",
+            "Verification of the Whale's Exchange Rescue Key failed. We recommend downloading a new Whale's Exchange Rescue Key to continue.",
         rescue_key: "Rescue Key",
         reset_rescue_key_tooltip:
             "Generate a new Rescue Key and wipe all swap data",
