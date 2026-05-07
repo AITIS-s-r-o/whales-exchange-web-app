@@ -187,7 +187,7 @@ const dict = {
         warning_return:
             "Return to this page after paying the invoice! The payment might show pending until you return to this page.",
         warning_expiry:
-            "Make sure your transaction confirms within ~24 hours after creation of this swap!",
+            "Make sure your transaction confirms within 8 hours after creation of this swap!",
         not_found: "404 - Not Found",
         not_found_subline: "This page seems to have vanished.",
         back_to_home: "Back to Home",
