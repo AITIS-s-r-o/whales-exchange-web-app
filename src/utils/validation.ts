@@ -300,7 +300,7 @@ const validateSubmarine = async (
 
     // Address
     const addressComparisons = [true, false].map((isNativeSegwit) =>
-        validateAddressV1(swap, isNativeSegwit, swap.address),
+        validateAddressV1(swap, isNativeSegwit, swap.lockupAddress),
     );
     if (addressComparisons.every((val) => !val)) {
         log.debug("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
@@ -309,7 +309,7 @@ const validateSubmarine = async (
 
     // BIP-21
     const bip21Split = swap.bip21.split("?");
-    if (bip21Split[0].split(":")[1] !== swap.address) {
+    if (bip21Split[0].split(":")[1] !== swap.lockupAddress) {
         log.debug("[CreateButton.validateSubmarine] $<BIP21_ADDRESS_MISMATCH>");
         throw new Error("swap address validation: BIP-21 address mismatch");
     }

@@ -123,7 +123,7 @@ type SwapTree = {
 
 type SubmarineCreatedResponse = {
     id: string;
-    address: string;
+    lockupAddress: string;
     bip21: string;
     swapTree: SwapTree;
     acceptZeroConf: boolean;
