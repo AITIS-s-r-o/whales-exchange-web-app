@@ -112,7 +112,7 @@ const dict = {
         copy_invoice: "lightning invoice",
         copy_address: "address",
         copy_amount: "amount",
-        copy_bip21: "ADDRESS IN URL FORMAT (BIP21)",
+        copy_bip21: "ADDRESS IN URI FORMAT (BIP21)",
         refund_swap: "Refund Swap",
         rescue_a_swap_subline:
             "If you sent BTC into a Whale's Exchange swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
