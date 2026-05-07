@@ -239,6 +239,7 @@ const validateSubmarine = async (
 ): Promise<void> => {
     swap.address = swap.lockupAddress;
     swap.bip21 = makeBip21(swap)
+    swap.expectedAmount = swap.onchainAmount;
 
     // Amounts
     if (swap.onchainAmount !== swap.sendAmount) {
