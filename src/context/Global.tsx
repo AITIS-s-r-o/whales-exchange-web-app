@@ -91,7 +91,7 @@ export type GlobalContextType = {
     getLogs: () => Promise<Record<string, string[]>>;
     clearLogs: () => Promise<void>;
 
-    setSwapStorage: (swap: SomeSwap & { provider: string }) => Promise<void>;
+    setSwapStorage: (swap: SomeSwap) => Promise<void>;
     getSwap: <T = SomeSwap>(id: string) => Promise<T>;
     getSwaps: <T = SomeSwap>() => Promise<T[]>;
     deleteSwap: (id: string) => Promise<void>;
