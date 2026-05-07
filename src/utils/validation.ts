@@ -22,7 +22,7 @@ import type { deriveKeyFn } from "../context/Global";
 import { etherSwapCodeHashes } from "../context/Web3";
 import type { ChainSwapDetails } from "./boltzClient";
 import { decodeAddress } from "./compat";
-import { formatAmountDenomination } from "./denomination";
+import { formatAmountDenomination, satToBtc } from "./denomination";
 import type { ECKeys } from "./ecpair";
 import { decodeInvoice, isInvoice, isLnurl } from "./invoice";
 import type {
@@ -238,6 +238,7 @@ const validateSubmarine = async (
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
     swap.address = swap.lockupAddress;
+    swap.bip21 = makeBip21(swap)
 
     // Amounts
     if (swap.onchainAmount !== swap.sendAmount) {
@@ -276,6 +277,11 @@ const validateSubmarine = async (
         throw new Error("swap address validation: address script mismatch");
     }
 };
+
+const makeBip21 = (swap: SubmarineSwap): string => {
+    const sats = satToBtc(new BigNumber(swap.sendAmount));
+    return `bitcoin:${swap.lockupAddress}?amount=${sats}`;
+}
 
 const validateChainSwap = async (
     swap: ChainSwap,
