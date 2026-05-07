@@ -619,7 +619,10 @@ export const getLockupTransaction = async (
                 hex: string;
                 timeoutBlockHeight: number;
                 timeoutEta?: number;
-            }>(`/v2/swap/submarine/${id}/transaction`);
+            }>(
+                `/getswaptransaction`, // Originally: `/v2/swap/submarine/${id}/transaction`,
+                { id: id }
+            );
 
         case SwapType.Chain: {
             const res = await getChainSwapTransactions(id);
