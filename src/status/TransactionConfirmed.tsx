@@ -87,7 +87,13 @@ const TransactionConfirmed = () => {
             fallback={
                 <div>
                     <h2>{t("tx_confirmed")}</h2>
-                    <p>{t("tx_ready_to_claim")}</p>
+                    <Show
+                        when={swap().type === SwapType.Submarine}
+                        fallback={
+                            <p>{t("wex_tx_ready_to_claim_forward")}</p>
+                        }>
+                        <p>{t("tx_ready_to_claim")}</p>
+                    </Show>
                     <LoadingSpinner />
                 </div>
             }>
