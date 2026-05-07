@@ -78,6 +78,12 @@ const PayOnchain = (props: {
             fallback={<LoadingSpinner />}>
             <div>
                 <h2>{headerText()}</h2>
+                <div>
+                    <p class="text-sm text-gray-500">
+                        {t("wex_forward_warning")}
+                    </p>
+                </div>
+
                 <OptimizedRoute />
                 <hr />
                 <a href={props.bip21}>
