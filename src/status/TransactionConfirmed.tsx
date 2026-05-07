@@ -1,3 +1,4 @@
+import log from "loglevel";
 import { Show } from "solid-js";
 
 import ContractTransaction from "../components/ContractTransaction";
@@ -82,18 +83,24 @@ const TransactionConfirmed = () => {
     const reverse = swap() as ReverseSwap;
 
     return (
-        <Show
+        <div>
+            <h2>{t("tx_confirmed")}</h2>
+            <Show
+                when={swap().type === SwapType.Submarine}
+                fallback={
+                    <p>{t("tx_ready_to_claim")}</p>
+                }>
+                <p>{t("wex_tx_ready_to_claim_forward")}</p>
+            </Show>
+            <LoadingSpinner />
+        </div>
+    );
+       /* WEX <Show
             when={swap().assetReceive === RBTC}
             fallback={
                 <div>
                     <h2>{t("tx_confirmed")}</h2>
-                    <Show
-                        when={swap().type === SwapType.Submarine}
-                        fallback={
-                            <p>{t("wex_tx_ready_to_claim_forward")}</p>
-                        }>
-                        <p>{t("tx_ready_to_claim")}</p>
-                    </Show>
+                    <p>{t("tx_ready_to_claim")}</p>
                     <LoadingSpinner />
                 </div>
             }>
@@ -126,8 +133,7 @@ const TransactionConfirmed = () => {
                     assetReceive={reverse.assetReceive}
                 />
             </Show>
-        </Show>
-    );
+        </Show> */
 };
 
 export default TransactionConfirmed;
