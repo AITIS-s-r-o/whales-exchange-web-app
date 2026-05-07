@@ -328,6 +328,8 @@ const Create = () => {
         try {
             const data = await wexGetSubmarineSwapProviders();
             setProviders(data);
+
+            // WEX: Do not set default provider if we are in the process of creating a swap, to avoid accidentally changing the provider during the swap creation flow.
             if (data.length > 0 && !creatingSwap())
                 setSelectedProvider(data[0]);
         } catch (e) {
