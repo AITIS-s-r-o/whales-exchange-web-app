@@ -123,7 +123,11 @@ type SwapTree = {
 
 type SubmarineCreatedResponse = {
     id: string;
+
+    // The backend sends "lockupAddress"" as part of the response for submarine swaps, but the frontend uses "address".
+    address: string;
     lockupAddress: string;
+
     bip21: string;
     swapTree: SwapTree;
     acceptZeroConf: boolean;
