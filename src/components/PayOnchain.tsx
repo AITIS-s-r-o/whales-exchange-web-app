@@ -33,98 +33,54 @@ const PayOnchain = (props: {
         return p;
     });
 
-    const headerText = createMemo(() => {
-        const denom = formatDenomination(denomination(), props.assetSend);
-
-        if (props.expectedAmount > 0) {
-            return t("send_to", {
-                denomination: denom,
-                amount: formatAmount(
-                    BigNumber(props.expectedAmount),
-                    denomination(),
-                    separator(),
-                ),
-            });
-        }
-
-        if (pairs() === undefined) {
-            return "";
-        }
-
-        const pair = getPair(
-            pairs(),
-            props.type,
-            props.assetSend,
-            props.assetReceive,
-        );
-        return t("send_between", {
-            denomination: denom,
-            min: formatAmount(
-                BigNumber(pair.limits.minimal),
-                denomination(),
-                separator(),
-            ),
-            max: formatAmount(
-                BigNumber(pair.limits.maximal),
-                denomination(),
-                separator(),
-            ),
-        });
-    });
-
     return (
-        <Show
-            when={!pairsFetch.loading || headerText() === ""}
-            fallback={<LoadingSpinner />}>
+        <div>
             <div>
-                <h2>{headerText()}</h2>
-                <div>
-                    <p class="text-sm text-gray-500">
-                        {t("wex_forward_warning")}
-                    </p>
-                </div>
-
-                <OptimizedRoute />
-                <hr />
-                <a href={props.bip21}>
-                    <QrCode asset={props.assetSend} data={props.bip21} />
-                </a>
-                <hr />
-                {/* Use 4 chars to display Liquid addresses, 5 for other assets */}
-                <CopyBox
-                    value={props.address}
-                    groupSize={props.assetSend === LBTC ? 4 : 5}
-                />
-                <Show when={props.assetSend === BTC}>
-                    <hr class="spacer" />
-                    <h3>{t("warning_expiry")}</h3>
-                </Show>
-                <Show when={isMobile()}>
-                    <hr />
-                    <a href={props.bip21} class="btn btn-light">
-                        {t("open_in_wallet")}
-                    </a>
-                </Show>
-                <hr />
-                <div class="btns" data-testid="pay-onchain-buttons">
-                    <Show when={props.expectedAmount > 0}>
-                        <CopyButton
-                            label="copy_amount"
-                            data={() =>
-                                formatAmount(
-                                    BigNumber(props.expectedAmount),
-                                    denomination(),
-                                    separator(),
-                                )
-                            }
-                        />
-                    </Show>
-
-                    <CopyButton label="copy_address" data={props.address} />
-                    <CopyButton label="copy_bip21" data={props.bip21} />
-                </div>
+                <p class="text-sm text-gray-500">
+                    {t("wex_forward_warning")}
+                </p>
             </div>
-        </Show>
+
+            <OptimizedRoute />
+            <hr />
+            <a href={props.bip21}>
+                <QrCode asset={props.assetSend} data={props.bip21} />
+            </a>
+            <hr />
+            {/* Use 4 chars to display Liquid addresses, 5 for other assets */}
+            <CopyBox
+                value={props.address}
+                groupSize={props.assetSend === LBTC ? 4 : 5}
+            />
+            <Show when={props.assetSend === BTC}>
+                <hr class="spacer" />
+                <h3>{t("warning_expiry")}</h3>
+            </Show>
+            <Show when={isMobile()}>
+                <hr />
+                <a href={props.bip21} class="btn btn-light">
+                    {t("open_in_wallet")}
+                </a>
+            </Show>
+            <hr />
+            <div class="btns" data-testid="pay-onchain-buttons">
+                <Show when={props.expectedAmount > 0}>
+                    <CopyButton
+                        label="copy_amount"
+                        data={() =>
+                            formatAmount(
+                                BigNumber(props.expectedAmount),
+                                denomination(),
+                                separator(),
+                            )
+                        }
+                    />
+                </Show>
+
+                <CopyButton label="copy_address" data={props.address} />
+                <CopyButton label="copy_bip21" data={props.bip21} />
+            </div>
+        </div>
     );
 };
 
