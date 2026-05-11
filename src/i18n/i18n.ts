@@ -158,7 +158,8 @@ const dict = {
         select_asset: "Select {{ direction }} Asset",
         tx_confirmed: "Transaction confirmed",
         tx_ready_to_claim: "Claiming transaction now...",
-        wex_tx_ready_to_claim_forward: "Swap provider should pay the invoice now...",
+        wex_tx_ready_to_claim_forward:
+            "The swap provider should pay the invoice now. After you receive the payment, the swap provider provider will claim the on-chain funds which will complete the swap.",
         refunded: "Swap has been refunded successfully!",
         locktime_not_satisfied: "Locktime requirement not satisfied",
         already_refunded: "Swap already refunded",
