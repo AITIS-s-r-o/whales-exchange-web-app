@@ -123,7 +123,11 @@ type SwapTree = {
 
 type SubmarineCreatedResponse = {
     id: string;
+
+    // The backend sends "lockupAddress" as part of the response for submarine swaps, but the frontend uses "address".
     address: string;
+    lockupAddress: string;
+
     bip21: string;
     swapTree: SwapTree;
     acceptZeroConf: boolean;
@@ -615,7 +619,10 @@ export const getLockupTransaction = async (
                 hex: string;
                 timeoutBlockHeight: number;
                 timeoutEta?: number;
-            }>(`/v2/swap/submarine/${id}/transaction`);
+            }>(
+                `/getswaptransaction`, // Originally: `/v2/swap/submarine/${id}/transaction`,
+                { id: id }
+            );
 
         case SwapType.Chain: {
             const res = await getChainSwapTransactions(id);

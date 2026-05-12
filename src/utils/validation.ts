@@ -22,7 +22,7 @@ import type { deriveKeyFn } from "../context/Global";
 import { etherSwapCodeHashes } from "../context/Web3";
 import type { ChainSwapDetails } from "./boltzClient";
 import { decodeAddress } from "./compat";
-import { formatAmountDenomination } from "./denomination";
+import { formatAmountDenomination, satToBtc } from "./denomination";
 import type { ECKeys } from "./ecpair";
 import { decodeInvoice, isInvoice, isLnurl } from "./invoice";
 import type {
@@ -221,39 +221,6 @@ const validateReverse = async (
         throw new Error(`invalid redeem script. Expected ${swap.redeemScript}, got ${compareRedeemScript.toString()}`);
     }
 
-    /*
-    // SwapTree
-    const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
-
-    const ourKeys = deriveKey(
-        swap.claimPrivateKeyIndex,
-        swap.assetReceive as AssetType,
-    );
-    const theirPublicKey = hex.decode(swap.refundPublicKey);
-
-    const compareTree = reverseSwapTree(
-        swap.assetReceive === LBTC,
-        preimageHash,
-        ourKeys.publicKey,
-        theirPublicKey,
-        swap.timeoutBlockHeight,
-    );
-
-    if (!compareTrees(tree, compareTree)) {
-        console.log("[CreateButton.validateReverse] $<SWAP_TREE_MISMATCH>");
-        throw new Error("swap tree mismatch");
-    }
-
-    validateAddress(
-        swap.assetReceive,
-        tree,
-        ourKeys,
-        theirPublicKey,
-        swap.lockupAddress,
-        swap.blindingKey,
-    );
-    */
-
     const result = validateAddressV1(swap, true, swap.lockupAddress);
     if (!result) {
         log.debug(`[validation.validateReverse] Address validation failed for swap`, swap);
@@ -270,6 +237,10 @@ const validateSubmarine = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
+    swap.address = swap.lockupAddress;
+    swap.bip21 = makeBip21(swap)
+    swap.expectedAmount = swap.onchainAmount;
+
     // Amounts
     if (swap.onchainAmount !== swap.sendAmount) {
         throw new Error(
@@ -306,53 +277,12 @@ const validateSubmarine = async (
         log.debug("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
         throw new Error("swap address validation: address script mismatch");
     }
-
-    // BIP-21
-    const bip21Split = swap.bip21.split("?");
-    if (bip21Split[0].split(":")[1] !== swap.address) {
-        log.debug("[CreateButton.validateSubmarine] $<BIP21_ADDRESS_MISMATCH>");
-        throw new Error("swap address validation: BIP-21 address mismatch");
-    }
-
-    if (new URLSearchParams(bip21Split[1]).get("amount") !== formatAmountDenomination(denominations.btc, swap.sendAmount)) {
-        log.debug("[CreateButton.validateSubmarine] $<BIP21_AMOUNT_MISMATCH>");
-        throw new Error("swap address validation: BIP-21 amount mismatch");
-    }
-
-    /*
-    const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
-
-    const ourKeys = deriveKey(
-        swap.refundPrivateKeyIndex,
-        swap.assetSend as AssetType,
-    );
-    const theirPublicKey = hex.decode(swap.claimPublicKey);
-
-    const compareTree = swapTree(
-        swap.assetSend === LBTC,
-        hex.decode(invoiceData.preimageHash),
-        theirPublicKey,
-        ourKeys.publicKey,
-        swap.timeoutBlockHeight,
-    );
-
-    if (!compareTrees(tree, compareTree)) {
-        throw new Error("swap tree mismatch");
-    }
-
-    // Address
-    validateAddress(
-        swap.assetSend,
-        tree,
-        ourKeys,
-        theirPublicKey,
-        swap.address,
-        swap.blindingKey,
-    );
-
-    validateBip21(swap.bip21, swap.address, swap.expectedAmount);
-    */
 };
+
+const makeBip21 = (swap: SubmarineSwap): string => {
+    const sats = satToBtc(new BigNumber(swap.sendAmount));
+    return `bitcoin:${swap.lockupAddress}?amount=${sats}`;
+}
 
 const validateChainSwap = async (
     swap: ChainSwap,

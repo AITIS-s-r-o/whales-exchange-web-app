@@ -93,6 +93,8 @@ const dict = {
             "The large swap invoice is trustless and in case the swap provider is non-cooperative or malicious, the client is protected and can get the money back.",
         pay_fee_invoice_to_description:
             "This small fee invoice is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment.", 
+        wex_forward_warning:
+            "The funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish the swap for whatever reason, you can come to rescue your funds after your funding transaction gets more than 70 confirmations. However, the network fees paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction.", 
         no_wallet: "No wallet installed",
         connect_wallet: "Connect wallet",
         please_connect_wallet: "Please connect wallet",
@@ -112,7 +114,7 @@ const dict = {
         copy_invoice: "lightning invoice",
         copy_address: "address",
         copy_amount: "amount",
-        copy_bip21: "BIP21",
+        copy_bip21: "ADDRESS IN URI FORMAT (BIP21)",
         refund_swap: "Refund Swap",
         rescue_a_swap_subline:
             "If you sent BTC into a Whale's Exchange swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
@@ -156,6 +158,8 @@ const dict = {
         select_asset: "Select {{ direction }} Asset",
         tx_confirmed: "Transaction confirmed",
         tx_ready_to_claim: "Claiming transaction now...",
+        wex_tx_ready_to_claim_forward:
+            "The swap provider should pay the invoice now. After you receive the payment, the swap provider provider will claim the on-chain funds which will complete the swap.",
         refunded: "Swap has been refunded successfully!",
         locktime_not_satisfied: "Locktime requirement not satisfied",
         already_refunded: "Swap already refunded",
@@ -187,7 +191,7 @@ const dict = {
         warning_return:
             "Return to this page after paying the invoice! The payment might show pending until you return to this page.",
         warning_expiry:
-            "Make sure your transaction confirms within ~24 hours after creation of this swap!",
+            "Make sure your transaction confirms within 8 hours after creation of this swap!",
         not_found: "404 - Not Found",
         not_found_subline: "This page seems to have vanished.",
         back_to_home: "Back to Home",
