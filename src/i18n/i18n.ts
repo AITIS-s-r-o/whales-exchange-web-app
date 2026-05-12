@@ -102,7 +102,7 @@ const dict = {
         disconnect_address: "Disconnect wallet",
         lockup_failed: "Lockup Failed!",
         failure_reason: "Failure reason",
-        invoice_payment_failure: "Could not pay your lightning invoice",
+        invoice_payment_failure: "Swap server did not pay your lightning invoice",
         onchain_address: "Enter {{ asset }} address to receive funds",
         onchain_address_no_asset: "Enter address",
         invalid_refund_file: "Invalid rescue key",
