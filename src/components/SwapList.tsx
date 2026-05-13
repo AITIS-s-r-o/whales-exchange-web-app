@@ -1,3 +1,4 @@
+import log from "loglevel";
 import { useNavigate } from "@solidjs/router";
 import { BiRegularTrash } from "solid-icons/bi";
 import type { Accessor } from "solid-js";
@@ -109,6 +110,7 @@ const SwapList = (props: {
             await deleteSwap(swapId);
 
             // Fire and forget.
+            log.info(`Delete swap ${swapId}.`);
             const params = { id: swapId };
             const _ = fetcher("/delete-swap", params);
 
