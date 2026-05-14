@@ -428,7 +428,7 @@ export const refund = async <T extends SubmarineSwap | ChainSwap>(
 
     let refundTransaction: Awaited<ReturnType<typeof refundTaproot>>;
 
-    if (swap.version === OutputType.Taproot) {
+    /* WEX if (swap.version === OutputType.Taproot) {
         refundTransaction = await refundTaproot(
             swap,
             transactions,
@@ -438,7 +438,7 @@ export const refund = async <T extends SubmarineSwap | ChainSwap>(
             type === RefundType.Cooperative,
             timeoutBlockHeight,
         );
-    } else {
+    } else */ {
         // Initialize the secp256k1-zkp library for blinding
         await secp.get();
         const redeemScript = Buffer.from(
@@ -448,7 +448,7 @@ export const refund = async <T extends SubmarineSwap | ChainSwap>(
         log.debug("redeemScript", redeemScript);
         const details = transactions.map((lockupTx) => {
             const swapOutput = detectSwap(redeemScript, lockupTx);
-            log.debug("swapOutput", swapOutput);
+            // WEX log.debug("swapOutput", swapOutput);
             return {
                 ...swapOutput,
                 transactionId: txToId(lockupTx),
