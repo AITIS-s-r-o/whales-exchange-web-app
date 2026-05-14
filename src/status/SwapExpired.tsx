@@ -15,10 +15,9 @@ const SwapExpired = () => {
 
     return (
         <div>
-            { /* WEX
             <p>
                 {t("failure_reason")}: {failureReason()}
-            </p> */ }
+            </p>
             <hr />
             <Show when={refundableUTXOs().length > 0 && refundTxId() === ""}>
                 <RefundButton
