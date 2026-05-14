@@ -14,9 +14,9 @@ const InvoiceFailedToPay = () => {
     return (
         <div>
             <h2>{t("invoice_payment_failure")}</h2>
-            { /* WEX <p>
+            <p>
                 {t("failure_reason")}: {failureReason()}
-            </p> */ }
+            </p>
             <hr />
             <Show when={refundTxId() === ""}>
                 <RefundButton
