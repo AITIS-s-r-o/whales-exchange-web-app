@@ -218,9 +218,12 @@ const Pay = () => {
         try {
             setLoading(true);
 
-            const utxos = shouldCheckBlockExplorer
+            let utxos = shouldCheckBlockExplorer
                 ? await getRefundableUTXOs()
                 : [await getLockupTransaction(swap().id, swap().type)];
+
+            // Removes items with any error string.
+            utxos = utxos.filter(u => !u.error); 
 
             setRefundableUTXOs(utxos);
 
