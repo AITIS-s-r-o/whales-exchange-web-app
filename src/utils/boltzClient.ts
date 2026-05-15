@@ -222,6 +222,7 @@ export type SwapStatus = {
     transaction?: {
         id: string;
         hex: string;
+        refundTxId?: string;
     };
 };
 
