@@ -1,5 +1,20 @@
 # Changelog
 
+
+## [0.1.1-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.1.1-beta) - 2026-05-04
+
+- branding (images, icons, logos) (#32) - [19fb394](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/19fb3945b5f71763857c8ff58db64886037a12bc)
+- fix calculation of swap amount limits (#35) - [810fc8a](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/810fc8a381e3486cfa3de5131ca4a72dccadf8e3)
+- set up Tor (#37) - [acea22e](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/acea22ebae26b3a0fe0e7e3ef600d472408be5a4)
+- bump version, fix logo (#38) - [59a20c5](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/59a20c58157b193c10e9ed1309f84633cfb6dc52)
+
+## [0.1.0-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.1.0-beta) - 2026-04-24
+
+- first Whale's Exchange public version
+
+
+# Boltz Changelog
+
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ---
