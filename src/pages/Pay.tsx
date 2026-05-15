@@ -223,7 +223,7 @@ const Pay = () => {
                 : [await getLockupTransaction(swap().id, swap().type)];
 
             // Removes items with any error string.
-            utxos = utxos.filter(u => !u.error); 
+            utxos = utxos.filter(u => !u.error);
 
             setRefundableUTXOs(utxos);
 
