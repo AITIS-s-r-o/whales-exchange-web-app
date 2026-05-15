@@ -72,7 +72,48 @@ npx serve dist
 
 The project can be built and run on Linux and Windows (WSL or Git Bash). The project _should_ run on macOS but it is not actively tested.
 
+## Tested Scenarios
+
+The following scenarios are tested during development:
+
+### Forward Swap
+  - Successful swap 1
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Client pays immediately.
+    - Block 1 is mined -> client receives LN payment from swap provider.
+    - Block 2 is mined -> swap provider claims and the swap is concluded.
+  - Successful swap 2
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-8 are mined.
+    - Client pays.
+    - Block 9 is mined -> client receives LN payment from swap provider.
+    - Block 10 is mined -> swap provider claims and the swap is concluded.
+  - Payment too late 1
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-9 are mined.
+    - Swap is marked as expired -> error message "Client failed to send the funding on-chain transaction" is displayed. Client is expected to refresh if they paid later.
+    - Client pays.
+    - Block 10 is mined.
+    - Client refreshes the page -> client is informed about possibility to get refund after timelock expires.
+    - Blocks 11-69 are mined.
+    - Client refreshes the page -> no change.
+    - Block 70 is mined.
+    - Client refreshes the page -> client can get refund now.
+    - Client enters on-chain addres for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+  - Payment too late 2
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-9 are mined.
+    - Client pays before the sswap is marked as expired -> client sees transaction in mempool and then confirmed, but not payment arrives for the invoice.
+    - Block 10-69 is mined.
+    - Client refreshes the page -> no change.
+    - Block 70 is mined.
+    - Client refreshes the page -> client can get refund now.
+    - Client enters on-chain addres for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+
 ## Resources
 
 - Get Help: [Support Center](https://t.me/whales_secret_support)
 - Follow us: [X/Twitter](https://x.com/WhalesSecret)
+
