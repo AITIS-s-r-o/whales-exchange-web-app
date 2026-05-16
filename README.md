@@ -127,6 +127,17 @@ The following scenarios are tested during development:
     - Client enters on-chain addres for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
 
+### Reverse Swap
+  - Successful swap 1
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays both invoices immediately.
+    - Block 1 is mined -> client receives on-chain payment and the swap is concluded.
+  - Successful swap 2
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Blocks 1-10 are mined.
+    - Client pays.
+    - Block 11 is mined -> client receives on-chain payment and the swap is concluded.
+
 ## Resources
 
 - Get Help: [Support Center](https://t.me/whales_secret_support)
