@@ -104,11 +104,11 @@ The following scenarios are tested during development:
   - Payment too late 2
     - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
     - Blocks 1-9 are mined.
-    - Client pays before the sswap is marked as expired -> client sees transaction in mempool and then confirmed, but not payment arrives for the invoice.
+    - Client pays before the swap is marked as expired -> client sees transaction in mempool and then confirmed, but no payment arrives for the invoice.
     - Block 10-69 is mined.
     - Client refreshes the page -> no change.
     - Block 70 is mined.
-    - Client refreshes the page -> client can get refund now.
+    - Client can get refund now.
     - Client enters on-chain addres for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
 
