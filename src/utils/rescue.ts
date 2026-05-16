@@ -448,7 +448,8 @@ export const refund = async <T extends SubmarineSwap | ChainSwap>(
         log.debug("redeemScript", redeemScript);
         const details = transactions.map((lockupTx) => {
             const swapOutput = detectSwap(redeemScript, lockupTx);
-            // WEX log.debug("swapOutput", swapOutput);
+            // WEX This has been commented out because it threw exception.
+            // log.debug("swapOutput", swapOutput);
             return {
                 ...swapOutput,
                 transactionId: txToId(lockupTx),
