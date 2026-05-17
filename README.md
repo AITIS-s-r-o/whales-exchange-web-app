@@ -137,9 +137,14 @@ The following scenarios are tested during development:
     - Block 1 is mined -> client receives on-chain payment and the swap is concluded.
   - Successful swap 2
     - Client enters on-chain address -> client receives instructions for 2 LN payments.
-    - Blocks 1-10 are mined.
+    - Blocks 1-63 are mined.
     - Client pays.
-    - Block 11 is mined -> client receives on-chain payment and the swap is concluded.
+    - Swap provider broadcasts on-chain transaciton.
+    - Block 64 is mined -> client receives on-chain payment and the swap is concluded.
+  - Client does not pay
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Blocks 1-63 are mined -> no change.
+    - Block 64 is mined -> swap expires.
 
 ## Resources
 
