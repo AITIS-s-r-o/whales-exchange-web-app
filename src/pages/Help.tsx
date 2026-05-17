@@ -13,6 +13,7 @@ const Help = () => {
                 <li><a href="#what-is-whales-exchange-what-is-submarine-swap">What is Whale's Exchange, what is Submarine Swap?</a></li>
                 <li><a href="#how-do-i-perform-a-forward-swap">How do I perform a Forward Swap?</a></li>
                 <li><a href="#how-do-i-perform-a-reverse-swap">How do I perform a Reverse Swap?</a></li>
+                <li><a href="#how-to-rescue-a-failed-forward-swap">How to rescue a failed Forward Swap?</a>.</li>
                 <li><a href="#how-are-swap-providers-ordered">How are swap providers ordered in the list of swap providers?</a></li>
                 <li><a href="#how-can-i-run-a-swap-provider">How can I run a swap provider?</a></li>
                 <li><a href="#where-is-the-source-code">Where is the source code?</a></li>
@@ -50,7 +51,8 @@ const Help = () => {
                     <p>
                         Note that the funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish
                         the swap for whatever reason, you can come to rescue your funds after your funding transaction gets more than 70 confirmations. However, the network fees
-                        paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction.
+                        paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction. See
+                        <a href="#how-to-rescue-a-failed-forward-swap">How to rescue a failed Forward Swap?</a>.
                     </p>
                 </li>
                 <li>
@@ -111,7 +113,26 @@ const Help = () => {
                 </li>
             </ol>
 
-            <h2 id="how-are-swap-providers-ordered">4. How are swap providers ordered in the list of swap providers?</h2>
+            <h2 id="how-to-rescue-a-failed-forward-swap">4. How to rescue a failed Forward Swap?</h2>
+            <p>
+                If you paid on-chain for a forward swap and the swap provider did not complete the swap, you can rescue your funds after your funding transaction gets more than
+                70 confirmations. Note that in this case you will lose the mining fees paid for both, the funding transaction and for the rescue transaction, but you will get back
+                the rest of the amount that you paid.
+            </p>
+            <ol>
+                <li>
+                    Go to <a href="/rescue">the rescue page</a> or the page of the swap. On the rescue page, you will see your swap history and at the top of the list you will see
+                    swaps that can be rescued. Those swaps have a "Refund" button next to them. Click the "Refund" button to navigate to the page of the swap. If the funding
+                    transaction does not yet have 70 confirmations, you will see information about when it is expected to reach 70 confirmations.
+                </li>
+                <li>
+                    Once the funding transaction of the failed forward swap has 70 confirmations, you can initiate the rescue process. Simply enter the Bitcoin address to which you
+                    want to receive the rescued funds and click the "REFUND" button. The rescue process will be initiated and you will receive the rescued funds to the provided
+                    address.
+                </li>
+            </ol>
+
+            <h2 id="how-are-swap-providers-ordered">5. How are swap providers ordered in the list of swap providers?</h2>
             <p>
                 Currently, we follow Electrum Wallet implementation which orders swap providers based on the proof-of-work of their announcement. In order to set up a swap server,
                 swap provider needs to publish an announcement through Nostr relays. This announcement includes a hash of the swap provider's public key and a proof-of-work that
@@ -123,12 +144,12 @@ const Help = () => {
                 us</a> if you want to help us.
             </p>
 
-            <h2 id="how-can-i-run-a-swap-provider">5. How can I run a swap provider?</h2>
+            <h2 id="how-can-i-run-a-swap-provider">6. How can I run a swap provider?</h2>
             <p>
                 Please read <a href="https://electrum.readthedocs.io/en/latest/swapserver.html">How to offer Submarine Swaps</a> in Electrum Wallet documentation.
             </p>
 
-            <h2 id="where-is-the-source-code">6. Where is the source code?</h2>
+            <h2 id="where-is-the-source-code">7. Where is the source code?</h2>
             <p>
                 The source code of Whale's Exchange is available on GitHub:
             </p>
