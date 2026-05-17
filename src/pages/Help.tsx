@@ -13,7 +13,7 @@ const Help = () => {
                 <li><a href="#what-is-whales-exchange-what-is-submarine-swap">What is Whale's Exchange, what is Submarine Swap?</a></li>
                 <li><a href="#how-do-i-perform-a-forward-swap">How do I perform a Forward Swap?</a></li>
                 <li><a href="#how-do-i-perform-a-reverse-swap">How do I perform a Reverse Swap?</a></li>
-                <li><a href="#how-to-rescue-a-failed-forward-swap">How to rescue a failed Forward Swap?</a>.</li>
+                <li><a href="#how-to-rescue-a-failed-forward-swap">How to rescue a failed Forward Swap?</a></li>
                 <li><a href="#how-are-swap-providers-ordered">How are swap providers ordered in the list of swap providers?</a></li>
                 <li><a href="#how-can-i-run-a-swap-provider">How can I run a swap provider?</a></li>
                 <li><a href="#where-is-the-source-code">Where is the source code?</a></li>
