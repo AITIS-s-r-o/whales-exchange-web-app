@@ -138,13 +138,29 @@ The following scenarios are tested during development:
   - Successful swap 2
     - Client enters on-chain address -> client receives instructions for 2 LN payments.
     - Blocks 1-63 are mined.
-    - Client pays.
+    - Client pays both invoices.
     - Swap provider broadcasts on-chain transaciton.
     - Block 64 is mined -> client receives on-chain payment and the swap is concluded.
-  - Client does not pay
+  - Client does not pay 1
     - Client enters on-chain address -> client receives instructions for 2 LN payments.
     - Blocks 1-63 are mined -> no change.
     - Block 64 is mined -> swap expires.
+  - Client does not pay 2
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays one invoice, but not the other -> payment is pending.
+    - Blocks 1-3 are mined -> no change.
+    - Block 4 is mined -> swap provider fails the pending payment.
+    - Blocks 5-63 are mined -> no change.
+    - Block 64 is mined -> swap expires.
+  - Swap provider accepts and disconnects
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays both invoices.
+    - Swap provider completes the fee invoice, the main invoice is still pending.
+    - Swap provider shuts down.
+    - Blocks 1-63 are mined -> no change.
+    - Block 64 is mined -> swap status changes to "lockup failed".
+    - Block 65-69 are mined -> no change.
+    - Block 70 is mined -> main invoice expires.
 
 ## Resources
 
