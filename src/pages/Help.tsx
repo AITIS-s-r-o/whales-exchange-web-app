@@ -30,17 +30,23 @@ const Help = () => {
             </p>
             <ol>
                 <li>
-                    Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
-                    Forward) and fees and these parameters can change over time. Some providers may not support Forward Swaps. In that case their Max Forward liquidity is set to
-                    "N/A".
+                    <p>
+                        Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
+                        Forward) and fees and these parameters can change over time. Some providers may not support Forward Swaps. In that case their Max Forward liquidity is set
+                        to "N/A".
+                    </p>
                 </li>
                 <li>
-                    Make sure that you have Bitcoin first and Lightning second in the Create Atomic Swap section. If not, you are currently viewing a form for a reverse swap. Click
-                    the down arrow between the asset lines to switch to the form for a forward swap.
+                    <p>
+                        Make sure that you have Bitcoin first and Lightning second in the Create Atomic Swap section. If not, you are currently viewing a form for a reverse swap.
+                        Click the down arrow between the asset lines to switch to the form for a forward swap.
+                    </p>
                 </li>
                 <li>
-                    Copy and paste a BOLT11 Lightning invoice that includes amount in the text area below. This will automatically fill in the amounts to be paid and to be received.
-                    Always use a newly generated BOLT11 invoice. Invoices without amount are not supported.
+                    <p>
+                        Copy and paste a BOLT11 Lightning invoice that includes amount in the text area below. This will automatically fill in the amounts to be paid and to be
+                        received. Always use a newly generated BOLT11 invoice. Invoices without amount are not supported.
+                    </p>
                 </li>
                 <li>Click the "Create Atomic Swap" button.</li>
                 <li>
@@ -77,9 +83,21 @@ const Help = () => {
                     Make sure that you have Lightning first and Bitcoin second in the Create Atomic Swap section. If not, you are currently viewing a form for a forward swap. Click
                     the down arrow between the asset lines to switch to the form for a reverse swap.
                 </li>
-                <li>Enter the amount you want to swap, or the amount you want to receive.</li>
-                <li>Enter your destination on-chain address. Always use a previously unused address.</li>
-                <li>Click the "Create Atomic Swap" button.</li>
+                <li>
+                    <p>
+                        Enter the amount you want to swap, or the amount you want to receive.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Enter your destination on-chain address. Always use a previously unused address.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Click the "Create Atomic Swap" button.
+                    </p>
+                </li>
                 <li>
                     <p>
                         If the swap request is accepted, you will be presented with two Lightning invoices. There is a fee invoice that demonstrates the commitment of the user to
