@@ -57,7 +57,7 @@ const Help = () => {
                     <p>
                         Note that the funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish
                         the swap for whatever reason, you can come to rescue your funds after your funding transaction gets more than 70 confirmations. However, the network fees
-                        paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction. See
+                        paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction. See 
                         <a href="#how-to-rescue-a-failed-forward-swap">How to rescue a failed Forward Swap?</a>.
                     </p>
                 </li>
