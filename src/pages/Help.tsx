@@ -76,12 +76,16 @@ const Help = () => {
             </p>
             <ol>
                 <li>
-                    Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
-                    Reverse) and fees and these parameters can change over time.
+                    <p>
+                        Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
+                        Reverse) and fees and these parameters can change over time.
+                    </p>
                 </li>
                 <li>
-                    Make sure that you have Lightning first and Bitcoin second in the Create Atomic Swap section. If not, you are currently viewing a form for a forward swap. Click
-                    the down arrow between the asset lines to switch to the form for a reverse swap.
+                    <p>
+                        Make sure that you have Lightning first and Bitcoin second in the Create Atomic Swap section. If not, you are currently viewing a form for a forward swap.
+                        Click the down arrow between the asset lines to switch to the form for a reverse swap.
+                    </p>
                 </li>
                 <li>
                     <p>
@@ -139,14 +143,18 @@ const Help = () => {
             </p>
             <ol>
                 <li>
-                    Go to <a href="/rescue">the rescue page</a> or the page of the swap. On the rescue page, you will see your swap history and at the top of the list you will see
-                    swaps that can be rescued. Those swaps have a "Refund" button next to them. Click the "Refund" button to navigate to the page of the swap. If the funding
-                    transaction does not yet have 70 confirmations, you will see information about when it is expected to reach 70 confirmations.
+                    <p>
+                        Go to <a href="/rescue">the rescue page</a> or the page of the swap. On the rescue page, you will see your swap history and at the top of the list you will
+                        see swaps that can be rescued. Those swaps have a "Refund" button next to them. Click the "Refund" button to navigate to the page of the swap. If
+                        the funding transaction does not yet have 70 confirmations, you will see information about when it is expected to reach 70 confirmations.
+                    </p>
                 </li>
                 <li>
-                    Once the funding transaction of the failed forward swap has 70 confirmations, you can initiate the rescue process. Simply enter the Bitcoin address to which you
-                    want to receive the rescued funds and click the "REFUND" button. The rescue process will be initiated and you will receive the rescued funds to the provided
-                    address.
+                    <p>
+                        Once the funding transaction of the failed forward swap has 70 confirmations, you can initiate the rescue process. Simply enter the Bitcoin address to which
+                        you want to receive the rescued funds and click the "REFUND" button. The rescue process will be initiated and you will receive the rescued funds to
+                        the provided address.
+                    </p>
                 </li>
             </ol>
 
