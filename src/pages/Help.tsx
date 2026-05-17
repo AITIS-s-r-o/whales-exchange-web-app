@@ -25,8 +25,42 @@ const Help = () => {
 
             <h2 id="how-do-i-perform-a-forward-swap">2. How do I perform a Forward Swap?</h2>
             <p>
-                Currently, only Reverse Swaps are supported. If you are interested in this feature, or you want to help us implement it, please <a href="/contact">contact us</a>.
+                To perform a Forward Swap:
             </p>
+            <ol>
+                <li>
+                    Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
+                    Forward) and fees and these parameters can change over time. Some providers may not support Forward Swaps. In that case their Max Forward liquidity is set to
+                    "N/A".
+                </li>
+                <li>
+                    Make sure that you have Bitcoin first and Lightning second in the Create Atomic Swap section. If not, you are currently viewing a form for a reverse swap. Click
+                    the down arrow between the asset lines to switch to the form for a forward swap.
+                </li>
+                <li>
+                    Copy and paste a BOLT11 Lightning invoice that includes amount in the text area below. This will automatically fill in the amounts to be paid and to be received.
+                    Always use a newly generated BOLT11 invoice. Invoices without amount are not supported.
+                </li>
+                <li>Click the "Create Atomic Swap" button.</li>
+                <li>
+                    <p>
+                        If the swap request is accepted, you will be presented with an on-chain address and an amount to pay. Make sure your transaction confirms within 9 blocks.
+                        Otherwise, the swap provider will ignore the swap. In that case, you will not lose the paid amount, but you will lose the mining fees.
+                    </p>
+                    <p>
+                        Note that the funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish
+                        the swap for whatever reason, you can come to rescue your funds after your funding transaction gets more than 70 confirmations. However, the network fees
+                        paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        After you make the payment, the swap provider waits for the transaction to confirm. Once confirmed, the swap provider should pay the Lightning invoice that
+                        you provided at the beginning. After the second confirmation of the funding transaction, the swap provider will claim their on-chain funds and this will
+                        conclude the swap.
+                    </p>
+                </li>
+            </ol>
 
             <h2 id="how-do-i-perform-a-reverse-swap">3. How do I perform a Reverse Swap?</h2>
             <p>
@@ -36,6 +70,10 @@ const Help = () => {
                 <li>
                     Go to <a href="/">the main page</a> and select a swap provider from the list of providers. Each swap provider has different liquidity (as specified by Max
                     Reverse) and fees and these parameters can change over time.
+                </li>
+                <li>
+                    Make sure that you have Lightning first and Bitcoin second in the Create Atomic Swap section. If not, you are currently viewing a form for a forward swap. Click
+                    the down arrow between the asset lines to switch to the form for a reverse swap.
                 </li>
                 <li>Enter the amount you want to swap, or the amount you want to receive.</li>
                 <li>Enter your destination on-chain address. Always use a previously unused address.</li>
