@@ -116,7 +116,7 @@ The following scenarios are tested during development:
     - Blocks 1-70 are mined.
     - Client pays.
     - Client refreshes the page -> client can get refund now.
-    - Client enters on-chain addres for refund and submits.
+    - Client enters on-chain address for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
   - Swap provider accepts and disconnects
     - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
