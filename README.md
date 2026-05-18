@@ -124,7 +124,7 @@ The following scenarios are tested during development:
     - Client pays.
     - Block 1-69 are mined -> client sees transaction is confirmed, but no payment arrives for the invoice.
     - Block 70 is mined -> client can get refund now.
-    - Client enters on-chain addres for refund and submits.
+    - Client enters on-chain address for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
   - No route
     - Client enters BOLT11 invoice.
