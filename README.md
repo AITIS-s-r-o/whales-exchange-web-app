@@ -128,7 +128,7 @@ The following scenarios are tested during development:
     - Refund transaction is broadcasted. Client sees it in their wallet.
   - No route
     - Client enters BOLT11 invoice.
-    - Swap provider cannot find a route -> refuses the swap.
+    - Swap provider cannot find a LN payment route -> refuses the swap.
     
 ### Reverse Swap
   - Successful swap 1
