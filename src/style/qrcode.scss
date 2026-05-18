@@ -2,6 +2,7 @@
 $size: 40px;
 #qrcode {
     position: relative;
+
     span {
         position: absolute;
         top: 50%;
@@ -17,15 +18,12 @@ $size: 40px;
         background-size: 100%;
         border-radius: 50%;
     }
+
     &[data-asset="BTC"] span {
+        background-position-y: 0px;
         background-image: vars.$bitcoin_icon;
     }
-    &[data-asset="L-BTC"] span {
-        background-image: vars.$liquid_icon;
-    }
-    &[data-asset="RBTC"] span {
-        background-image: vars.$rootstock_icon;
-    }
+
     img {
         width: 300px;
         height: 300px;

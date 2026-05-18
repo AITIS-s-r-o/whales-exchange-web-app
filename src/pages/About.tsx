@@ -25,8 +25,7 @@ const About = () => {
                 A Forward Swap (BTC→LN) is a swap where the user swaps on-chain bitcoin (BTC) for off-chain bitcoin (LN).
             </p>
             <p>
-                A Reverse Swap (LN→BTC) is a swap where the user swaps off-chain bitcoin (LN) for on-chain bitcoin (BTC). In the first version of Whale's Exchange, only the reverse
-                swaps are supported.
+                A Reverse Swap (LN→BTC) is a swap where the user swaps off-chain bitcoin (LN) for on-chain bitcoin (BTC).
             </p>
             <p>
                 For more information about submarine swaps, please refer to the following resources:

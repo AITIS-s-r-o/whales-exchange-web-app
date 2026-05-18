@@ -84,7 +84,7 @@ const dict = {
         send_between:
             "Send between {{ min }} and {{ max }} {{ denomination }} to",
         pay_invoice_intro:
-            "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below to continue.",
+            "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below within 5 minutes to continue.",
         pay_invoice_to:
             "Pay this swap invoice {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:
@@ -102,7 +102,7 @@ const dict = {
         disconnect_address: "Disconnect wallet",
         lockup_failed: "Lockup Failed!",
         failure_reason: "Failure reason",
-        invoice_payment_failure: "Could not pay your lightning invoice",
+        invoice_payment_failure: "Swap server did not pay your lightning invoice",
         onchain_address: "Enter {{ asset }} address to receive funds",
         onchain_address_no_asset: "Enter address",
         invalid_refund_file: "Invalid rescue key",
@@ -191,7 +191,7 @@ const dict = {
         warning_return:
             "Return to this page after paying the invoice! The payment might show pending until you return to this page.",
         warning_expiry:
-            "Make sure your transaction confirms within 8 hours after creation of this swap!",
+            "Make sure your transaction confirms within 9 blocks (~90 minutes) after creation of this swap! If the transaction confirms later than 9 blocks from now, the swap provider will ignore it.",
         not_found: "404 - Not Found",
         not_found_subline: "This page seems to have vanished.",
         back_to_home: "Back to Home",
