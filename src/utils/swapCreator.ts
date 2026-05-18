@@ -1,3 +1,4 @@
+import log from "loglevel";
 import { sha256 } from "@noble/hashes/sha2.js";
 import { hex } from "@scure/base";
 import type BigNumber from "bignumber.js";
@@ -104,6 +105,7 @@ const generatePreimage = ({
 };
 
 export const createSubmarine = async (
+    provider: WexSwapProvider,
     pairs: Pairs,
     assetSend: string,
     assetReceive: string,
@@ -116,8 +118,11 @@ export const createSubmarine = async (
 ): Promise<SubmarineSwap> => {
     const key = await newKey(assetSend as AssetType);
     const res = await createSubmarineSwap(
+        provider,
         assetSend,
         assetReceive,
+        Number(sendAmount),
+        Number(receiveAmount),
         invoice,
         getPair(pairs, SwapType.Submarine, assetSend, assetReceive).hash,
         key !== undefined
@@ -154,8 +159,8 @@ export const createReverse = async (
     newKey: newKeyFn,
     originalDestination?: string,
 ): Promise<ReverseSwap> => {
-    console.log("[swapCreator.createReverse] * provider=%o, pairs=%o, assetSend=%s, assetReceive=%s, sendAmount=%o, receiveAmount=%o, claimAddress=%o, useRif=%o, rescueFile=%o, originalDestination=%o",
-        provider, pairs, assetSend, assetReceive, sendAmount, receiveAmount, claimAddress, useRif, rescueFile, originalDestination);
+    log.debug(`[swapCreator.createReverse] * provider=${provider.pk}, pairs=${pairs}, assetSend=${assetSend}, assetReceive=${assetReceive}, sendAmount=${sendAmount}, `
+        + `receiveAmount=${receiveAmount}, claimAddress=${claimAddress}, useRif=${useRif}, rescueFile=${rescueFile}, originalDestination=${originalDestination}`);
 
     const key = await newKey(assetReceive as AssetType);
     const preimage = generatePreimage({
@@ -164,7 +169,7 @@ export const createReverse = async (
         rescueFile,
     });
 
-    console.log("[swapCreator.createReverse] preimage is '%s'.", hex.encode(preimage));
+    log.debug(`[swapCreator.createReverse] preimage is '${hex.encode(preimage)}'.`);
 
     const res = await createReverseSwap(
         provider,
@@ -180,7 +185,7 @@ export const createReverse = async (
         claimAddress,
     );
 
-    console.log("[swapCreator.createReverse] Response is: %o", res);
+    log.debug(`[swapCreator.createReverse] Response is:`, res);
 
     const result = {
         ...annotateSwapBaseData(
@@ -198,7 +203,7 @@ export const createReverse = async (
         claimPrivateKeyIndex: key?.index,
     };
 
-    console.log("[swapCreator.createReverse] $=%o", result);
+    log.debug(`[swapCreator.createReverse] $=`, result);
     return result;
 };
 

@@ -46,6 +46,8 @@ const TransactionClaimed = () => {
     >(undefined);
 
     const [preimage] = createResource(async () => {
+        return undefined;
+        /* WEX
         const submarine = swap() as SubmarineSwap;
         if (submarine?.type !== SwapType.Submarine) {
             return undefined;
@@ -65,7 +67,7 @@ const TransactionClaimed = () => {
 
         submarine.preimage = res.preimage;
         await setSwapStorage(submarine);
-        return res.preimage;
+        return res.preimage;*/
     });
 
     createEffect(() => {

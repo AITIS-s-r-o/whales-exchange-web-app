@@ -18,7 +18,7 @@ const config = {
             blockExplorerApis: [
                 {
                     id: Explorer.Esplora,
-                    normal: "http://localhost:4002/api",
+                    normal: "http://localhost:4002",
                 },
             ],
         },

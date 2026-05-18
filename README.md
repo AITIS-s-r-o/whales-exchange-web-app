@@ -72,7 +72,104 @@ npx serve dist
 
 The project can be built and run on Linux and Windows (WSL or Git Bash). The project _should_ run on macOS but it is not actively tested.
 
+## Tested Scenarios
+
+The following scenarios are tested during development:
+
+### Forward Swap
+  - Successful swap 1
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Client pays immediately.
+    - Block 1 is mined -> client receives LN payment from swap provider.
+    - Block 2 is mined -> swap provider claims and the swap is concluded.
+  - Successful swap 2
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-8 are mined.
+    - Client pays.
+    - Block 9 is mined -> client receives LN payment from swap provider.
+    - Block 10 is mined -> swap provider claims and the swap is concluded.
+  - Payment too late 1
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-9 are mined.
+    - Swap is marked as expired -> error message "Client failed to send the funding on-chain transaction" is displayed. Client is expected to refresh if they paid later.
+    - Client pays.
+    - Block 10 is mined.
+    - Client refreshes the page -> client is informed about possibility to get refund after timelock expires.
+    - Blocks 11-69 are mined.
+    - Client refreshes the page -> no change.
+    - Block 70 is mined.
+    - Client refreshes the page -> client can get refund now.
+    - Client enters on-chain address for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+  - Payment too late 2
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-9 are mined.
+    - Client pays before the swap is marked as expired -> client sees transaction in mempool and then confirmed, but no payment arrives for the invoice.
+    - Block 10-69 is mined.
+    - Client refreshes the page -> no change.
+    - Block 70 is mined.
+    - Client can get refund now.
+    - Client enters on-chain address for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+  - Payment too late 3
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Blocks 1-70 are mined.
+    - Client pays.
+    - Client refreshes the page -> client can get refund now.
+    - Client enters on-chain address for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+  - Payment exceeds invoice amount
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Client pays immediately but an amount larger than the invoice amount.
+    - Block 1 is mined -> client receives LN payment from swap provider.
+    - Block 2 is mined -> swap provider claims and the swap is concluded.
+    - Client receives the same amount as if they paid the exact invoice amount, the excess is ignored (!).
+  - Swap provider accepts and disconnects
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Swap provider shuts down.
+    - Client pays.
+    - Block 1-69 are mined -> client sees transaction is confirmed, but no payment arrives for the invoice.
+    - Block 70 is mined -> client can get refund now.
+    - Client enters on-chain address for refund and submits.
+    - Refund transaction is broadcasted. Client sees it in their wallet.
+  - No route
+    - Client enters BOLT11 invoice.
+    - Swap provider cannot find a LN payment route -> refuses the swap.
+    
+### Reverse Swap
+  - Successful swap 1
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays both invoices immediately.
+    - Block 1 is mined -> client receives on-chain payment and the swap is concluded.
+  - Successful swap 2
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Blocks 1-63 are mined.
+    - Client pays both invoices.
+    - Swap provider broadcasts on-chain transaciton.
+    - Block 64 is mined -> client receives on-chain payment and the swap is concluded.
+  - Client does not pay 1
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Blocks 1-63 are mined -> no change.
+    - Block 64 is mined -> swap expires.
+  - Client does not pay 2
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays one invoice, but not the other -> payment is pending.
+    - Blocks 1-3 are mined -> no change.
+    - Block 4 is mined -> swap provider fails the pending payment.
+    - Blocks 5-63 are mined -> no change.
+    - Block 64 is mined -> swap expires.
+  - Swap provider accepts and disconnects
+    - Client enters on-chain address -> client receives instructions for 2 LN payments.
+    - Client pays both invoices.
+    - Swap provider completes the fee invoice, the main invoice is still pending.
+    - Swap provider shuts down.
+    - Blocks 1-63 are mined -> no change.
+    - Block 64 is mined -> swap status changes to "lockup failed".
+    - Block 65-69 are mined -> no change.
+    - Block 70 is mined -> main invoice expires.
+
 ## Resources
 
 - Get Help: [Support Center](https://t.me/whales_secret_support)
 - Follow us: [X/Twitter](https://x.com/WhalesSecret)
+

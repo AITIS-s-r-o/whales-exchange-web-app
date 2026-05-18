@@ -1,7 +1,9 @@
 import log from "loglevel";
 
 import { fetcher } from "./helper";
-import { ReverseCreatedResponse } from "./boltzClient";
+import { SubmarineCreatedResponse, ReverseCreatedResponse } from "./boltzClient";
+
+export const WEX_CAP_FORWARDV1 = "forwardv1";
 
 /**
  * Single swap provider information from Electrum get_submarine_swap_providers call.
@@ -40,6 +42,9 @@ export interface WexSwapProvider {
 
     /** Mining fee for reverse swaps in satoshis. */
     revMining: number;
+
+    /** List of capabilities for the swap provider. */
+    capabilities: string[]; 
 }
 
 /**
@@ -66,6 +71,14 @@ export interface WexGetSwapProvidersResponse extends WexRestResponseBase {
      * Providers are ordered first by PoW (descending) and then by public key (ascending).
      */
     data: WexSwapProvider[] | null;
+}
+
+/**
+ * Response to CreateSwapAsync call.
+ */
+export interface WexCreateSubmarineSwapResponse extends WexRestResponseBase {
+    /** Swap data. */
+    data: SubmarineCreatedResponse | null;
 }
 
 /**
@@ -103,7 +116,8 @@ export const wexGetSubmarineSwapProviders = async (): Promise<WexSwapProvider[]>
                 `Max Forward: ${provider.fwdMax} sat | ` +
                 `Max Reverse: ${provider.revMax} sat | ` +
                 `Fee: ${provider.fwdFee.toFixed(2)}% | ` +
-                `Timestamp: ${provider.time} (diff ${timeDiff})`
+                `Timestamp: ${provider.time} (diff ${timeDiff}) | ` +
+                `Capabilities: ${provider.capabilities}`
             );
         });
 

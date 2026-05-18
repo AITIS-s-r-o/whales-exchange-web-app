@@ -8,7 +8,7 @@ import { downloadJson } from "../utils/download";
 import { isMobile } from "../utils/helper";
 import type { RescueFile } from "../utils/rescueFile";
 
-const rescueFileName = "boltz-rescue-key-DO-NOT-DELETE";
+const rescueFileName = "WhalesExchange-rescue-key-DO-NOT-DELETE";
 
 export const downloadRescueFile = (rescueFile: Accessor<RescueFile>) => {
     downloadJson(rescueFileName, rescueFile());

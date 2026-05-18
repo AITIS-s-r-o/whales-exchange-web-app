@@ -1,10 +1,11 @@
+import log from "loglevel";
 import { secp256k1 } from "@noble/curves/secp256k1.js";
 import { sha256 } from "@noble/hashes/sha2.js";
 import { hex } from "@scure/base";
 import { equalBytes } from "@scure/btc-signer/utils.js";
 import { BigNumber } from "bignumber.js";
 import type { Types } from "boltz-core";
-import { reverseSwapScript } from "boltz-core";
+import { swapScript, reverseSwapScript } from "boltz-core";
 import {
     Scripts,
     SwapTreeSerializer,
@@ -21,7 +22,7 @@ import type { deriveKeyFn } from "../context/Global";
 import { etherSwapCodeHashes } from "../context/Web3";
 import type { ChainSwapDetails } from "./boltzClient";
 import { decodeAddress } from "./compat";
-import { formatAmountDenomination } from "./denomination";
+import { formatAmountDenomination, satToBtc } from "./denomination";
 import type { ECKeys } from "./ecpair";
 import { decodeInvoice, isInvoice, isLnurl } from "./invoice";
 import type {
@@ -92,11 +93,11 @@ const getScriptHashFunction = (isNativeSegwit: boolean) =>
 
 // v1.2.1 code.
 const validateAddressV1 = (
-    swap: ReverseSwap,
+    swap: SubmarineSwap | ReverseSwap,
     isNativeSegwit: boolean,
     address: string
 ) => {
-    console.log("[validation.validateAddressV1] * swap=%o, isNativeSegwit=%o, address=%s", swap, isNativeSegwit, address);
+    log.debug(`[validation.validateAddressV1] * swap=%o,isNativeSegwit=${isNativeSegwit},address=${address}`, swap);
 
     const redeemScriptArray = hex.decode(swap.redeemScript);
     const compareScript = getScriptHashFunction(isNativeSegwit)(
@@ -104,12 +105,14 @@ const validateAddressV1 = (
     );
     const decodedAddress = decodeAddress(swap.assetReceive, address);
 
+    log.debug(`[validation.validateAddressV1] Decoded address:`, decodedAddress);
+
     if (!equalBytes(decodedAddress.script, compareScript)) {
-        console.log("[validation.validateAddressV1] $<ADDRESS_VALIDATION_FAILED>", decodedAddress.toString());
+        log.debug(`[validation.validateAddressV1] $<ADDRESS_VALIDATION_FAILED>`);
         return false;
     }
 
-    console.log("[validation.validateAddressV1] $");
+    log.debug(`[validation.validateAddressV1] $`);
     return true;
 };
 
@@ -154,17 +157,19 @@ const validateReverse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
-    console.log("[CreateButton.validateReverse] * swap=%o", swap);
+    log.debug(`[validation.validateReverse] * swap=`, swap);
 
     const invoiceData = await decodeInvoice(swap.invoice);
-    console.log("[CreateButton.validateReverse] Invoice data is: %o", invoiceData);
+    log.debug(`[validation.validateReverse] Invoice data is`, invoiceData);
 
     const feeInvoiceData = await decodeInvoice(swap.feeInvoice);
-    console.log("[CreateButton.validateReverse] Fee invoice data is: %o", feeInvoiceData);
+    log.debug(`[validation.validateReverse] Fee invoice data is`, feeInvoiceData);
 
     // Amounts
     if (invoiceData.satoshis + feeInvoiceData.satoshis !== swap.sendAmount) {
-        console.log("[CreateButton.validateReverse] $<INVALID_SEND_AMOUNTS>", invoiceData.satoshis, feeInvoiceData.satoshis, swap.sendAmount);
+        log.debug(`[validation.validateReverse] Invoice amount ${invoiceData.satoshis} + fee invoice amount ${feeInvoiceData.satoshis} does not equal send amount `
+            + `${swap.sendAmount}.`);
+        log.debug(`[validation.validateReverse] $<INVALID_SEND_AMOUNTS>`);
 
         throw new Error(
             invalidSendAmountMsg(invoiceData.satoshis + feeInvoiceData.satoshis, swap.sendAmount),
@@ -172,7 +177,8 @@ const validateReverse = async (
     }
 
     if (swap.onchainAmount <= swap.receiveAmount) {
-        console.log("[CreateButton.validateReverse] $<INVALID_RCV_AMOUNT>", swap.onchainAmount, swap.receiveAmount);
+        log.debug(`[validation.validateReverse] On chain amount ${swap.onchainAmount} is not greater than receive amount ${swap.receiveAmount}.`);
+        log.debug(`[validation.validateReverse] $<INVALID_RCV_AMOUNT>`);
 
         throw new Error(
             invalidReceiveAmountMsg(swap.onchainAmount, swap.receiveAmount),
@@ -182,17 +188,12 @@ const validateReverse = async (
     // Invoice
     const preimageHash = sha256(hex.decode(swap.preimage));
     if (invoiceData.preimageHash !== hex.encode(preimageHash)) {
-        console.log("[CreateButton.validateReverse] $<INVALID_PREIMAGE_HASH>", invoiceData.preimageHash, preimageHash, hex.encode(preimageHash));
+        log.debug(`[validation.validateReverse] Invoice data preimage hash ${invoiceData.preimageHash} does not match expected preimage hash ${hex.encode(preimageHash)}.`);
+        log.debug(`[validation.validateReverse] $<INVALID_PREIMAGE_HASH>`);
 
         throw new Error(
             `invalid swap preimage hash. Expected ${hex.encode(preimageHash)}, got ${invoiceData.preimageHash}`,
         );
-    }
-
-    if (swap.assetReceive === RBTC) {
-        console.log("[CreateButton.validateReverse] Validate RBTC contract");
-        await validateContract(getEtherSwap);
-        return;
     }
 
     const ourKeys = deriveKey(
@@ -214,52 +215,21 @@ const validateReverse = async (
     );
 
     if (!equalBytes(redeemScript, compareRedeemScript)) {
-        console.log("[CreateButton.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+        log.debug(`[validation.validateReverse] Redeem script does not match expected script.`, redeemScript, compareRedeemScript);
+        log.debug(`[validation.validateReverse] $<REDEEM_SCRIPT_NOT_EQUAL>`);
 
         throw new Error(`invalid redeem script. Expected ${swap.redeemScript}, got ${compareRedeemScript.toString()}`);
     }
 
-    /*
-    // SwapTree
-    const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
-
-    const ourKeys = deriveKey(
-        swap.claimPrivateKeyIndex,
-        swap.assetReceive as AssetType,
-    );
-    const theirPublicKey = hex.decode(swap.refundPublicKey);
-
-    const compareTree = reverseSwapTree(
-        swap.assetReceive === LBTC,
-        preimageHash,
-        ourKeys.publicKey,
-        theirPublicKey,
-        swap.timeoutBlockHeight,
-    );
-
-    if (!compareTrees(tree, compareTree)) {
-        console.log("[CreateButton.validateReverse] $<SWAP_TREE_MISMATCH>");
-        throw new Error("swap tree mismatch");
-    }
-
-    validateAddress(
-        swap.assetReceive,
-        tree,
-        ourKeys,
-        theirPublicKey,
-        swap.lockupAddress,
-        swap.blindingKey,
-    );
-    */
-
     const result = validateAddressV1(swap, true, swap.lockupAddress);
     if (!result) {
-        console.log("[CreateButton.validateReverse] $<ADDRESS_VALIDATION_FAILED>", redeemScript, compareRedeemScript);
+        log.debug(`[validation.validateReverse] Address validation failed for swap`, swap);
+        log.debug(`[validation.validateReverse] $<ADDRESS_VALIDATION_FAILED>`);
 
         throw new Error(`invalid address. Expected '${swap.lockupAddress}'.`);
     }
 
-    console.log("[CreateButton.validateReverse] $");
+    log.debug(`[validation.validateReverse] $`);
 };
 
 const validateSubmarine = async (
@@ -267,53 +237,52 @@ const validateSubmarine = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
+    swap.address = swap.lockupAddress;
+    swap.bip21 = makeBip21(swap)
+    swap.expectedAmount = swap.onchainAmount;
+
     // Amounts
-    if (swap.expectedAmount !== swap.sendAmount) {
+    if (swap.onchainAmount !== swap.sendAmount) {
         throw new Error(
-            invalidSendAmountMsg(swap.expectedAmount, swap.sendAmount),
+            invalidSendAmountMsg(swap.onchainAmount, swap.sendAmount),
         );
     }
-
-    if (swap.assetSend === RBTC) {
-        await validateContract(getEtherSwap);
-        return;
-    }
-
-    // SwapTree
-    const invoiceData = await decodeInvoice(swap.invoice);
-
-    const tree = SwapTreeSerializer.deserializeSwapTree(swap.swapTree);
 
     const ourKeys = deriveKey(
         swap.refundPrivateKeyIndex,
         swap.assetSend as AssetType,
     );
-    const theirPublicKey = hex.decode(swap.claimPublicKey);
 
-    const compareTree = swapTree(
-        swap.assetSend === LBTC,
+    const invoiceData = await decodeInvoice(swap.invoice);
+
+    const redeemScript = hex.decode(swap.redeemScript);
+    const decompiledRedeemScript = script.decompile(Buffer.from(redeemScript));
+    const compareRedeemScript = swapScript(
         hex.decode(invoiceData.preimageHash),
-        theirPublicKey,
+        decompiledRedeemScript[4] as Buffer,
         ourKeys.publicKey,
         swap.timeoutBlockHeight,
     );
 
-    if (!compareTrees(tree, compareTree)) {
-        throw new Error("swap tree mismatch");
+    if (!equalBytes(redeemScript, compareRedeemScript)) {
+        log.debug("[CreateButton.validateSubmarine] $<REDEEM_SCRIPT_NOT_EQUAL>", redeemScript, compareRedeemScript);
+        throw new Error("swap address validation: redeem script mismatch");
     }
 
     // Address
-    validateAddress(
-        swap.assetSend,
-        tree,
-        ourKeys,
-        theirPublicKey,
-        swap.address,
-        swap.blindingKey,
+    const addressComparisons = [true, false].map((isNativeSegwit) =>
+        validateAddressV1(swap, isNativeSegwit, swap.address),
     );
-
-    validateBip21(swap.bip21, swap.address, swap.expectedAmount);
+    if (addressComparisons.every((val) => !val)) {
+        log.debug("[CreateButton.validateSubmarine] $<DIFFERENT_ADDRESSES>");
+        throw new Error("swap address validation: address script mismatch");
+    }
 };
+
+const makeBip21 = (swap: SubmarineSwap): string => {
+    const sats = satToBtc(new BigNumber(swap.sendAmount));
+    return `bitcoin:${swap.lockupAddress}?amount=${sats}`;
+}
 
 const validateChainSwap = async (
     swap: ChainSwap,
@@ -394,7 +363,7 @@ export const validateResponse = async (
     deriveKey: deriveKeyFn,
     getEtherSwap: ContractGetter,
 ): Promise<void> => {
-    console.log("[CreateButton.validateResponse] * swap=%o", swap);
+    log.debug("[CreateButton.validateResponse] * swap=%o", swap);
 
     switch (swap.type) {
         case SwapType.Submarine:
@@ -417,7 +386,7 @@ export const validateResponse = async (
             throw new Error("unknown_swap_type");
     }
 
-    console.log("[CreateButton.validateResponse] $");
+    log.debug("[CreateButton.validateResponse] $");
 };
 
 export const validateInvoice = async (inputValue: string) => {
