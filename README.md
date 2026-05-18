@@ -118,6 +118,12 @@ The following scenarios are tested during development:
     - Client refreshes the page -> client can get refund now.
     - Client enters on-chain address for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
+  - Payment exceeds invoice amount
+    - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
+    - Client pays immediately but an amount larger than the invoice amount.
+    - Block 1 is mined -> client receives LN payment from swap provider.
+    - Block 2 is mined -> swap provider claims and the swap is concluded.
+    - Client receives the same amount as if they paid the exact invoice amount, the excess is ignored (!).
   - Swap provider accepts and disconnects
     - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
     - Swap provider shuts down.
