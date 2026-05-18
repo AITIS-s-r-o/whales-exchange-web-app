@@ -52,7 +52,8 @@ const Help = () => {
                 <li>
                     <p>
                         If the swap request is accepted, you will be presented with an on-chain address and an amount to pay. Make sure your transaction confirms within 9 blocks.
-                        Otherwise, the swap provider will ignore the swap. In that case, you will not lose the paid amount, but you will lose the mining fees.
+                        Otherwise, the swap provider will ignore the swap. In that case, you will not lose the paid amount, but you will lose the mining fees. Also make sure to pay
+                        the exact amount specified by the swap provider in one single transaction. If you pay in multiple transactions you may lose funds.
                     </p>
                     <p>
                         Note that the funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish
