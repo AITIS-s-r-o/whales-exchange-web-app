@@ -109,7 +109,7 @@ The following scenarios are tested during development:
     - Client refreshes the page -> no change.
     - Block 70 is mined.
     - Client can get refund now.
-    - Client enters on-chain addres for refund and submits.
+    - Client enters on-chain address for refund and submits.
     - Refund transaction is broadcasted. Client sees it in their wallet.
   - Payment too late 3
     - Client enters BOLT11 invoice -> client receives instructions for on-chain payment.
