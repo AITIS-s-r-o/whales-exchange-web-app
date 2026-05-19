@@ -159,9 +159,13 @@ const Pay = () => {
         }
 
         const res = await getSwapStatus(currentSwap.id);
-        log.info(`Swap ${currentSwap.id} status fetched: ${res.status}`);
+        log.info(`Swap ${currentSwap.id} status fetched: %o`, res);
         setSwapStatus(res.status);
         setSwapStatusTransaction(res.transaction);
+
+        if (res.transaction && res.transaction.refundTxId)
+            setRefundTxId(res.transaction.refundTxId);
+
         setFailureReason(res.failureReason);
     });
 
@@ -218,9 +222,12 @@ const Pay = () => {
         try {
             setLoading(true);
 
-            const utxos = shouldCheckBlockExplorer
+            let utxos = shouldCheckBlockExplorer
                 ? await getRefundableUTXOs()
                 : [await getLockupTransaction(swap().id, swap().type)];
+
+            // Removes items with any error string.
+            utxos = utxos.filter(u => !u.error);
 
             setRefundableUTXOs(utxos);
 
@@ -260,7 +267,8 @@ const Pay = () => {
                             waitForSwapTimeout() ||
                             Object.values(swapStatusSuccess).includes(
                                 swap().status,
-                            )
+                            ) ||
+                            (swap().status === swapStatusFailed.SwapExpired)
                         ) {
                             const timeoutEta = getTimeoutEta(
                                 swap().assetSend as RefundableAssetType,

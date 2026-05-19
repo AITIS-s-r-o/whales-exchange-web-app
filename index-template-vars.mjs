@@ -45,48 +45,8 @@ const config = {
             url: "https://whales.exchange",
             logo: "https://whales.exchange/logo.png",
             sameAs: ["https://x.com/WhalesSecret"],
-/*WEX            hasPart: {
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                name: "Boltz Pro | Stack Sats Non-Custodially",
-                url: "https://pro.boltz.exchange",
-                logo: "https://pro.boltz.exchange/boltz-pro-preview.jpg",
-                description:
-                    "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-            },*/
         },
     },
-    /*WEX
-    pro: {
-        boltzUrl: "https://pro.boltz.exchange",
-        boltzTitle: "Boltz Pro | Stack Sats Non-Custodially",
-        boltzDescription:
-            "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-        boltzColor100: "#c8cfd6",
-        boltzColor200: "#9fa8b1",
-        backgroundColor: "#14191e",
-        assetsPath: "/pro",
-        ldJson: {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Boltz Pro",
-            url: "https://pro.boltz.exchange",
-            logo: "https://pro.boltz.exchange/boltz-preview.jpg",
-            description:
-                "Earn sats for swapping Bitcoin in directions that help balance our liquidity. Fast and non-custodial Lightning / Bitcoin / Liquid / Rootstock swaps.",
-            offers: {
-                "@type": "Offer",
-                description:
-                    "Non-custodial Bitcoin swapping with earning potential",
-            },
-            provider: {
-                "@type": "Organization",
-                name: "Boltz Exchange",
-                url: "https://boltz.exchange",
-                logo: "https://boltz.exchange/boltz.svg",
-            },
-        },
-    },*/
 };
 
 function usage() {

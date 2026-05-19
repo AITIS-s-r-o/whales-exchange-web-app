@@ -46,6 +46,8 @@ import { formatError } from "../utils/errors";
 import log from "loglevel";
 import { wexInitProviderSignal, getPairs } from "../utils/boltzClient";
 
+import { WEX_CAP_FORWARDV1 } from "../utils/wexClient";
+
 const Create = () => {
     let receiveAmountRef: HTMLInputElement | undefined;
     let sendAmountRef: HTMLInputElement | undefined;
@@ -290,6 +292,7 @@ const Create = () => {
 
     const [providers, setProviders] = createSignal<WexSwapProvider[]>([]);
     createEffect(() => {
+        log.debug("Initialize swap providers.");
         wexInitProviderSignal(selectedProvider);
     });
 
@@ -303,7 +306,7 @@ const Create = () => {
         }
 
         // Call async function outside of the effect.
-        void updatePairsFromProviderAsync(provider);
+        updatePairsFromProviderAsync(provider);
     });
 
     // Separate async function to avoid the warning
@@ -322,6 +325,17 @@ const Create = () => {
     };
 
     onMount(async () => {
+        try {
+            const data = await wexGetSubmarineSwapProviders();
+            setProviders(data);
+
+            // WEX: Do not set default provider if we are in the process of creating a swap, to avoid accidentally changing the provider during the swap creation flow.
+            if (data.length > 0 && !creatingSwap())
+                setSelectedProvider(data[0]);
+        } catch (e) {
+            log.error(`Failed to load swap providers: ${formatError(e)}`);
+        }
+
         // if user reloads during backup phase, we don't have enough information
         // to create the swap after the backup is done, so we redirect to /swap
         // once the backup is done
@@ -338,21 +352,14 @@ const Create = () => {
             return;
         }
 
-        try {
-            const data = await wexGetSubmarineSwapProviders();
-            setProviders(data);
-            if (data.length > 0)
-                setSelectedProvider(data[0]);
-        } catch (e) {
-            log.error(`Failed to load swap providers: ${formatError(e)}`);
-        }
 
         sendAmountRef?.focus({ preventScroll: true });
     });
 
     createEffect(
         on([boltzFee, minerFee, swapType, assetReceive], () => {
-            if (amountChanged() === Side.Receive) {
+            // WEX: Recalculate send amount when swap fee changes for submarine swaps.
+            if (swapType() === SwapType.Submarine || amountChanged() === Side.Receive) {
                 setSendAmount(
                     calculateSendAmount(
                         receiveAmount(),
@@ -439,6 +446,7 @@ const Create = () => {
     });
 
     const creatingSwap = () => location.state?.backupDone === BackupDone.True;
+    const canSwap = () => swapType() !== SwapType.Submarine || (selectedProvider()?.capabilities ?? []).includes(WEX_CAP_FORWARDV1);
 
     return (
         <Show when={wasmSupported()} fallback={<ErrorWasm />}>
@@ -484,13 +492,27 @@ const Create = () => {
                         <span>
                             {t("send")} {t("min")}:
                             <span
-                                onClick={() => setAmount(minimum())}
+                                onClick={() => {
+                                    if (canSwap()) {
+                                        setAmount(minimum());
+                                    }
+                                }}
                                 class="btn-small btn-light">
-                                {formatAmount(
-                                    BigNumber(minimum()),
-                                    denomination(),
-                                    separator(),
-                                )}
+                                {
+                                    canSwap() ? (
+                                        <>
+                                            {
+                                                formatAmount(
+                                                    BigNumber(minimum()),
+                                                    denomination(),
+                                                    separator(),
+                                                )
+                                            }
+                                        </>
+                                    ) : (
+                                        "N/A"
+                                    )
+                                }
                             </span>
                             <span
                                 class="denominator"
@@ -500,13 +522,27 @@ const Create = () => {
                         <span>
                             {t("max")}:
                             <span
-                                onClick={() => setAmount(maximum())}
+                                onClick={() => {
+                                    if (canSwap()) {
+                                        setAmount(maximum())
+                                    }
+                                }}
                                 class="btn-small btn-light">
-                                {formatAmount(
-                                    BigNumber(maximum()),
-                                    denomination(),
-                                    separator(),
-                                )}
+                                {
+                                    canSwap() ? (
+                                        <>
+                                            {
+                                                formatAmount(
+                                                    BigNumber(maximum()),
+                                                    denomination(),
+                                                    separator(),
+                                                )
+                                            }
+                                        </>
+                                    ) : (
+                                        "N/A"
+                                    )
+                                }
                             </span>
                             <span
                                 class="denominator"
@@ -565,6 +601,7 @@ const Create = () => {
                                     data-testid="sendAmount"
                                     autocomplete="off"
                                     value={sendAmountFormatted()}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeSendAmount(e)}
@@ -576,7 +613,7 @@ const Create = () => {
                                 />
                             </div>
                         </div>
-                        <Reverse t={t} />
+                        <Reverse />
                         <div>
                             <Asset side={Side.Receive} signal={assetReceive} />
                             <div
@@ -599,6 +636,7 @@ const Create = () => {
                                     data-testid="receiveAmount"
                                     autocomplete="off"
                                     value={receiveAmountFormatted()}
+                                    readonly={swapType() === SwapType.Submarine && invoiceValid()}
                                     onPaste={(e) => validatePaste(e)}
                                     onKeyPress={(e) => validateInput(e)}
                                     onInput={(e) => changeReceiveAmount(e)}

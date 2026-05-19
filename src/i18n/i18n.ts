@@ -66,7 +66,6 @@ const dict = {
         wex_provider_table_seen_days_ago: "days ago",
         wex_provider_table_seen_month_ago: "month ago",
         wex_provider_table_seen_months_ago: "months ago",
-        wex_reverse_forward_disabled: "Forward swaps are not supported yet. Please come back soon!",
         wex_sponsor_1: "This project is sponsored by",
         wex_sponsor_2: "unified .NET API for digital assets platforms.",
         new_swap: "New Swap",
@@ -85,7 +84,7 @@ const dict = {
         send_between:
             "Send between {{ min }} and {{ max }} {{ denomination }} to",
         pay_invoice_intro:
-            "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below to continue.",
+            "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below within 5 minutes to continue.",
         pay_invoice_to:
             "Pay this swap invoice {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:
@@ -94,6 +93,8 @@ const dict = {
             "The large swap invoice is trustless and in case the swap provider is non-cooperative or malicious, the client is protected and can get the money back.",
         pay_fee_invoice_to_description:
             "This small fee invoice is not trustless and covers Bitcoin mining fees that the swap provider would have to pay in case the client is non-cooperative (or malicious). Note that if the selected swap provider is malicious, the client can lose this payment.", 
+        wex_forward_warning:
+            "The funds sent to this address are protected if the selected swap provider is non-cooperative or malicious. If the swap provider does not finish the swap for whatever reason, you can come to rescue your funds after your funding transaction gets more than 70 confirmations. However, the network fees paid to miners cannot be refunded - neither from the funding transaction, nor from the rescue transaction.", 
         no_wallet: "No wallet installed",
         connect_wallet: "Connect wallet",
         please_connect_wallet: "Please connect wallet",
@@ -101,21 +102,22 @@ const dict = {
         disconnect_address: "Disconnect wallet",
         lockup_failed: "Lockup Failed!",
         failure_reason: "Failure reason",
-        invoice_payment_failure: "Could not pay your lightning invoice",
+        invoice_payment_failure: "Swap server did not pay your lightning invoice",
         onchain_address: "Enter {{ asset }} address to receive funds",
         onchain_address_no_asset: "Enter address",
         invalid_refund_file: "Invalid rescue key",
         invalid_backup_file: "Invalid backup file",
         invalid_invoice:
-            "Please provide a valid Lightning invoice, BOLT12 or LNURL",
+            "Please provide a valid Lightning BOLT11 invoice",
+        wex_provider_no_support_forward: "Select provider that supports forward swaps",
         invalid_0_amount: "Invoices without amount are not supported",
         copy_invoice: "lightning invoice",
         copy_address: "address",
         copy_amount: "amount",
-        copy_bip21: "BIP21",
+        copy_bip21: "ADDRESS IN URI FORMAT (BIP21)",
         refund_swap: "Refund Swap",
         rescue_a_swap_subline:
-            "If you sent BTC or L-BTC into a Boltz swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
+            "If you sent BTC into a Whale's Exchange swap, upload or enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
         rescue_a_swap_mnemonic:
             "Enter your rescue key to rescue a swap that is not available in this browser’s swap history.",
         refund_past_swaps: "Past swaps",
@@ -156,12 +158,14 @@ const dict = {
         select_asset: "Select {{ direction }} Asset",
         tx_confirmed: "Transaction confirmed",
         tx_ready_to_claim: "Claiming transaction now...",
+        wex_tx_ready_to_claim_forward:
+            "The swap provider should pay the invoice now. After you receive the payment, the swap provider provider will claim the on-chain funds which will complete the swap.",
         refunded: "Swap has been refunded successfully!",
         locktime_not_satisfied: "Locktime requirement not satisfied",
         already_refunded: "Swap already refunded",
         api_offline: "API is offline",
         api_offline_msg:
-            "Could not connect to the Boltz API, please try again later",
+            "Could not connect to the Whale's Exchange API, please try again later",
         refund_explainer: "You will be able to refund after the swap timeout!",
         wasm_not_supported: "Please activate WebAssembly in your browser",
         created: "Created",
@@ -187,7 +191,7 @@ const dict = {
         warning_return:
             "Return to this page after paying the invoice! The payment might show pending until you return to this page.",
         warning_expiry:
-            "Make sure your transaction confirms within ~24 hours after creation of this swap!",
+            "Make sure your transaction confirms within 9 blocks (~90 minutes) after creation of this swap! If the transaction confirms later than 9 blocks from now, the swap provider will ignore it.",
         not_found: "404 - Not Found",
         not_found_subline: "This page seems to have vanished.",
         back_to_home: "Back to Home",
@@ -251,7 +255,7 @@ const dict = {
         no_wallet_connected: "No wallet connected",
         no_lockup_transaction: "No lockup transaction found",
         routing_fee_limit: "Routing fee limit",
-        download_boltz_rescue_key: "Boltz Rescue Key",
+        download_boltz_rescue_key: "Whale's Exchange Rescue Key",
         download_boltz_rescue_key_subline:
             "Back up all your swaps with a single Rescue Key 🙌",
         download_boltz_rescue_key_subline_second:
@@ -259,12 +263,12 @@ const dict = {
         download_boltz_rescue_key_subline_third:
             "To continue, please download a new Rescue Key.",
         download_new_key: "Download New Key",
-        verify_boltz_rescue_key: "Verify Boltz Rescue Key",
+        verify_boltz_rescue_key: "Verify Whale's Exchange Rescue Key",
         verify_boltz_rescue_key_subline:
-            "Please select your previously saved Boltz Rescue Key to verify it.",
+            "Please select your previously saved Whale's Exchange Rescue Key to verify it.",
         verify_key: "Verify key",
         verify_key_failed:
-            "Verification of the Boltz Rescue Key failed. We recommend downloading a new Boltz Rescue Key to continue.",
+            "Verification of the Whale's Exchange Rescue Key failed. We recommend downloading a new Whale's Exchange Rescue Key to continue.",
         rescue_key: "Rescue Key",
         reset_rescue_key_tooltip:
             "Generate a new Rescue Key and wipe all swap data",

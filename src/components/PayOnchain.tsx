@@ -23,6 +23,7 @@ const PayOnchain = (props: {
 }) => {
     const { t, denomination, separator, setPairs, pairs } = useGlobalContext();
 
+    /* WEX
     const [pairsFetch] = createResource(async () => {
         if (pairs() !== undefined) {
             return pairs();
@@ -32,21 +33,21 @@ const PayOnchain = (props: {
         setPairs(p);
         return p;
     });
+    */
 
     const headerText = createMemo(() => {
         const denom = formatDenomination(denomination(), props.assetSend);
 
-        if (props.expectedAmount > 0) {
-            return t("send_to", {
-                denomination: denom,
-                amount: formatAmount(
-                    BigNumber(props.expectedAmount),
-                    denomination(),
-                    separator(),
-                ),
-            });
-        }
-
+        // WEX if (props.expectedAmount > 0) {
+        return t("send_to", {
+            denomination: denom,
+            amount: formatAmount(
+                BigNumber(props.expectedAmount),
+                denomination(),
+                separator(),
+            ),
+        });
+        /* WEX
         if (pairs() === undefined) {
             return "";
         }
@@ -70,14 +71,21 @@ const PayOnchain = (props: {
                 separator(),
             ),
         });
+        */
     });
 
     return (
         <Show
-            when={!pairsFetch.loading || headerText() === ""}
+            when={headerText() !== ""}
             fallback={<LoadingSpinner />}>
             <div>
                 <h2>{headerText()}</h2>
+                <div>
+                    <p class="text-sm text-gray-500">
+                        {t("wex_forward_warning")}
+                    </p>
+                </div>
+
                 <OptimizedRoute />
                 <hr />
                 <a href={props.bip21}>
