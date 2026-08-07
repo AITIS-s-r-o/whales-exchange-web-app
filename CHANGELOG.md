@@ -1,9 +1,13 @@
 # Changelog
 
+## [0.2.1-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.1-beta) - 2026-08-07
+
+- improved documentation on reverse swap flow (#46)
+
 ## [0.2.0-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.0-beta) - 2026-05-19
 
 - forward swaps support (#44) - [6055ca4](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/6055ca440d4d3406015e2e926436c55a0a9a194e)
-- bump version (#45)
+- bump version (#45) - [c7657e5](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/c7657e5b9534bd41f9ae87da63846e444e3bad36)
 
 
 ## [0.1.1-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.1.1-beta) - 2026-05-04
