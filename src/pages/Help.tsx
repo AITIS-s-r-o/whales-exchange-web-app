@@ -116,9 +116,9 @@ const Help = () => {
                     </p>
                     <p>
                         You have to pay both invoices before they expire. The swap providers currently set the expiration of these invoices to 5 minutes. Note that when you pay
-                        the invoices, they will not complete immediately. They will appear as "pending" or "on-hold" in your wallet until the swap provider verifies the payment.
-                        After that the fee invoice will complete and the swap invoice will remain pending until your web browser claims the on-chain funds that the swap provider
-                        will broadcast after verifying the payment.
+                        the invoices, they will not complete immediately. They will appear as "pending", "queued", or "on-hold" in your wallet until the swap provider verifies
+                        the payment. After that the fee invoice will complete and the swap invoice will remain pending until your web browser claims the on-chain funds that the
+                        swap provider will broadcast after verifying the payment.
                     </p>
                 </li>
                 <li>

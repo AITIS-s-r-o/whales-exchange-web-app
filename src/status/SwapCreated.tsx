@@ -45,6 +45,11 @@ const SwapCreated = () => {
                                 <p class="text-sm text-gray-500">
                                     {t("pay_invoice_intro")}
                                 </p>
+                                <p class="text-sm text-gray-500">
+                                    <strong>
+                                        {t("pay_invoice_intro_notice")}
+                                    </strong>
+                                </p>
                             </div>
                             <hr style="margin-bottom: 50px;" />
 
