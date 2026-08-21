@@ -86,7 +86,7 @@ const dict = {
         pay_invoice_intro:
             "Electrum Swap protocol requires the client to pay two Lightning invoices. Please pay both invoices below within 5 minutes to continue.",
         pay_invoice_intro_notice:
-            "Note: These are HODL invoices — they stay \"pending\"/\"queued\"/\"on-hold\". Pay BOTH as quickly as possible (don’t wait for the first to finish or time out).",
+            "Note: These are HODL invoices — they stay \"pending\"/\"queued\"/\"on-hold\". Pay BOTH as quickly as possible (don’t wait for the first one to finish or time out).",
         pay_invoice_to:
             "Pay this swap invoice {{ amount }} {{ denomination }}",
         pay_fee_invoice_to:
