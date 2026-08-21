@@ -1,6 +1,6 @@
 {
     "name": "whales-exchange-frontend",
-    "version": "0.2.1-beta",
+    "version": "0.2.2-beta",
     "description": "Whale's Exchange, Atomic Swaps, Web App",
     "engines": {
         "node": ">=24.0.0"
