@@ -123,7 +123,7 @@ const Help = () => {
                     <p>
                         Note: Some Lightning wallets only handle one payment at a time by default. When you pay the first HODL invoice it will stay pending (this can take up to
                         a couple of minutes). If you wait for it to finish or time out before paying the second invoice, the first payment will fail and the swap will not be
-                        initiated. Pay both invoices as quickly as possible while the first one is still processing.
+                        initiated. Pay the second invoice as quickly as possible while the first one is still processing.
                     </p>
                 </li>
                 <li>
