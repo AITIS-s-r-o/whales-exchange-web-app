@@ -27,6 +27,7 @@ export enum UrlParam {
 export enum InvoiceValidation {
     MinAmount = "minAmount",
     MaxAmount = "maxAmount",
+    CltvTooLarge = "invoice_cltv_too_large",
 }
 
 export enum Currency {

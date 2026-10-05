@@ -43,9 +43,19 @@ const bolt11Prefixes = {
 
 const bip353Prefix = "₿";
 
+// Must match electrum/submarine_swaps.py. The on-chain refund is 70 blocks after
+// swap creation; the server needs 30 blocks to claim and 2 blocks of slack.
+export const LOCKTIME_DELTA_REFUND = 70;
+export const MIN_LOCKTIME_DELTA_FOR_CLAIM = 30;
+export const V1_CLTV_SLACK_BLOCKS = 2;
+export const MAX_V1_MIN_FINAL_CLTV = LOCKTIME_DELTA_REFUND - MIN_LOCKTIME_DELTA_FOR_CLAIM - V1_CLTV_SLACK_BLOCKS;
+
+// BOLT11 default when tag `c` is absent.
+const DEFAULT_MIN_FINAL_CLTV = 18;
+
 export const decodeInvoice = async (
     invoice: string,
-): Promise<{ type: InvoiceType; satoshis: number; preimageHash: string }> => {
+): Promise<{ type: InvoiceType; satoshis: number; preimageHash: string; minFinalCltv: number; }> => {
     log.debug(`[Invoice.decodeInvoice] * invoice=${invoice}`);
 
     try {
@@ -54,13 +64,17 @@ export const decodeInvoice = async (
             .dividedBy(1000)
             .integerValue(BigNumber.ROUND_HALF_UP)
             .toNumber();
-
+        const cltvTag = decoded.tags.find(
+            (tag) => tag.tagName === "min_final_cltv_expiry",
+        );
+        const cltv = Number(cltvTag?.data);
         const res = {
             satoshis: sats,
             type: InvoiceType.Bolt11,
             preimageHash: decoded.tags.find(
                 (tag) => tag.tagName === "payment_hash",
             ).data as string,
+            minFinalCltv: Number.isFinite(cltv) && cltv > 0 ? cltv : DEFAULT_MIN_FINAL_CLTV,
         };
 
         log.debug(`[Invoice.decodeInvoice] $<RES_1>`, res);
@@ -68,25 +82,8 @@ export const decodeInvoice = async (
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-        try {
-            const mod = await Bolt12.get();
-            const decoded = new mod.Invoice(invoice);
-            const res = {
-                type: InvoiceType.Bolt12,
-                satoshis: Number(decoded.amount_msat / 1_000n),
-                preimageHash: Buffer.from(decoded.payment_hash).toString("hex"),
-            };
-
-            decoded.free();
-
-            log.debug(`[Invoice.decodeInvoice] $<RES_2>`, res);
-            return res;
-
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {
-            log.debug(`[Invoice.decodeInvoice] $<INVALID_INVOICE>`, e);
-            throw new Error("invalid_invoice");
-        }
+        log.debug(`[Invoice.decodeInvoice] $<INVALID_INVOICE>`, e);
+        throw new Error("invalid_invoice");
     }
 };
 

@@ -24,7 +24,8 @@ import type { ChainSwapDetails } from "./boltzClient";
 import { decodeAddress } from "./compat";
 import { formatAmountDenomination, satToBtc } from "./denomination";
 import type { ECKeys } from "./ecpair";
-import { decodeInvoice, isInvoice, isLnurl } from "./invoice";
+import { InvoiceValidation } from "../consts/Enums";
+import { decodeInvoice, isInvoice, isLnurl, MAX_V1_MIN_FINAL_CLTV } from "./invoice";
 import type {
     ChainSwap,
     ReverseSwap,
@@ -396,6 +397,12 @@ export const validateInvoice = async (inputValue: string) => {
             const decoded = await decodeInvoice(inputValue);
             if (decoded.satoshis === 0) {
                 throw new Error("invalid_0_amount");
+            }
+            // Same CLTV limit as the swap server enforces at creation.
+            if (decoded.minFinalCltv > MAX_V1_MIN_FINAL_CLTV) {
+                throw new Error(InvoiceValidation.CltvTooLarge, {
+                    cause: decoded.minFinalCltv,
+                });
             }
             return decoded.satoshis;
         }

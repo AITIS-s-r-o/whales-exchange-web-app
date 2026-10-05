@@ -113,6 +113,8 @@ const dict = {
             "Please provide a valid Lightning BOLT11 invoice",
         wex_provider_no_support_forward: "Select provider that supports forward swaps",
         invalid_0_amount: "Invoices without amount are not supported",
+        invoice_cltv_too_large:
+            "This invoice locks the payment for too long (min final CLTV {{ cause }} blocks, maximum 38). Create a new invoice with a shorter CLTV.",
         copy_invoice: "lightning invoice",
         copy_address: "address",
         copy_amount: "amount",

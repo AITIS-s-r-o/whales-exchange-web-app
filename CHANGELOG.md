@@ -1,8 +1,12 @@
 # Changelog
 
+## [0.2.3-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.3-beta) - 2026-10-04
+
+- reject too large CLTV in Bolt11 invoice (#48)
+
 ## [0.2.2-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.2-beta) - 2026-08-21
 
-- improved (again) documentation on reverse swap flow (#47)
+- improved (again) documentation on reverse swap flow (#47) - [448b5bb](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/448b5bb8822db13f4949d1492f19993e8bb937eb)
 
 ## [0.2.1-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.1-beta) - 2026-08-07
 
