@@ -400,9 +400,8 @@ export const validateInvoice = async (inputValue: string) => {
             }
             // Same CLTV limit as the swap server enforces at creation.
             if (decoded.minFinalCltv > MAX_V1_MIN_FINAL_CLTV) {
-                throw new Error(InvoiceValidation.CltvTooLarge, {
-                    cause: decoded.minFinalCltv,
-                });
+                log.debug("CLTV=%o too large, maximum allowed value is %o", decoded.minFinalCltv, MAX_V1_MIN_FINAL_CLTV);
+                throw new Error(InvoiceValidation.CltvTooLarge);
             }
             return decoded.satoshis;
         }
