@@ -1,8 +1,12 @@
 # Changelog
 
+## [0.2.4-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.4-beta) - 2026-10-13
+
+- fix button for reject too large CLTV in Bolt11 invoice (#49)
+
 ## [0.2.3-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.3-beta) - 2026-10-04
 
-- reject too large CLTV in Bolt11 invoice (#48)
+- reject too large CLTV in Bolt11 invoice (#48) - [792aae7](https://github.com/AITIS-s-r-o/whales-exchange-web-app/commit/792aae7bb9de20dd638207c14830aa658f20d000)
 
 ## [0.2.2-beta](https://github.com/AITIS-s-r-o/whales-exchange-web-app/releases/tag/v0.2.2-beta) - 2026-08-21
 
